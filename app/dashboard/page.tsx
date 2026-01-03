@@ -33,17 +33,34 @@ async function getRecentTransfers(userId: string) {
   await dbConnect()
 
   try {
-    const transfers = await Transfer.find({ userId }).sort({ createdAt: -1 }).limit(5).lean()
+    const transfers = await Transfer.aggregate([
+      { $match: { userId } },
+      { $sort: { createdAt: -1 } },
+      { $limit: 5 },
+      {
+        $lookup: {
+          from: "transfermetas",
+          localField: "txRef",
+          foreignField: "txRef",
+          as: "meta"
+        }
+      },
+      { $unwind: { path: "$meta", preserveNullAndEmptyArrays: true } }
+    ])
 
-    return transfers.map((transfer) => ({
-      _id: transfer._id.toString(),
-      txRef: transfer.txRef,
-      txType: "debit", // Note: You may want to infer this from transfer.direction
-      amount: transfer.amount,
-      currency: transfer.currency,
-      createdAt: transfer.createdAt,
-      status: transfer.txStatus,
-    }))
+    return transfers.map((transfer) => {
+      const txType = transfer.meta?.txType || 'debit'
+      return {
+        _id: transfer._id.toString(),
+        txRef: transfer.txRef,
+        txType: txType,
+        amount: transfer.amount,
+        currency: transfer.currency,
+        createdAt: transfer.completedAt || transfer.createdAt,
+        status: transfer.txStatus,
+        recipient: txType === 'credit' ? (transfer.senderName || transfer.accountHolder) : transfer.accountHolder,
+      }
+    })
   } catch (error) {
     console.error("Error fetching transfers:", error)
     return []
@@ -332,7 +349,7 @@ export default async function DashboardPage() {
                       <div className="flex items-center justify-between p-4 rounded-lg border border-green-100 hover:bg-green-50 transition-colors duration-200">
                         <div className="flex items-center space-x-4">
                           <div
-                            className={`p-2.5 rounded-full ${transfer.txType === "credit" ? "bg-green-100 text-slate-600" : "bg-red-100 text-red-600"
+                            className={`p-2.5 rounded-full ${transfer.txType === "credit" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"
                               }`}
                           >
                             {transfer.txType === "credit" ? (
@@ -352,7 +369,7 @@ export default async function DashboardPage() {
                         </div>
                         <div className="text-right">
                           <p
-                            className={`font-semibold ${transfer.txType === "credit" ? "text-slate-600" : "text-red-600"
+                            className={`font-semibold ${transfer.txType === "credit" ? "text-green-600" : "text-red-500"
                               }`}
                           >
                             {transfer.txType === "credit" ? "+" : "−"}

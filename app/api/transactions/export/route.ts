@@ -13,7 +13,6 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
     }
 
-    const user = toPlainObject(userDoc)
     const { searchParams } = new URL(request.url)
     
     const filters: any = {
@@ -24,39 +23,73 @@ export async function GET(request: NextRequest) {
 
     await dbConnect()
 
-    const query: any = { userId: user._id.toString() }
+    const matchStage: any = { userId: userDoc._id.toString() }
 
     // Apply filters
     if (filters.status && filters.status !== "all") {
-      query.txStatus = filters.status
-    }
-    
-    if (filters.type && filters.type !== "all") {
-      query.txType = filters.type
+      matchStage.txStatus = filters.status
     }
     
     if (filters.search) {
-      query.$or = [
+      matchStage.$or = [
         { txRef: { $regex: filters.search, $options: "i" } },
         { description: { $regex: filters.search, $options: "i" } },
         { "accountHolder": { $regex: filters.search, $options: "i" } }
       ]
     }
 
-    const transfers = await Transfer.find(query)
-      .sort({ createdAt: -1 })
-      .lean()
+    // Use aggregation to fetch data with correct type
+    const transfers = await Transfer.aggregate([
+      { $match: matchStage },
+      {
+        $lookup: {
+          from: "transfermetas",
+          localField: "txRef",
+          foreignField: "txRef",
+          as: "meta"
+        }
+      },
+      { $unwind: { path: "$meta", preserveNullAndEmptyArrays: true } },
+      // Apply Type Filter if present (checking meta.txType)
+      ...(filters.type && filters.type !== "all"
+        ? [{ $match: { "meta.txType": filters.type } }]
+        : []
+      ),
+      { $sort: { createdAt: -1 } }
+    ])
 
-    // Create CSV content
-    let csvContent = "Date,Reference,Description,Recipient,Amount,Status\n";
+    // Create CSV content with detailed "Receipt-like" columns
+    // Headers
+    let csvContent = "Date,Reference,Type,Description,Sender Name,Sender Account,Recipient Name,Recipient Bank,Recipient Account,Amount,Currency,Status\n";
     
     transfers.forEach(transaction => {
-      csvContent += `"${new Date(transaction.createdAt).toLocaleDateString()}",`;
-      csvContent += `"${transaction.txRef}",`;
-      csvContent += `"${transaction.description || "N/A"}",`;
-      csvContent += `"${transaction.accountHolder}",`;
-      csvContent += `"${formatCurrency(transaction.amount, transaction.currency)}",`;
-      csvContent += `"${transaction.txStatus}"\n`;
+      const txType = transaction.meta?.txType || 'debit';
+      const date = new Date(transaction.completedAt || transaction.createdAt).toLocaleString();
+      
+      // Values handling with CSV escaping
+      const escape = (text: string | undefined | null) => {
+        if (!text) return "";
+        return `"${text.replace(/"/g, '""')}"`; // Escape double quotes
+      }
+
+      csvContent += `${escape(date)},`;
+      csvContent += `${escape(transaction.txRef)},`;
+      csvContent += `${escape(txType.toUpperCase())},`;
+      csvContent += `${escape(transaction.description || "N/A")},`;
+      
+      // Sender Details
+      csvContent += `${escape(transaction.senderName || userDoc.bankInfo?.bio?.firstname + " " + userDoc.bankInfo?.bio?.lastname)},`;
+      csvContent += `${escape(transaction.senderAccount)},`;
+      
+      // Recipient Details
+      csvContent += `${escape(transaction.accountHolder)},`;
+      csvContent += `${escape(transaction.bankName)},`;
+      csvContent += `${escape(transaction.accountNumber)},`;
+      
+      // Amount/Status
+      csvContent += `${escape(formatCurrency(transaction.amount, transaction.currency))},`;
+      csvContent += `${escape(transaction.currency)},`;
+      csvContent += `${escape(transaction.txStatus)}\n`;
     });
     
     // Create a buffer from the CSV content
