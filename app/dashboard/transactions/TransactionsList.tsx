@@ -2,14 +2,32 @@
 
 import type React from "react"
 import { useState, useEffect } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { motion, AnimatePresence } from "framer-motion"
+import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ArrowUpRight, ArrowDownLeft, Search, ChevronLeft, ChevronRight, Download } from "lucide-react"
+import {
+  ArrowUpRight,
+  ArrowDownLeft,
+  Search,
+  ChevronLeft,
+  ChevronRight,
+  Download,
+  Filter,
+  ArrowRightLeft,
+  Calendar,
+  Hash,
+  Clock,
+  XCircle,
+  CheckCircle2,
+  AlertCircle,
+  ArrowRight
+} from "lucide-react"
 import Link from "next/link"
 import { useRouter, useSearchParams } from "next/navigation"
 import { formatCurrency } from "@/lib/utils/banking"
+import { cn } from "@/lib/utils"
 
 interface Transaction {
   _id: string
@@ -106,7 +124,7 @@ export default function TransactionsList({
         a.click()
         window.URL.revokeObjectURL(url)
         document.body.removeChild(a)
-      } else console.error("Export failed")
+      }
     } catch (error) {
       console.error("Export error:", error)
     } finally {
@@ -114,220 +132,270 @@ export default function TransactionsList({
     }
   }
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
+  const getStatusConfig = (status: string) => {
+    switch (status.toLowerCase()) {
       case "success":
-        return "bg-green-100 text-green-800"
+        return { color: "text-green-600 bg-green-50", icon: CheckCircle2 }
       case "pending":
-        return "bg-yellow-100 text-yellow-800"
-      case "failed":
-        return "bg-red-100 text-red-800"
+        return { color: "text-yellow-600 bg-yellow-50", icon: Clock }
       case "cancelled":
-        return "bg-gray-100 text-gray-800"
+        return { color: "text-gray-500 bg-gray-50", icon: XCircle }
       default:
-        return "bg-gray-100 text-gray-800"
+        return { color: "text-red-600 bg-red-50", icon: AlertCircle }
     }
   }
 
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 0.5 }
+  }
+
   return (
-    <>
-      {/* 🔹 Responsive Filters Section */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div>
-          <label className="text-sm font-medium mb-2 block">Status</label>
-          <Select value={filters.status} onValueChange={(value) => handleFilterChange("status", value)}>
-            <SelectTrigger>
-              <SelectValue placeholder="Filter by status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Statuses</SelectItem>
-              <SelectItem value="pending">Pending</SelectItem>
-              <SelectItem value="success">Success</SelectItem>
-              <SelectItem value="failed">Failed</SelectItem>
-              <SelectItem value="cancelled">Cancelled</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+    <div className="max-w-6xl mx-auto space-y-10">
 
-        <div>
-          <label className="text-sm font-medium mb-2 block">Type</label>
-          <Select value={filters.type} onValueChange={(value) => handleFilterChange("type", value)}>
-            <SelectTrigger>
-              <SelectValue placeholder="Filter by type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Types</SelectItem>
-              <SelectItem value="debit">Debit</SelectItem>
-              <SelectItem value="credit">Credit</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        <div className="sm:col-span-2">
-          <label className="text-sm font-medium mb-2 block">Search</label>
-          <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-2">
-            <Input
-              placeholder="Search by reference, recipient, or description"
-              value={filters.search}
-              onChange={(e) => setFilters((prev) => ({ ...prev, search: e.target.value }))}
-              className="flex-1"
-            />
-            <Button type="submit" className="whitespace-nowrap">
-              <Search className="h-4 w-4" />
-            </Button>
-          </form>
-        </div>
-      </div>
-
-      {/* 🔹 Transactions List */}
-      <Card>
-        <CardHeader className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-          <div>
-            <CardTitle>Transactions</CardTitle>
-            <CardDescription>{total} transactions found</CardDescription>
+      {/* Header Section */}
+      <motion.div {...fadeInUp} className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div className="space-y-1">
+          <div className="flex items-center gap-2 text-green-600 font-black uppercase tracking-widest text-xs mb-2">
+            <ArrowRightLeft className="h-4 w-4" />
+            Statement
           </div>
+          <h1 className="text-4xl font-extrabold tracking-tight text-slate-900">Transaction History</h1>
+          <p className="text-slate-500 text-lg font-medium">Keep track of your spending and income activities.</p>
+        </div>
+        <div className="flex items-center gap-3">
           <Button
             variant="outline"
-            size="sm"
             onClick={handleExport}
             disabled={isLoading || total === 0}
-            className="flex items-center gap-2 bg-transparent"
+            className="h-12 px-6 rounded-xl border-none shadow-lg shadow-slate-200 bg-white hover:bg-slate-50 font-bold text-slate-700 flex items-center gap-2"
           >
-            <Download className="h-4 w-4" />
-            {isLoading ? "Exporting..." : "Export CSV"}
+            <Download className="h-4 w-4 text-green-600" />
+            {isLoading ? "Exporting..." : "Download CSV"}
           </Button>
-        </CardHeader>
+          <Button asChild className="h-12 px-6 bg-slate-900 hover:bg-black text-white rounded-xl shadow-xl shadow-slate-200 font-bold">
+            <Link href="/dashboard" className="flex items-center gap-2">
+              <ChevronLeft className="h-4 w-4" />
+              Dashboard
+            </Link>
+          </Button>
+        </div>
+      </motion.div>
 
-        <CardContent>
-          {transactions.length === 0 ? (
-            <div className="text-center py-8">
-              <p className="text-muted-foreground">No transactions found</p>
-              {(filters.status !== "all" || filters.type !== "all" || filters.search) && (
-                <Button
-                  variant="link"
-                  onClick={() => {
-                    setFilters({ status: "all", type: "all", search: "" })
-                    updateURL({ status: "all", type: "all", search: "" }, 1)
-                  }}
-                >
-                  Clear filters
-                </Button>
-              )}
-            </div>
-          ) : (
-            <div className="space-y-4">
-              {transactions.map((transaction) => (
-                <Link
-                  key={transaction._id}
-                  href={`/dashboard/receipt/${transaction.txRef}`}
-                  className="block transition-colors hover:bg-muted/50"
-                >
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between p-4 border rounded gap-3">
-                    <div className="flex items-center space-x-4 flex-1">
-                      <div
-                        className={`p-3 rounded-full ${transaction.txType === "credit" ? "bg-green-100" : "bg-red-100"}`}
-                      >
-                        {transaction.txType === "credit" ? (
-                          <ArrowDownLeft className="h-5 w-5 text-green-600" />
-                        ) : (
-                          <ArrowUpRight className="h-5 w-5 text-red-600" />
-                        )}
-                      </div>
-                      <div className="flex-1">
-                        <p className="font-medium">
-                          {transaction.txType === "credit" ? "Money Received" : "Money Sent"}
-                          {transaction.recipient && ` to ${transaction.recipient}`}
-                        </p>
-                        <div className="flex flex-wrap items-center gap-2 mt-1">
-                          <p className="text-sm text-muted-foreground">Ref: {transaction.txRef}</p>
-                          {transaction.description && (
-                            <>
-                              <span className="text-muted-foreground">•</span>
-                              <p className="text-sm text-muted-foreground">{transaction.description}</p>
-                            </>
-                          )}
-                        </div>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          {new Date(transaction.createdAt).toLocaleDateString()} •{" "}
-                          {new Date(transaction.createdAt).toLocaleTimeString()}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <p
-                        className={`font-medium ${transaction.txType === "credit" ? "text-green-600" : "text-red-600"}`}
-                      >
-                        {transaction.txType === "credit" ? "+" : "-"}
-                        {formatCurrency(transaction.amount, transaction.currency)}
-                      </p>
-                      <div className="flex justify-end mt-1">
-                        <span className={`px-2 py-1 rounded text-xs ${getStatusColor(transaction.status)}`}>
-                          {transaction.status}
-                        </span>
-                      </div>
-                    </div>
+      {/* Filter Card */}
+      <motion.div {...fadeInUp} transition={{ delay: 0.1 }}>
+        <Card className="border-none shadow-2xl shadow-slate-200/50 bg-white/80 backdrop-blur-md overflow-hidden rounded-[2rem]">
+          <CardContent className="p-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
+
+              <div className="lg:col-span-3 space-y-2">
+                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Account Status</Label>
+                <Select value={filters.status} onValueChange={(value) => handleFilterChange("status", value)}>
+                  <SelectTrigger className="h-12 bg-slate-50/50 border-slate-100 rounded-xl font-bold focus:ring-green-400">
+                    <SelectValue placeholder="All Status" />
+                  </SelectTrigger>
+                  <SelectContent className="rounded-xl">
+                    <SelectItem value="all">Everywhere</SelectItem>
+                    <SelectItem value="pending">En Route</SelectItem>
+                    <SelectItem value="success">Confirmed</SelectItem>
+                    <SelectItem value="failed">Failed</SelectItem>
+                    <SelectItem value="cancelled">Cancelled</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="lg:col-span-3 space-y-2">
+                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Flow Type</Label>
+                <Select value={filters.type} onValueChange={(value) => handleFilterChange("type", value)}>
+                  <SelectTrigger className="h-12 bg-slate-50/50 border-slate-100 rounded-xl font-bold focus:ring-green-400">
+                    <SelectValue placeholder="All Types" />
+                  </SelectTrigger>
+                  <SelectContent className="rounded-xl">
+                    <SelectItem value="all">All Flow</SelectItem>
+                    <SelectItem value="debit">Outbound</SelectItem>
+                    <SelectItem value="credit">Inbound</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="lg:col-span-6 space-y-2">
+                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Deep Search</Label>
+                <form onSubmit={handleSearch} className="flex gap-2">
+                  <div className="relative flex-1 group">
+                    <Search className="absolute left-3 top-3.5 h-4 w-4 text-slate-400 group-focus-within:text-green-600 transition-colors" />
+                    <Input
+                      placeholder="Search references, payees..."
+                      value={filters.search}
+                      onChange={(e) => setFilters((prev) => ({ ...prev, search: e.target.value }))}
+                      className="pl-10 h-12 bg-slate-50/50 border-slate-100 focus:bg-white focus:ring-green-400 transition-all rounded-xl font-bold"
+                    />
                   </div>
-                </Link>
-              ))}
-            </div>
-          )}
-
-          {/* 🔹 Responsive Pagination */}
-          {totalPages > 1 && (
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mt-6 gap-4 text-center sm:text-left">
-              <div className="text-sm text-muted-foreground">
-                Showing {(currentPage - 1) * 10 + 1} to {Math.min(currentPage * 10, total)} of {total} transactions
+                  <Button type="submit" className="h-12 w-12 rounded-xl bg-green-600 hover:bg-green-700 text-white shadow-lg shadow-green-200">
+                    <Filter className="h-4 w-4" />
+                  </Button>
+                </form>
               </div>
+            </div>
+          </CardContent>
+        </Card>
+      </motion.div>
 
-              <div className="flex flex-wrap justify-center sm:justify-end items-center gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handlePageChange(currentPage - 1)}
-                  disabled={currentPage === 1}
-                  className="flex items-center gap-1"
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                  <span className="hidden xs:inline">Previous</span>
-                </Button>
+      {/* Transactions List Area */}
+      <motion.div {...fadeInUp} transition={{ delay: 0.2 }} className="space-y-6">
+        <div className="flex items-center justify-between px-2">
+          <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
+            All Logs
+            <span className="text-xs font-bold bg-slate-100 text-slate-400 px-3 py-1 rounded-full">{total} Found</span>
+          </h2>
+          {(filters.status !== "all" || filters.type !== "all" || filters.search) && (
+            <button
+              onClick={() => {
+                setFilters({ status: "all", type: "all", search: "" })
+                updateURL({ status: "all", type: "all", search: "" }, 1)
+              }}
+              className="text-xs font-bold text-red-500 hover:underline"
+            >
+              Clear All Filters
+            </button>
+          )}
+        </div>
 
-                <div className="flex flex-wrap justify-center items-center gap-1">
-                  {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                    let pageNum
-                    if (totalPages <= 5) pageNum = i + 1
-                    else if (currentPage <= 3) pageNum = i + 1
-                    else if (currentPage >= totalPages - 2) pageNum = totalPages - 4 + i
-                    else pageNum = currentPage - 2 + i
-
-                    return (
-                      <Button
-                        key={pageNum}
-                        variant={currentPage === pageNum ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => handlePageChange(pageNum)}
-                      >
-                        {pageNum}
-                      </Button>
-                    )
-                  })}
-                  {totalPages > 5 && <span className="px-2 text-sm">...</span>}
+        <Card className="border-none shadow-2xl shadow-slate-200/50 bg-white/90 backdrop-blur-md overflow-hidden rounded-[2.5rem]">
+          <CardContent className="p-0">
+            {transactions.length === 0 ? (
+              <div className="py-24 text-center space-y-4">
+                <div className="h-20 w-20 bg-slate-50 rounded-[2rem] flex items-center justify-center mx-auto text-slate-300">
+                  <Search className="h-10 w-10" />
                 </div>
-
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => handlePageChange(currentPage + 1)}
-                  disabled={currentPage === totalPages}
-                  className="flex items-center gap-1"
-                >
-                  <span className="hidden xs:inline">Next</span>
-                  <ChevronRight className="h-4 w-4" />
-                </Button>
+                <div className="space-y-1">
+                  <p className="text-xl font-black text-slate-900">Zero Results</p>
+                  <p className="text-slate-400 font-medium">Try broadening your search or filters.</p>
+                </div>
               </div>
+            ) : (
+              <div className="divide-y divide-slate-100">
+                {transactions.map((transaction, idx) => {
+                  const status = getStatusConfig(transaction.status)
+                  return (
+                    <Link
+                      key={transaction._id}
+                      href={`/dashboard/receipt/${transaction.txRef}`}
+                      className="p-6 md:p-8 flex flex-col md:flex-row md:items-center justify-between hover:bg-slate-50/80 transition-all group border-l-4 border-transparent hover:border-green-500"
+                    >
+                      <div className="flex items-center gap-6 flex-1">
+                        <div className={cn(
+                          "h-16 w-16 rounded-[1.5rem] flex items-center justify-center shadow-inner transition-transform group-hover:scale-110 duration-300",
+                          transaction.txType === "credit" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"
+                        )}>
+                          {transaction.txType === "credit" ? <ArrowDownLeft className="h-7 w-7" /> : <ArrowUpRight className="h-7 w-7" />}
+                        </div>
+                        <div className="space-y-1 flex-1 min-w-0">
+                          <div className="flex items-center gap-2">
+                            <p className="text-lg font-black text-slate-900 group-hover:text-green-700 transition-colors truncate">
+                              {transaction.txType === "credit" ? "Incoming Funds" : "Payment to"}
+                              <span className="font-medium text-slate-400 ml-2">
+                                {transaction.recipient ? `• ${transaction.recipient}` : ""}
+                              </span>
+                            </p>
+                            <span className={cn("text-[8px] font-black uppercase px-2 py-0.5 rounded ml-auto md:ml-0", status.color)}>
+                              {transaction.status}
+                            </span>
+                          </div>
+                          <div className="flex flex-wrap items-center gap-4 text-slate-500 font-bold text-xs uppercase tracking-tighter">
+                            <span className="flex items-center gap-1 bg-slate-50 px-2.4 py-1 rounded-lg">
+                              <Hash className="h-3 w-3" />
+                              {transaction.txRef}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Calendar className="h-3 w-3" />
+                              {new Date(transaction.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Clock className="h-3 w-3" />
+                              {new Date(transaction.createdAt).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="mt-4 md:mt-0 flex md:flex-col items-end justify-between md:justify-center gap-2 ml-0 md:ml-8 pl-0 md:pl-8 border-l-0 md:border-l border-slate-100">
+                        <p className={cn(
+                          "text-2xl font-black",
+                          transaction.txType === "credit" ? "text-green-600" : "text-slate-900"
+                        )}>
+                          {transaction.txType === "credit" ? "+" : "−"}
+                          {formatCurrency(transaction.amount, transaction.currency)}
+                        </p>
+                        <div className="flex items-center gap-1 group-hover:text-green-600 transition-colors cursor-pointer">
+                          <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 group-hover:text-green-600">View Receipt</span>
+                          <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
+                        </div>
+                      </div>
+                    </Link>
+                  )
+                })}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Improved Pagination */}
+        {totalPages > 1 && (
+          <motion.div {...fadeInUp} className="flex flex-col md:flex-row items-center justify-between p-6 bg-white/50 backdrop-blur rounded-[2rem] gap-4">
+            <p className="text-xs font-black uppercase tracking-widest text-slate-400">
+              Showing <span className="text-slate-900">{(currentPage - 1) * 10 + 1}</span> - <span className="text-slate-900">{Math.min(currentPage * 10, total)}</span> of <span className="text-slate-900">{total}</span>
+            </p>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="h-10 w-10 rounded-xl border-none shadow-md bg-white text-slate-700 disabled:opacity-30"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </Button>
+
+              <div className="flex items-center gap-1 bg-white p-1 rounded-xl shadow-inner border border-slate-100">
+                {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                  let pageNum
+                  if (totalPages <= 5) pageNum = i + 1
+                  else if (currentPage <= 3) pageNum = i + 1
+                  else if (currentPage >= totalPages - 2) pageNum = totalPages - 4 + i
+                  else pageNum = currentPage - 2 + i
+
+                  return (
+                    <button
+                      key={pageNum}
+                      onClick={() => handlePageChange(pageNum)}
+                      className={cn(
+                        "h-8 min-w-[32px] px-2 rounded-lg text-xs font-black transition-all",
+                        currentPage === pageNum ? "bg-slate-900 text-white shadow-md scale-105" : "text-slate-400 hover:text-slate-700"
+                      )}
+                    >
+                      {pageNum}
+                    </button>
+                  )
+                })}
+              </div>
+
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="h-10 w-10 rounded-xl border-none shadow-md bg-white text-slate-700 disabled:opacity-30"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </Button>
             </div>
-          )}
-        </CardContent>
-      </Card>
-    </>
+          </motion.div>
+        )}
+      </motion.div>
+    </div>
   )
+}
+
+function Label({ children, className }: { children: React.ReactNode, className?: string }) {
+  return <label className={cn("block text-sm font-medium", className)}>{children}</label>
 }

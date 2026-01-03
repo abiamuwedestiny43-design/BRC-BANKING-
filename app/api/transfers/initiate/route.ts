@@ -14,6 +14,7 @@ import {
   logAuditEvent,
 } from "@/lib/security"
 import User from "@/models/User"
+import Notification from "@/models/Notification"
 import SystemOption from "@/models/SystemOption"
 
 export async function POST(request: NextRequest) {
@@ -190,6 +191,17 @@ export async function POST(request: NextRequest) {
     }
 
     await transfer.save()
+
+    // Notification for initiation
+    const initiationNotification = new Notification({
+      userId: user._id,
+      model: "bank:transfer",
+      message: `Hi ${user.bankInfo.bio.firstname},
+Your transfer of ${amount.toLocaleString()} ${assignedCurrency} to ${sanitizedAccountHolder} has been initiated and is awaiting verification.
+Ref: ${txRef}`,
+      redirect: `/dashboard/transfer/verify/${transferType === "local" ? "otp" : "cot"}/${txRef}`,
+    })
+    await initiationNotification.save()
 
     logAuditEvent({
       userId: user._id.toString(),

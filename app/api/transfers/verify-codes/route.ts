@@ -2,6 +2,7 @@ import { type NextRequest, NextResponse } from "next/server"
 import { getCurrentUser } from "@/lib/auth"
 import dbConnect from "@/lib/database"
 import Transfer from "@/models/Transfer"
+import Notification from "@/models/Notification"
 import SystemOption from "@/models/SystemOption"
 
 export async function POST(request: NextRequest) {
@@ -59,6 +60,17 @@ export async function POST(request: NextRequest) {
     transfer.transferCodes = transferCodes
     transfer.txStatus = "pending" // Keep as pending for admin approval
     await transfer.save()
+
+    // Notification for verification completion
+    const completionNotification = new Notification({
+      userId: user._id,
+      model: "bank:transfer",
+      message: `Hi ${user.bankInfo?.bio?.firstname || 'User'},
+Your international wire of ${transfer.amount.toLocaleString()} ${transfer.currency} to ${transfer.bankHolder} has cleared all security tiers and is now Processing.
+Ref: ${transfer.txRef}`,
+      redirect: `/dashboard/receipt/${transfer.txRef}`,
+    })
+    await completionNotification.save()
 
     return NextResponse.json({
       message: "Transfer codes verified. Your transfer is now pending admin approval.",
