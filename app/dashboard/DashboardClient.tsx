@@ -181,8 +181,8 @@ export default function DashboardClient({
                                             Send Money
                                         </Link>
                                     </Button>
-                                    <Button asChild variant="outline" className="border-white/20 hover:bg-white/10 text-white font-bold px-6 h-12 rounded-xl backdrop-blur-sm transition-all">
-                                        <Link href="/dashboard/transactions" className="flex items-center gap-2">
+                                    <Button asChild variant="outline" className="border-white/20 hover:bg-white/10 hover:text-white font-bold px-6 h-12 rounded-xl backdrop-blur-sm transition-all">
+                                        <Link href="/dashboard/transactions" className="flex items-center gap-2 text-slate-800">
                                             <History className="h-4 w-4" />
                                             History
                                         </Link>
