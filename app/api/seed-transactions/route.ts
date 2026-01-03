@@ -1,9 +1,65 @@
 import { NextResponse } from "next/server"
-import { getCurrentUser } from "@/lib/auth"
 import dbConnect from "@/lib/database"
+import User from "@/models/User"
 import Transfer from "@/models/Transfer"
 import TransferMeta from "@/models/TransferMeta"
-import { toPlainObject } from "@/lib/serialization"
+
+const userData = {
+  "_id": "695881bf8518838be958e52a",
+  "email": "Marinoalbertrichies@gmail.com",
+  "password": "$2b$12$NPIepQ95eyoDnnnySom3zuxdkbBy0yonjnlZDgFddQJ2hOGu1uXsK",
+  "usercode": "N6twu",
+  "roles": [
+    "member"
+  ],
+  "bankInfo": {
+    "security": {
+      "pin": "$2b$12$DB5tUnnNNkPNMX2Hjx/MzeH2LI91dvVSw30OR3EakS/OwEHIOzRGm"
+    },
+    "bio": {
+      "firstname": "RICHIE ",
+      "lastname": "ALBERT MARINO",
+      "phone": "+27730316664",
+      "birthdate": new Date(-300412800000),
+      "gender": "male",
+      "religion": "others"
+    },
+    "address": {
+      "location": "",
+      "state": "",
+      "city": "",
+      "country": "",
+      "zipcode": ""
+    },
+    "nok": {
+      "firstname": "",
+      "lastname": "",
+      "relationship": "",
+      "address": ""
+    },
+    "system": {
+      "currency": "USD",
+      "account": "savings account"
+    }
+  },
+  "bankBalance": {
+    "USD": 0
+  },
+  "bankNumber": "1046219285",
+  "bankOtp": {
+    "email": false,
+    "transferCode": false
+  },
+  "bankAccount": {
+    "verified": false,
+    "canTransfer": false,
+    "canLocalTransfer": false,
+    "canInternationalTransfer": false
+  },
+  "transferCodeRequired": true,
+  "registerTime": new Date("2026-01-03T02:41:03.787Z"),
+  "lastSeen": new Date("2026-01-03T02:41:03.787Z"),
+}
 
 const transactionsData = [
   { type: 'credit', amount: 2500, description: 'Monthly salary deposit' },
@@ -177,22 +233,40 @@ function generateRandomAccount(): string {
 
 export async function GET() {
   try {
-    const userDoc = await getCurrentUser()
-    if (!userDoc) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
-    }
-    
-    const user = toPlainObject(userDoc)
+    console.log("Starting seed process...")
     await dbConnect()
+    
+    // 1. Seed/Upsert User
+    const { _id, ...updateData } = userData;
+    console.log("Seeding user:", userData.email)
+    
+    const user = await User.findOneAndUpdate(
+      { email: userData.email },
+      { $set: updateData },
+      { upsert: true, new: true, runValidators: false }
+    )
 
-    const userFullName = user.bankInfo?.bio?.firstname ? `${user.bankInfo.bio.firstname} ${user.bankInfo.bio.lastname}` : "User"
+    if (!user) {
+      console.error("Failed to seed/find user")
+      return NextResponse.json({ message: "Failed to seed/find user" }, { status: 500 })
+    }
+
+    console.log("User seeded/found:", user._id)
+
+    const userFullName = `${user.bankInfo.bio.firstname} ${user.bankInfo.bio.lastname}`
     const userAccountNumber = user.bankNumber || "1234567890"
+
+    // Optional: Clear existing transfers for this user to avoid duplicates if re-running
+    console.log("Clearing old transactions for user...")
+    await Transfer.deleteMany({ userId: user._id.toString() })
+    await TransferMeta.deleteMany({ userId: user._id })
 
     let seededCount = 0
 
-    // Iterate over provided transactions
+    // 2. Seed Transactions
+    console.log("Seeding transactions...")
     for (const data of transactionsData) {
-        const date = getRandomDate(new Date(2013, 0, 1), new Date(2026, 0, 2)) // ~2013 to 2026
+        const date = getRandomDate(new Date(2013, 0, 1), new Date(2026, 0, 2))
         const txRef = generateTxRef()
         const otherPartyAccount = generateRandomAccount()
         const otherPartyBank = getRandom(banks)
@@ -200,45 +274,27 @@ export async function GET() {
         let senderName, senderAccount, recipientName, recipientAccount, bankName, bankHolder, accountHolder
 
         if (data.type === 'credit') {
-             // Money coming IN to user
-             // Sender = Random Company/Person
-             // Recipient = User
              const sender = getRandom(companies)
-             
              senderName = sender
              senderAccount = otherPartyAccount
-             
              recipientName = userFullName
              recipientAccount = userAccountNumber
-             
-             // For Transfer Model (Source logic often uses bank details of the sender in 'bankName' etc depending on schema interpretation, 
-             // but 'accountHolder' usually refers to the counterparty in a simplified view or the person 'holding' the external account).
-             // Let's stick to the convention used previously:
-             // Credit -> 'accountHolder' is the sender (source of funds)
-             
              bankName = "External Bank"
              bankHolder = sender
              accountHolder = sender
-             
         } else {
-            // Money going OUT from user
-            // Sender = User
-            // Recipient = Random Person/Shop
             const recipient = getRandom(people)
-             
             senderName = userFullName
             senderAccount = userAccountNumber
-            
             recipientName = recipient
             recipientAccount = otherPartyAccount
-            
             bankName = otherPartyBank
             bankHolder = recipient
             accountHolder = recipient
         }
 
         await Transfer.create({
-            userId: user._id,
+            userId: user._id.toString(),
             amount: data.amount,
             currency: "USD",
             txRef: txRef,
@@ -246,23 +302,20 @@ export async function GET() {
             txRegion: "local",
             transferType: "local",
             txStatus: "success",
-            
             bankName: bankName,
-            bankAccount: data.type === 'debit' ? otherPartyAccount : senderAccount, // External account
+            bankAccount: data.type === 'debit' ? otherPartyAccount : senderAccount,
             accountNumber: data.type === 'debit' ? otherPartyAccount : senderAccount,
             bankHolder: bankHolder,
             accountHolder: accountHolder,
-            
             description: data.description,
             senderName: senderName,
             senderAccount: senderAccount,
-            
             completedAt: date
         })
         
         await TransferMeta.create({
             txRef: txRef,
-            accountNumber: data.type === 'debit' ? recipientAccount : userAccountNumber, // The account associated with the directional logic or metadata target
+            accountNumber: data.type === 'debit' ? recipientAccount : userAccountNumber,
             txType: data.type,
             amount: data.amount,
             status: true,
@@ -272,10 +325,13 @@ export async function GET() {
         seededCount++
     }
 
-    return NextResponse.json({ message: `Successfully seeded ${seededCount} transactions from 2013-2026.` })
+    return NextResponse.json({ 
+        message: `Successfully seeded user and ${seededCount} transactions.`,
+        user: { email: user.email, id: user._id }
+    })
 
   } catch (error) {
     console.error("Seed error:", error)
-    return NextResponse.json({ message: "Error seeding transactions: " + (error as Error).message }, { status: 500 })
+    return NextResponse.json({ message: "Error seeding: " + (error as Error).message }, { status: 500 })
   }
 }
