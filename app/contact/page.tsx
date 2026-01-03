@@ -1,198 +1,152 @@
-import { Phone, Mail, MapPin, Clock } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Send, Zap, Globe, MessageSquare } from 'lucide-react';
+import Link from 'next/link';
 
 const ContactPage: React.FC = () => {
   return (
-    <div className="animate-fade-in pt-20">
-      {/* Hero Section with Background Image */}
-      <section
-        className="relative py-32 bg-cover bg-center text-white"
-        style={{
-          backgroundImage:
-            "url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1470&q=80')",
-        }}
-      >
-        <div className="absolute inset-0 bg-black/50"></div>
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 animate-slide-up">
-            Get in Touch
+    <div className="bg-[#001c10] text-slate-100 min-h-screen overflow-hidden font-sans">
+      {/* Background Elements */}
+      <div className="fixed inset-0 z-0 pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-900/20 rounded-full blur-[120px] animate-pulse"></div>
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-green-900/10 rounded-full blur-[120px] animate-pulse delay-700"></div>
+        <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-5"></div>
+      </div>
+
+      {/* Hero Section */}
+      <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-900/50 border border-emerald-500/30 text-emerald-400 text-sm font-bold tracking-wider mb-8">
+            <Globe className="w-4 h-4" /> GLOBAL SUPPORT NETWORK
+          </div>
+          <h1 className="text-5xl md:text-7xl font-black leading-tight tracking-tighter mb-8">
+            Connect with the <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-500 italic">
+              Financial Elite.
+            </span>
           </h1>
-          <p className="text-lg md:text-xl leading-relaxed animate-slide-up delay-200">
-            At Corporate Bank, your questions and concerns are our priority. Whether you’re seeking advice on loans, mortgages, or general banking services, our dedicated team is here to provide personalized support. Reach out to us and experience responsive, friendly, and professional assistance tailored to your needs.
-            <br /><br />
-            Contact us today and let us guide you through our services, help you navigate your finances, or quickly resolve any issues you may have. With multiple channels of communication and convenient branch locations, staying connected with Corporate Bank has never been easier.
+          <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed mb-12">
+            Our dedicated advisory team is standing by to assist with your institutional and personal banking requirements.
+            Experience rapid response times and expert guidance.
           </p>
         </div>
       </section>
 
       {/* Contact Form & Info */}
-      <section className="py-20">
+      <section className="py-24 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             {/* Contact Form */}
-            <div className="animate-slide-in-left">
-              <div className="bg-white p-8 rounded-lg shadow-lg">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Send us a Message</h2>
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-green-600 rounded-[3rem] blur opacity-20 group-hover:opacity-30 transition duration-1000"></div>
+              <div className="relative bg-white/[0.03] backdrop-blur-xl border border-white/10 p-10 md:p-12 rounded-[3rem] shadow-2xl">
+                <h2 className="text-3xl font-black text-white mb-8 italic">Secure Transmission</h2>
                 <form className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
-                      <input type="text" className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" />
+                      <label className="block text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-2">First Name</label>
+                      <input type="text" className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-white focus:outline-none focus:border-emerald-500 transition-colors" placeholder="Alexander" />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
-                      <input type="text" className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" />
+                      <label className="block text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-2">Last Name</label>
+                      <input type="text" className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-white focus:outline-none focus:border-emerald-500 transition-colors" placeholder="Vance" />
                     </div>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                    <input type="email" className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" />
+                    <label className="block text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-2">Institutional Email</label>
+                    <input type="email" className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-white focus:outline-none focus:border-emerald-500 transition-colors" placeholder="alex@company.com" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-                    <input type="tel" className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Subject</label>
-                    <select className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent">
-                      <option>General Inquiry</option>
-                      <option>Account Services</option>
-                      <option>Loan Information</option>
-                      <option>Mortgage Services</option>
+                    <label className="block text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-2">Subject Area</label>
+                    <select className="w-full bg-[#001c10] border border-white/10 rounded-2xl p-4 text-white focus:outline-none focus:border-emerald-500 transition-colors appearance-none">
+                      <option>Wealth Management</option>
+                      <option>Institutional Loans</option>
+                      <option>Mortgage Advisory</option>
                       <option>Technical Support</option>
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">Message</label>
-                    <textarea rows={5} className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent" placeholder="How can we help you?"></textarea>
+                    <label className="block text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-2">Message</label>
+                    <textarea rows={5} className="w-full bg-white/5 border border-white/10 rounded-2xl p-4 text-white focus:outline-none focus:border-emerald-500 transition-colors resize-none" placeholder="Describe your inquiry..."></textarea>
                   </div>
-                  <button className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors font-medium">
-                    Send Message
+                  <button className="w-full bg-emerald-500 hover:bg-emerald-400 text-[#001c10] py-5 rounded-2xl font-black transition-all hover:scale-[1.02] flex items-center justify-center gap-3 shadow-xl shadow-emerald-500/20">
+                    Send Message <Send className="w-5 h-5" />
                   </button>
                 </form>
               </div>
             </div>
 
             {/* Contact Information */}
-            <div className="animate-slide-in-right animation-delay-50 space-y-8">
+            <div className="space-y-12">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Contact Information</h2>
-                <div className="space-y-6">
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0">
-                      <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                        <Phone className="w-6 h-6 text-green-600" />
+                <h2 className="text-3xl font-black text-white mb-10 tracking-tight">Direct <span className="text-emerald-400">Channels</span></h2>
+                <div className="space-y-8">
+                  {[
+                    { icon: Phone, title: 'Voice Support', value: '(555) 123-Nova', desc: 'Available Mon-Fri, 9AM-6PM EST', color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
+                    { icon: Mail, title: 'Secure Email', value: 'concierge@novabank.com', desc: 'Encrypted communication line', color: 'text-blue-400', bg: 'bg-blue-500/10' },
+                    { icon: MapPin, title: 'Global HQ', value: '77 Financial Plaza', desc: 'Downtown District, Suite 1200', color: 'text-purple-400', bg: 'bg-purple-500/10' }
+                  ].map((item, i) => (
+                    <div key={i} className="flex gap-6 group">
+                      <div className={`h-16 w-16 rounded-2xl ${item.bg} flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform`}>
+                        <item.icon className={`w-8 h-8 ${item.color}`} />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-black text-white mb-1">{item.title}</h3>
+                        <p className="text-lg font-bold text-slate-300">{item.value}</p>
+                        <p className="text-sm text-slate-500">{item.desc}</p>
                       </div>
                     </div>
-                    <div className="ml-4">
-                      <h3 className="text-lg font-semibold text-gray-900">Phone</h3>
-                      <p className="text-gray-600">Customer Service: (555) 123-4567</p>
-                      <p className="text-gray-600">Loan Department: (555) 123-4568</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0">
-                      <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                        <Mail className="w-6 h-6 text-green-600" />
-                      </div>
-                    </div>
-                    <div className="ml-4">
-                      <h3 className="text-lg font-semibold text-gray-900">Email</h3>
-                      <p className="text-gray-600">info@Corporate Bank.com</p>
-                      <p className="text-gray-600">support@Corporate Bank.com</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0">
-                      <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                        <MapPin className="w-6 h-6 text-green-600" />
-                      </div>
-                    </div>
-                    <div className="ml-4">
-                      <h3 className="text-lg font-semibold text-gray-900">Main Branch</h3>
-                      <p className="text-gray-600">
-                        123 Financial Street<br />
-                        Downtown District<br />
-                        City, State 12345
-                      </p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
 
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Business Hours</h3>
-                <div className="space-y-2 text-gray-600">
-                  <div className="flex justify-between">
-                    <span>Monday - Friday</span>
-                    <span>9:00 AM - 6:00 PM</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Saturday</span>
-                    <span>9:00 AM - 2:00 PM</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Sunday</span>
-                    <span>Closed</span>
-                  </div>
+              <div className="p-10 rounded-[2.5rem] bg-white/[0.03] border border-white/5 space-y-6">
+                <div className="flex items-center gap-3">
+                  <div className="h-3 w-3 rounded-full bg-emerald-500 animate-pulse"></div>
+                  <span className="text-xs font-black uppercase tracking-widest text-emerald-500">Systems Operational</span>
                 </div>
-              </div>
-
-              <div className="bg-green-50 p-6 rounded-lg">
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Need Immediate Help?</h3>
-                <p className="text-gray-600 mb-4">
-                  For urgent account issues or to report a lost/stolen card, call our 24/7 hotline:
+                <h3 className="text-2xl font-black text-white italic">24/7 Digital Concierge</h3>
+                <p className="text-slate-500 leading-relaxed">
+                  Our AI-driven support ecosystem is always active for immediate account verification and urgent security reports.
                 </p>
-                <div className="text-2xl font-bold text-green-600">(555) 911-BANK</div>
+                <div className="pt-4">
+                  <p className="text-3xl font-black text-white underline decoration-emerald-500 underline-offset-8">1-800-NOVA-SAFE</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Branch Locations */}
-      <section className="py-20 bg-gray-50 animate-fade-in-up animation-delay-400">
+      {/* Global Locations */}
+      <section className="py-24 bg-[#00130b] relative border-y border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-16">Branch Locations</h2>
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+            <div className="max-w-xl">
+              <h2 className="text-4xl font-black text-white mb-4 tracking-tighter">Our Global <span className="text-slate-500 italic">Nodes</span></h2>
+              <p className="text-slate-400">Strategically located in the world's most vital financial centers.</p>
+            </div>
+            <button className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-all flex items-center gap-2">
+              View Global Map <Globe className="w-5 h-5" />
+            </button>
+          </div>
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              {
-                name: 'Downtown Branch',
-                address: '123 Financial Street, Downtown District',
-                phone: '(555) 123-4567',
-                hours: 'Mon-Fri: 9AM-6PM, Sat: 9AM-2PM'
-              },
-              {
-                name: 'Westside Branch',
-                address: '456 Commerce Ave, Westside Plaza',
-                phone: '(555) 123-4568',
-                hours: 'Mon-Fri: 9AM-5PM, Sat: 9AM-1PM'
-              },
-              {
-                name: 'Northgate Branch',
-                address: '789 Business Blvd, Northgate Center',
-                phone: '(555) 123-4569',
-                hours: 'Mon-Fri: 9AM-6PM, Sat: 9AM-2PM'
-              }
-            ].map((branch, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-lg animate-fade-in-up" style={{ animationDelay: `${index * 150}ms` }}>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">{branch.name}</h3>
-                <div className="space-y-3 text-gray-600">
-                  <div className="flex items-start">
-                    <MapPin className="w-5 h-5 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm">{branch.address}</span>
+              { city: 'London', address: '12 Canary Wharf, Financial District', hours: '08:00 - 18:00 GMT' },
+              { city: 'New York', address: '44 Wall Street, Manhattan', hours: '09:00 - 18:00 EST' },
+              { city: 'Singapore', address: '8 Marina Bay Financial Centre', hours: '09:00 - 17:00 SGT' }
+            ].map((node, i) => (
+              <div key={i} className="group p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 hover:bg-emerald-900/10 transition-all">
+                <h3 className="text-2xl font-black text-white mb-6 italic">{node.city}</h3>
+                <div className="space-y-4 text-slate-500 text-sm">
+                  <div className="flex items-start gap-3">
+                    <MapPin className="w-5 h-5 text-emerald-500 shrink-0" />
+                    <span>{node.address}</span>
                   </div>
-                  <div className="flex items-center">
-                    <Phone className="w-5 h-5 text-green-600 mr-2 flex-shrink-0" />
-                    <span className="text-sm">{branch.phone}</span>
-                  </div>
-                  <div className="flex items-start">
-                    <Clock className="w-5 h-5 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
-                    <span className="text-sm">{branch.hours}</span>
+                  <div className="flex items-start gap-3">
+                    <Clock className="w-5 h-5 text-emerald-500 shrink-0" />
+                    <span>{node.hours}</span>
                   </div>
                 </div>
-                <button className="mt-4 w-full text-green-600 font-medium hover:text-green-700 text-sm border border-green-600 py-2 rounded-lg hover:bg-green-50 transition-colors">
-                  Get Directions
-                </button>
               </div>
             ))}
           </div>

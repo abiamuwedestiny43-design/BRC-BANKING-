@@ -1,218 +1,259 @@
-import { ChevronDown, Shield, TrendingUp, Home, CreditCard, Clock, ArrowRight, Building } from 'lucide-react';
+import { ChevronDown, Shield, TrendingUp, Home, CreditCard, Clock, ArrowRight, Building, Globe, Zap, Lock, BarChart3 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 const HomePages: React.FC = () => {
   return (
-    <div className="animate-fade-in animate-delay-100">
+    <div className="bg-[#001c10] text-slate-100 overflow-hidden font-sans">
       {/* Hero Section */}
-      <section className="animate-fade-in-up animation-delay-300 relative min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-green-600/10 to-transparent"></div>
-        <div className="absolute inset-0 opacity-5">
-          <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: 'url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwMCIgaGVpZ2h0PSI1MDAiIHZpZXdCb3g9IjAgMCAxMDAwIDUwMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgo8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMTBiOTgxO3N0b3Atb3BhY2l0eTowLjEiIC8+CjxzdG9wIG9mZnNldD0iMTAwJSIgc3R5bGU9InN0b3AtY29sb3I6IzEwYjk4MTtzdG9wLW9wYWNpdHk6MC4wNSIgLz4KPC9saW5lYXJHcmFkaWVudD4KPC9kZWZzPgo8cmVjdCB3aWR0aD0iMTAwMCIgaGVpZ2h0PSI1MDAiIGZpbGw9InVybCgjZ3JhZGllbnQpIi8+CjxjaXJjbGUgY3g9IjIwMCIgY3k9IjEwMCIgcj0iMjAiIGZpbGw9IiMxMGI5ODEiIG9wYWNpdHk9IjAuMSIvPgo8Y2lyY2xlIGN4PSI4MDAiIGN5PSI0MDAiIHI9IjE1IiBmaWxsPSIjMTBiOTgxIiBvcGFjaXR5PSIwLjA4Ii8+CjxjaXJjbGUgY3g9IjEwMCIgY3k9IjMwMCIgcj0iMTAiIGZpbGw9IiMxMGI5ODEiIG9wYWNpdHk9IjAuMTIiLz4KPGNpcmNsZSBjeD0iOTAwIiBjeT0iMTUwIiByPSIyNSIgZmlsbD0iIzEwYjk4MSIgb3BhY2l0eT0iMC4wNiIvPgo8L3N2Zz4=)' }}></div>
+      <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden pt-20">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-900/40 rounded-full blur-[120px] animate-pulse"></div>
+          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-green-900/30 rounded-full blur-[120px] animate-pulse delay-700"></div>
+          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10"></div>
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="text-center lg:text-left">
-              <h1 className="text-5xl md:text-6xl font-bold pt-[120px] md-pt-0 text-gray-900 mb-6 animate-slide-up">
-                Your Financial Future
-                <span className="block text-green-600">Starts Here</span>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="text-center lg:text-left space-y-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-900/50 border border-emerald-500/30 text-emerald-400 text-sm font-bold tracking-wider animate-fade-in">
+                <Zap className="w-4 h-4" /> REVOLUTIONIZING DIGITAL FINANCE
+              </div>
+              <h1 className="text-5xl md:text-7xl font-black leading-tight tracking-tighter">
+                The Future of <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-500">
+                  Banking is Here.
+                </span>
               </h1>
-              <p className="text-xl hidden md-flex md:text-2xl text-gray-600 mb-4 animate-slide-up delay-200">
-                Experience banking that puts you first. Secure, innovative, and always there when you need us.
+              <p className="text-lg md:text-xl text-slate-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
+                Experience a premium ecosystem of financial tools designed for the modern age. Secure, lightning-fast, and built on the foundation of trust.
               </p>
-              <p className="text-lg text-gray-600 mb-8 animate-slide-up delay-300">
-                Join over 500,000 satisfied customers who trust Corporate Bank for their financial needs. From personal banking to business solutions, we provide the tools and expertise to help you succeed in today's dynamic financial landscape.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-slide-up delay-400">
+              <div className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
                 <Link href="/register">
-                  <button className="bg-green-600 text-white px-8 py-4 rounded-lg text-lg font-medium hover:bg-green-700 transform hover:scale-105 transition-all duration-200 shadow-lg">
-                    Get Started Today
+                  <button className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-400 text-[#001c10] px-10 py-5 rounded-2xl text-lg font-black transition-all hover:scale-105 hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] flex items-center justify-center gap-2 group">
+                    Get Started <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                   </button>
                 </Link>
                 <Link href="/about">
-                  <button className="bg-white text-green-600 px-8 py-4 rounded-lg text-lg font-medium hover:bg-gray-50 transform hover:scale-105 transition-all duration-200 shadow-lg border border-green-600">
+                  <button className="w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white px-10 py-5 rounded-2xl text-lg font-bold border border-white/20 transition-all hover:border-emerald-500/50 backdrop-blur-md">
                     Learn More
                   </button>
                 </Link>
               </div>
+              <div className="flex items-center justify-center lg:justify-start gap-8 pt-4">
+                <div className="text-center lg:text-left">
+                  <p className="text-2xl font-black text-white">500K+</p>
+                  <p className="text-xs text-slate-500 font-bold uppercase tracking-widest">Active Users</p>
+                </div>
+                <div className="h-10 w-[1px] bg-white/10"></div>
+                <div className="text-center lg:text-left">
+                  <p className="text-2xl font-black text-white">99.9%</p>
+                  <p className="text-xs text-slate-500 font-bold uppercase tracking-widest">Uptime</p>
+                </div>
+                <div className="h-10 w-[1px] bg-white/10"></div>
+                <div className="text-center lg:text-left">
+                  <p className="text-2xl font-black text-white">$2B+</p>
+                  <p className="text-xs text-slate-500 font-bold uppercase tracking-widest">Processed</p>
+                </div>
+              </div>
             </div>
-            <div className="animate-slide-in-right animation-delay-300">
-              <div className="relative">
-                <div className="w-full h-96 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl shadow-2xl overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-green-600/20 to-blue-600/20"></div>
-                  <div className="relative z-10 h-full flex items-center justify-center">
-                    <div className="text-center p-8">
-                      <div className="w-[200px] h-[155px] rounded-2xl bg-green-900/40 flex items-center justify-center mx-auto mb-6 shadow-lg">
-                        <Image src="/santech.png" alt="santtech bank" width={200} height={120} className="h-[150px] rounded-2xl" />
-                      </div>
-                      <h3 className="text-2xl font-bold text-gray-800 mb-4">Modern Banking</h3>
-                      <p className="text-gray-700">Experience the future of financial services with our cutting-edge technology and personalized approach.</p>
+
+            <div className="relative group">
+              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-green-600 rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+              <div className="relative rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
+                <Image
+                  src="/modern_banking_hero_1767421157454.png"
+                  alt="Modern Banking Interface"
+                  width={800}
+                  height={600}
+                  className="w-full h-auto object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#001c10] via-transparent to-transparent"></div>
+                <div className="absolute bottom-6 left-6 right-6 p-6 rounded-2xl bg-white/5 backdrop-blur-xl border border-white/10">
+                  <div className="flex items-center gap-4">
+                    <div className="h-12 w-12 rounded-xl bg-emerald-500/20 flex items-center justify-center">
+                      <Shield className="w-6 h-6 text-emerald-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-white">Secure by Design</h4>
+                      <p className="text-xs text-slate-400 uppercase tracking-widest">End-to-End Encryption Enabled</p>
                     </div>
                   </div>
                 </div>
-                <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-green-600 rounded-full opacity-10"></div>
-                <div className="absolute -top-6 -left-6 w-24 h-24 bg-blue-600 rounded-full opacity-10"></div>
               </div>
             </div>
           </div>
         </div>
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <ChevronDown className="w-8 h-8 text-green-600" />
+
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer opacity-50 hover:opacity-100 transition-opacity">
+          <p className="text-[10px] font-black tracking-[0.3em] uppercase text-emerald-400">Scroll to explore</p>
+          <ChevronDown className="w-5 h-5 animate-bounce" />
         </div>
       </section>
 
-      <section className="py-20 bg-white animate-fade-in-up animation-delay-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Investment Opportunities
-            </h2>
-            <p className="text-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              At Corporate Bank, we believe that investing should be simple, secure, and accessible to everyone.
-              Our investment solutions are designed to help you build long-term wealth, protect your assets,
-              and achieve financial independence. Whether you are a first-time investor or an experienced
-              portfolio manager, our dedicated advisors and cutting-edge tools give you the confidence to
-              grow your money in the right direction. With us, you’re not just putting money into accounts—you’re
-              investing in a secure future, guided by expertise and supported by technology that works for you.
-            </p>
-          </div>
-
-          {/* Investment Images Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-            {[
-              { title: "Real Estate Funds", image: "https://saintinvestment.com/wp-content/uploads/2021/09/Saint-Investment-Group-Real-Estate-Investment-United-States-Real-Estate-Fund-Structures.jpg" },
-              { title: "Stock Market Growth", image: "https://tse4.mm.bing.net/th/id/OIP.e-u3mj4riNnbN0_-NVZSgAHaE8?pid=ImgDet&w=474&h=316&rs=1&o=7&rm=3" },
-              { title: "Green Energy Projects", image: "https://cleanpowercampaign.org/wp-content/uploads/2015/02/solar-farm_lrg.jpg" }
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300"
-              >
-                <div
-                  className="h-56 bg-cover bg-center"
-                  style={{ backgroundImage: `url(${item.image})` }}
-                ></div>
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold text-gray-900 mb-3">{item.title}</h3>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    Explore secure opportunities with {item.title}. We provide diversified solutions
-                    that maximize growth while minimizing risks, ensuring your investments align with
-                    your financial goals.
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Reasons to Invest */}
-          <div className="max-w-4xl mx-auto text-center">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Why Invest With Us?</h3>
-            <ul className="text-left space-y-4 text-gray-700">
-              <li className="flex items-start">
-                <span className="w-3 h-3 mt-2 mr-3 bg-green-600 rounded-full"></span>
-                Proven track record of delivering strong returns across diverse sectors.
-              </li>
-              <li className="flex items-start">
-                <span className="w-3 h-3 mt-2 mr-3 bg-green-600 rounded-full"></span>
-                Personalized investment strategies designed to meet your unique goals.
-              </li>
-              <li className="flex items-start">
-                <span className="w-3 h-3 mt-2 mr-3 bg-green-600 rounded-full"></span>
-                Secure platforms with transparent reporting and 24/7 access to your portfolio.
-              </li>
-              <li className="flex items-start">
-                <span className="w-3 h-3 mt-2 mr-3 bg-green-600 rounded-full"></span>
-                Commitment to sustainable and ethical investing for a better future.
-              </li>
-            </ul>
+      {/* Trust Banner */}
+      <section className="py-12 border-y border-white/5 bg-white/[0.02]">
+        <div className="max-w-7xl mx-auto px-4 overflow-hidden">
+          <p className="text-center text-[10px] font-black tracking-[0.4em] uppercase text-slate-500 mb-8 italic">POWERING FINANCIAL SUCCESS FOR GLOBAL ENTITIES</p>
+          <div className="flex flex-wrap justify-center items-center gap-12 opacity-30 grayscale hover:grayscale-0 transition-all duration-500">
+            {/* Logos could go here */}
+            <div className="text-2xl font-black italic tracking-tighter">FINTECH</div>
+            <div className="text-2xl font-black italic tracking-tighter">GLOBAL BANK</div>
+            <div className="text-2xl font-black italic tracking-tighter">SECURE.IO</div>
+            <div className="text-2xl font-black italic tracking-tighter">VENTURE CAP</div>
+            <div className="text-2xl font-black italic tracking-tighter">CRYPTO TRUST</div>
           </div>
         </div>
       </section>
-      {/* Features Section */}
-      <section className="py-20 bg-white animate-fade-in-up animation-delay-400">
+
+      {/* Investment Section */}
+      <section className="py-32 relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Why Choose Corporate Bank?
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We're committed to providing exceptional banking services that exceed your expectations. Our innovative approach combines cutting-edge technology with personalized customer service to deliver the best banking experience possible.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Shield,
-                title: 'Bank-Level Security',
-                description: 'Your money and data are protected with state-of-the-art security measures including 256-bit encryption, multi-factor authentication, and continuous fraud monitoring.',
-                image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZjBmZGY0Ii8+CjxyZWN0IHg9IjEwMCIgeT0iNjAiIHdpZHRoPSIxMDAiIGhlaWdodD0iODAiIHJ4PSIxMCIgZmlsbD0iIzEwYjk4MSIgb3BhY2l0eT0iMC4yIi8+CjxjaXJjbGUgY3g9IjE1MCIgY3k9IjEwMCIgcj0iMjAiIGZpbGw9IiMxMGI5ODEiLz4KPHA+CjxwYXRoIGQ9Ik0xNDUgOTVMMTUwIDEwMEwxNTUgOTUiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIgZmlsbD0ibm9uZSIvPgo8L3N2Zz4='
-              },
-              {
-                icon: Clock,
-                title: '24/7 Support',
-                description: 'Round-the-clock customer service whenever you need assistance. Our dedicated support team is available via phone, chat, and email to help resolve any issues quickly.',
-                image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZjBmZGY0Ii8+CjxjaXJjbGUgY3g9IjE1MCIgY3k9IjEwMCIgcj0iNDAiIHN0cm9rZT0iIzEwYjk4MSIgc3Ryb2tlLXdpZHRoPSI0IiBmaWxsPSJub25lIi8+CjxsaW5lIHgxPSIxNTAiIHkxPSIxMDAiIHgyPSIxNTAiIHkyPSI3MCIgc3Ryb2tlPSIjMTBiOTgxIiBzdHJva2Utd2lkdGg9IjMiLz4KPGxpbmUgeDE9IjE1MCIgeTE9IjEwMCIgeDI9IjE3MCIgeTI9IjEwMCIgc3Ryb2tlPSIjMTBiOTgxIiBzdHJva2Utd2lkdGg9IjIiLz4KPC9zdmc+'
-              },
-              {
-                icon: TrendingUp,
-                title: 'Growth Focused',
-                description: 'Competitive interest rates and investment options to help your money grow. Our financial advisors work with you to create personalized strategies for long-term wealth building.',
-                image: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDMwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjZjBmZGY0Ii8+CjxwYXRoIGQ9Ik01MCAxNTBMMTAwIDEyMEwxNTAgMTAwTDIwMCA4MEwyNTAgNjAiIHN0cm9rZT0iIzEwYjk4MSIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSJub25lIi8+CjxjaXJjbGUgY3g9IjUwIiBjeT0iMTUwIiByPSI0IiBmaWxsPSIjMTBiOTgxIi8+CjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEyMCIgcj0iNCIgZmlsbD0iIzEwYjk4MSIvPgo8Y2lyY2xlIGN4PSIxNTAiIGN5PSIxMDAiIHI9IjQiIGZpbGw9IiMxMGI5ODEiLz4KPGNpcmNsZSBjeD0iMjAwIiBjeT0iODAiIHI9IjQiIGZpbGw9IiMxMGI5ODEiLz4KPGNpcmNsZSBjeD0iMjUwIiBjeT0iNjAiIHI9IjQiIGZpbGw9IiMxMGI5ODEiLz4KPC9zdmc+'
-              }
-            ].map((feature, index) => (
-              <div key={index} className="group hover:transform hover:scale-105 transition-all duration-300 animate-fade-in-up" style={{ animationDelay: `${index * 150}ms` }}>
-                <div className="bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden">
-                  <div className="h-48 bg-cover bg-center" style={{ backgroundImage: `url(${feature.image})` }}></div>
-                  <div className="p-6">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-6 group-hover:bg-green-200 transition-colors">
-                      <feature.icon className="w-8 h-8 text-green-600" />
-                    </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
-                    <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div className="order-2 lg:order-1 relative">
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-emerald-500/10 rounded-full blur-[100px]"></div>
+              <Image
+                src="/global_investment_growth_1767421250480.png"
+                alt="Investment Growth"
+                width={600}
+                height={600}
+                className="relative z-10 rounded-[2.5rem] shadow-2xl border border-white/10"
+              />
+            </div>
+            <div className="order-1 lg:order-2 space-y-8 text-center lg:text-left">
+              <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">
+                Unlock Intelligent <br />
+                <span className="text-emerald-400 italic">Investment Strategies</span>
+              </h2>
+              <p className="text-lg text-slate-400 leading-relaxed">
+                Our AI-driven algorithms and expert market analysis provide you with an unfair advantage in the global markets. From sustainable energy to high-growth tech, your portfolio is engineered for excellence.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4">
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/30 transition-colors group">
+                  <div className="h-12 w-12 rounded-xl bg-emerald-500 shadow-lg shadow-emerald-500/20 flex items-center justify-center mb-4 transition-transform group-hover:-translate-y-1">
+                    <TrendingUp className="w-6 h-6 text-[#001c10]" />
                   </div>
+                  <h4 className="font-bold text-lg mb-2 text-white">Market Growth</h4>
+                  <p className="text-sm text-slate-500">Capitalize on emerging market trends with precision.</p>
+                </div>
+                <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/30 transition-colors group">
+                  <div className="h-12 w-12 rounded-xl bg-emerald-500 shadow-lg shadow-emerald-500/20 flex items-center justify-center mb-4 transition-transform group-hover:-translate-y-1">
+                    <BarChart3 className="w-6 h-6 text-[#001c10]" />
+                  </div>
+                  <h4 className="font-bold text-lg mb-2 text-white">Data Analytics</h4>
+                  <p className="text-sm text-slate-500">Real-time insights tailored to your financial goals.</p>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Services Preview */}
-      <section className="py-20 bg-gray-50 animate-fade-in-up animation-delay-600">
+      {/* Security Section (Darker Background) */}
+      <section className="py-32 bg-[#00130b] relative border-y border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Our Services
-            </h2>
+          <div className="text-center mb-20 space-y-4">
+            <p className="text-xs font-black tracking-[0.5em] uppercase text-emerald-500">Uncompromising Protection</p>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tightest">Fortress-Grade Security</h2>
+            <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
+              Your assets are protected by the world's most advanced biometric and cryptographic protocols. We don't just secure your money; we protect your future.
+            </p>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            <div className="lg:col-span-2 relative h-[400px] rounded-[2rem] overflow-hidden group border border-white/10">
+              <Image
+                src="/secure_banking_icon_1767421223969.png"
+                alt="Secure Vault"
+                fill
+                className="object-cover transition-transform duration-700 group-hover:scale-110 opacity-60"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#00130b] via-[#00130b]/40 to-transparent"></div>
+              <div className="absolute bottom-10 left-10 max-w-sm space-y-4">
+                <div className="px-4 py-1 inline-block rounded-full bg-emerald-500 text-[#001c10] text-[10px] font-black uppercase tracking-widest">Live Security Feed</div>
+                <h3 className="text-3xl font-black text-white leading-tight underline decoration-emerald-500 underline-offset-8">Multi-Factor Biometric Auth</h3>
+                <p className="text-slate-200 font-medium">Verification in milliseconds with zero-knowledge proof technology.</p>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-6">
+              {[
+                { icon: Lock, title: '256-bit AES', desc: 'Military-grade encryption for every byte of data.' },
+                { icon: Globe, title: 'Global Compliance', desc: 'Strict adherence to international financial regulations.' },
+                { icon: Clock, title: 'Anti-Fraud AI', desc: 'Active monitoring 24/7 with instant anomaly detection.' }
+              ].map((item, i) => (
+                <div key={i} className="flex-1 p-8 rounded-[2rem] bg-white/5 border border-white/10 flex flex-col justify-center gap-4 hover:bg-emerald-900/10 transition-colors">
+                  <item.icon className="w-8 h-8 text-emerald-400" />
+                  <h5 className="text-xl font-bold text-white">{item.title}</h5>
+                  <p className="text-sm text-slate-500">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-32 relative overflow-hidden">
+        <div className="absolute top-[20%] right-[-5%] w-[30%] h-[30%] bg-emerald-500/5 rounded-full blur-[100px]"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20 px-2 lg:px-0">
+            <div className="space-y-4 text-center md:text-left">
+              <h2 className="text-4xl md:text-5xl font-black tracking-tighter">Unified Banking <br /> <span className="text-slate-500 italic">One Ecosystem</span></h2>
+              <p className="text-slate-400 max-w-md">The only platform you'll ever need for life's financial journey.</p>
+            </div>
+            <Link href="/services">
+              <button className="px-8 py-4 rounded-xl bg-white/5 border border-white/20 text-white font-bold hover:bg-white/10 transition-all flex items-center justify-center gap-2">
+                Explore Services <ArrowRight className="w-4 h-4" />
+              </button>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
-              { icon: CreditCard, title: 'Personal Banking', color: 'bg-blue-500', link: '/services/personal' },
-              { icon: Building, title: 'Business Banking', color: 'bg-purple-500', link: '/services/business' },
-              { icon: Home, title: 'Mortgages', color: 'bg-green-500', link: '/services/mortgage' },
-              { icon: TrendingUp, title: 'Investments', color: 'bg-orange-500', link: '/services/investment' }
+              { icon: CreditCard, title: 'Personal Banking', link: '/services/personal', color: 'bg-emerald-500', bg: 'bg-emerald-500/10' },
+              { icon: Building, title: 'Business Banking', link: '/services/business', color: 'bg-blue-500', bg: 'bg-blue-500/10' },
+              { icon: Home, title: 'Real Estate Loans', link: '/services/mortgage', color: 'bg-purple-500', bg: 'bg-purple-500/10' },
+              { icon: TrendingUp, title: 'Global Markets', link: '/services/investment', color: 'bg-orange-500', bg: 'bg-orange-500/10' }
             ].map((service, index) => (
-              <div
-                key={index}
-                className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 animate-scale-in"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div className={`inline-flex items-center justify-center w-12 h-12 ${service.color} rounded-lg mb-4`}>
-                  <service.icon className="w-6 h-6 text-white" />
+              <div key={index} className="group relative p-8 rounded-[2.5rem] bg-white/[0.03] border border-white/5 hover:bg-white/[0.05] transition-all duration-500 hover:-translate-y-2">
+                <div className={`h-16 w-16 rounded-2xl ${service.bg} flex items-center justify-center mb-8 group-hover:scale-110 transition-transform`}>
+                  <service.icon className={`w-8 h-8 ${service.color.replace('bg-', 'text-')}`} />
                 </div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{service.title}</h3>
-                <p className="text-gray-600 text-sm mb-4">
-                  Comprehensive solutions tailored to your needs
-                </p>
-                <Link
-                  href={service.link}
-                  className="text-green-600 font-medium hover:text-green-700 flex items-center"
-                >
-                  Read More <ArrowRight className="w-4 h-4 ml-1" />
+                <h3 className="text-2xl font-black text-white mb-4 leading-tight">{service.title}</h3>
+                <p className="text-sm text-slate-500 mb-8 leading-relaxed">Tailored financial frameworks optimized for efficiency and growth in an ever-changing landscape.</p>
+                <Link href={service.link} className="inline-flex items-center gap-2 text-emerald-400 font-black text-xs uppercase tracking-widest hover:text-emerald-300 transition-colors">
+                  View Framework <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section className="py-32">
+        <div className="max-w-5xl mx-auto px-4">
+          <div className="relative rounded-[3rem] bg-gradient-to-br from-[#003d24] to-[#001c10] p-12 md:p-20 text-center space-y-8 overflow-hidden border border-white/10 shadow-3xl shadow-emerald-900/40">
+            <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-emerald-500/10 rounded-full blur-[100px]"></div>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tighter relative z-10 leading-[1.1]">Ready to Join the <br /> Financial Elite?</h2>
+            <p className="text-lg md:text-xl text-emerald-100/60 max-w-2xl mx-auto font-medium relative z-10">
+              Registration takes less than 3 minutes. Your journey to financial freedom starts with a single click.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 relative z-10 pt-4">
+              <Link href="/register" className="w-full sm:w-auto">
+                <button className="w-full bg-white text-[#001c10] px-10 py-5 rounded-2xl text-lg font-black hover:bg-emerald-50 transition-all hover:scale-105 shadow-xl">
+                  Open Your Account
+                </button>
+              </Link>
+              <Link href="/contact" className="w-full sm:w-auto">
+                <button className="w-full bg-emerald-600/20 text-white border border-white/10 px-10 py-5 rounded-2xl text-lg font-bold hover:bg-emerald-600/30 transition-all">
+                  Speak to Advisor
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

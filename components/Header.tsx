@@ -1,9 +1,10 @@
 "use client"
 import { useState, useEffect } from "react"
-import { Menu, X } from "lucide-react"
+import { Menu, X, ChevronDown, User, LogOut, LayoutDashboard } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger, DropdownMenuSeparator } from "@/components/ui/dropdown-menu"
+import { cn } from "@/lib/utils"
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -11,7 +12,6 @@ const Header = () => {
   const [currentUser, setCurrentUser] = useState<any>(null)
 
   useEffect(() => {
-    // Check current user
     const fetchUser = async () => {
       try {
         const res = await fetch("/api/current-user")
@@ -23,8 +23,7 @@ const Header = () => {
     }
     fetchUser()
 
-    // Scroll behavior
-    const handleScroll = () => setIsScrolled(window.scrollY > 50)
+    const handleScroll = () => setIsScrolled(window.scrollY > 20)
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
@@ -48,132 +47,188 @@ const Header = () => {
   ]
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? "bg-white shadow-lg" : "bg-white/95 backdrop-blur-sm"}`}>
+    <nav className={cn(
+      "fixed top-0 w-full z-50 transition-all duration-500",
+      isScrolled ? "bg-[#001c10]/80 backdrop-blur-xl border-b border-white/5 py-2" : "bg-transparent py-4 text-white"
+    )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-[74px]">
+        <div className="flex justify-between items-center h-16 md:h-20">
           {/* Logo */}
-          <Link href="/" className="inline-block">
-            <Image src="/santech.png" alt="Corporate Bank" width={90} height={50} className="h-[72px] rounded-lg" />
+          <Link href="/" className="flex items-center gap-2 group">
+            <div className="relative h-12 w-12 rounded-xl overflow-hidden shadow-2xl group-hover:scale-110 transition-transform">
+              <Image src="/santech.png" alt="Corporate Bank" fill className="object-cover" />
+            </div>
+            <span className={cn("text-xl font-black tracking-tighter transition-colors", isScrolled ? "text-emerald-400" : "text-white")}>
+              NOVA<span className="text-emerald-500 italic">BANK</span>
+            </span>
           </Link>
 
           {/* Desktop Nav */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden lg:flex items-center space-x-1">
             {navItems.map((item) => (
-              <Link key={item.id} href={item.href} className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors">
+              <Link
+                key={item.id}
+                href={item.href}
+                className={cn(
+                  "px-4 py-2 text-sm font-bold tracking-tight rounded-xl transition-all",
+                  isScrolled ? "text-slate-200 hover:text-emerald-400 hover:bg-white/5" : "text-white/80 hover:text-white hover:bg-white/10"
+                )}
+              >
                 {item.label}
               </Link>
             ))}
 
             <DropdownMenu>
-              <DropdownMenuTrigger className="px-3 py-2 text-sm font-medium text-gray-700 hover:text-green-600">
-                Services
+              <DropdownMenuTrigger className={cn(
+                "px-4 py-2 text-sm font-bold tracking-tight rounded-xl transition-all flex items-center gap-1",
+                isScrolled ? "text-slate-200 hover:text-emerald-400 hover:bg-white/5" : "text-white/80 hover:text-white hover:bg-white/10"
+              )}>
+                Services <ChevronDown className="w-3 h-3 opacity-50" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="start">
-                <DropdownMenuItem asChild><Link href="/services/">Our Services</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/services/personal">Personal Banking</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/services/business">Business Banking</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/services/investment">Investment Services</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/services/mortgage">Mortgage Services</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/services/insurance">Insurance</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link href="/services/planning">Financial Planning</Link></DropdownMenuItem>
+              <DropdownMenuContent align="start" className="w-56 p-2 bg-[#001c10] border-white/10 text-slate-200 rounded-2xl shadow-2xl backdrop-blur-xl">
+                <DropdownMenuItem asChild className="rounded-xl focus:bg-emerald-500 focus:text-[#001c10]"><Link href="/services/">Overview</Link></DropdownMenuItem>
+                <DropdownMenuSeparator className="bg-white/5" />
+                <DropdownMenuItem asChild className="rounded-xl focus:bg-emerald-500 focus:text-[#001c10]"><Link href="/services/personal">Personal Banking</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild className="rounded-xl focus:bg-emerald-500 focus:text-[#001c10]"><Link href="/services/business">Business Banking</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild className="rounded-xl focus:bg-emerald-500 focus:text-[#001c10]"><Link href="/services/investment">Investments</Link></DropdownMenuItem>
+                <DropdownMenuItem asChild className="rounded-xl focus:bg-emerald-500 focus:text-[#001c10]"><Link href="/services/mortgage">Mortgages</Link></DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
 
           {/* Right Side Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-4">
             {currentUser ? (
-              <>
-                <Link href="/dashboard" className="text-slate-50 hover:text-green-800 font-medium px-3 py-2 hover:bg-slate-100 bg-green-600 rounded-lg transition-colors">
-                  Dashboard
-                </Link>
-                <button
-                  onClick={handleLogout}
-                  className="text-gray-700 hover:text-white font-medium hover:bg-green-600 px-3 py-2 rounded-lg transition-colors"
-                >
-                  Logout
-                </button>
-              </>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center gap-3 p-1 pr-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all">
+                    <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-400 to-green-600 flex items-center justify-center font-black text-[#001c10]">
+                      {currentUser?.bankInfo?.bio?.firstname?.[0] || 'U'}
+                    </div>
+                    <span className="text-sm font-black text-white">{currentUser?.bankInfo?.bio?.firstname || 'Account'}</span>
+                    <ChevronDown className="w-4 h-4 text-emerald-400" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-64 p-2 bg-[#001c10] border-white/10 text-slate-200 rounded-2xl shadow-2xl backdrop-blur-xl">
+                  <DropdownMenuItem asChild className="rounded-xl focus:bg-emerald-500 focus:text-[#001c10] py-3">
+                    <Link href="/dashboard" className="flex items-center gap-3">
+                      <LayoutDashboard className="w-4 h-4" /> Dashboard
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild className="rounded-xl focus:bg-emerald-500 focus:text-[#001c10] py-3">
+                    <Link href="/dashboard/settings" className="flex items-center gap-3">
+                      <User className="w-4 h-4" /> Profile Details
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator className="bg-white/5" />
+                  <DropdownMenuItem onClick={handleLogout} className="rounded-xl focus:bg-red-500 focus:text-white py-3">
+                    <div className="flex items-center gap-3">
+                      <LogOut className="w-4 h-4" /> Sign Out
+                    </div>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
-              <>
+              <div className="flex items-center gap-3">
                 <Link
                   href="/login"
-                  className="text-green-600 hover:bg-green-600 hover:text-white font-medium px-4 py-2 rounded-lg transition-colors"
+                  className={cn(
+                    "text-sm font-black uppercase tracking-widest px-6 py-3 rounded-xl transition-all",
+                    isScrolled ? "text-slate-300 hover:text-white" : "text-white/70 hover:text-white"
+                  )}
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/register"
-                  className="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                  className="bg-emerald-500 hover:bg-emerald-400 text-[#001c10] text-sm font-black uppercase tracking-widest px-8 py-3 rounded-xl transition-all hover:scale-105 shadow-xl shadow-emerald-500/10"
                 >
                   Open Account
                 </Link>
-              </>
+              </div>
             )}
           </div>
 
           {/* Mobile Menu Toggle */}
-          <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-label="Toggle menu">
+          <button
+            className={cn("lg:hidden p-2 rounded-xl transition-colors", isScrolled ? "text-emerald-400 bg-white/5" : "text-white bg-white/10")}
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Toggle menu"
+          >
             {isMenuOpen ? <X /> : <Menu />}
           </button>
         </div>
       </div>
 
       {/* Mobile Menu */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white border-t">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            {navItems.map((item) => (
-              <Link
-                key={item.id}
-                href={item.href}
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-600"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
+      <div className={cn(
+        "lg:hidden fixed inset-x-0 bg-[#001c10] border-t border-white/5 transition-all duration-500 shadow-2xl",
+        isMenuOpen ? "top-[74px] opacity-100 pointer-events-auto max-h-[85vh] overflow-y-auto" : "top-[64px] opacity-0 pointer-events-none max-h-0"
+      )}>
+        <div className="p-6 space-y-4">
+          {navItems.map((item) => (
+            <Link
+              key={item.id}
+              href={item.href}
+              className="block p-4 text-lg font-black text-slate-200 hover:bg-white/5 rounded-2xl transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              {item.label}
+            </Link>
+          ))}
 
+          <DropdownMenu>
+            <DropdownMenuTrigger className="w-full text-left p-4 text-lg font-black text-slate-200 hover:bg-white/5 rounded-2xl transition-colors flex items-center justify-between">
+              Services <ChevronDown className="w-4 h-4 text-emerald-500" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-[85vw] mx-auto bg-[#00130b] border-white/5 text-slate-300 rounded-2xl p-2">
+              {['Personal Banking', 'Business Banking', 'Investments', 'Mortgages'].map((s, i) => (
+                <DropdownMenuItem key={i} className="rounded-xl py-3 focus:bg-emerald-500 focus:text-[#001c10]">{s}</DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <div className="pt-4 space-y-4">
             {currentUser ? (
               <>
                 <Link
                   href="/dashboard"
-                  className="flex items-center px-3 py-2 text-base font-medium rounded-lg bg-green-600 text-slate-50 hover:text-green-600 hover:bg-white"
+                  className="flex items-center justify-center gap-2 p-5 text-lg font-black rounded-[1.5rem] bg-emerald-500 text-[#001c10] shadow-xl shadow-emerald-500/10"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Dashboard
+                  <LayoutDashboard className="w-5 h-5" /> My Dashboard
                 </Link>
                 <button
-                  className="block w-full text-left px-3 py-2 text-base hover:text-slate-50 font-medium text-green-800 hover:bg-green-600"
+                  className="w-full p-5 text-sm font-black uppercase tracking-widest text-red-400 bg-white/5 rounded-[1.5rem]"
                   onClick={async () => {
                     setIsMenuOpen(false)
                     await handleLogout()
                   }}
                 >
-                  Logout
+                  Logout Account
                 </button>
               </>
             ) : (
-              <>
+              <div className="grid grid-cols-2 gap-4">
                 <Link
                   href="/login"
-                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-600"
+                  className="flex items-center justify-center p-5 text-sm font-black uppercase tracking-widest text-white bg-white/5 rounded-[1.5rem]"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/register"
-                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-600"
+                  className="flex items-center justify-center p-5 text-sm font-black uppercase tracking-widest text-[#001c10] bg-emerald-500 rounded-[1.5rem]"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Open Account
+                  Open
                 </Link>
-              </>
+              </div>
             )}
           </div>
         </div>
-      )}
+      </div>
     </nav>
   )
 }
