@@ -12,47 +12,71 @@ import { toPlainObject } from "@/lib/serialization"
 
 async function getTransactionsData(userId: string, page: number = 1, limit: number = 10, filters: any = {}) {
   await dbConnect()
-  
-  const query: any = { userId }
-  
+
+  const matchStage: any = { userId }
+
   if (filters.status && filters.status !== "all") {
-    query.txStatus = filters.status
+    matchStage.txStatus = filters.status
   }
-  
-  if (filters.type && filters.type !== "all") {
-    query.txType = filters.type
-  }
-  
+
   if (filters.search) {
-    query.$or = [
+    matchStage.$or = [
       { txRef: { $regex: filters.search, $options: "i" } },
       { description: { $regex: filters.search, $options: "i" } },
       { "accountHolder": { $regex: filters.search, $options: "i" } }
     ]
   }
-  
+
   try {
     const skip = (page - 1) * limit
-    const transfers = await Transfer.find(query)
-      .sort({ createdAt: -1 })
-      .skip(skip)
-      .limit(limit)
-      .lean()
 
-    const total = await Transfer.countDocuments(query)
-    
-    const transactions = transfers.map(transfer => ({
-      _id: transfer._id.toString(),
-      txRef: transfer.txRef,
-      txType: "debit",
-      amount: transfer.amount,
-      currency: transfer.currency,
-      createdAt: transfer.completedAt,
-      status: transfer.txStatus,
-      recipient: transfer.accountHolder,
-      description: transfer.description,
-    }))
-    
+    // Use aggregation to fetch data and count
+    const [result] = await Transfer.aggregate([
+      { $match: matchStage },
+      {
+        $lookup: {
+          from: "transfermetas",
+          localField: "txRef",
+          foreignField: "txRef",
+          as: "meta"
+        }
+      },
+      { $unwind: { path: "$meta", preserveNullAndEmptyArrays: true } },
+      // Apply Type Filter if present
+      ...(filters.type && filters.type !== "all"
+        ? [{ $match: { "meta.txType": filters.type } }]
+        : []
+      ),
+      {
+        $facet: {
+          metadata: [{ $count: "total" }],
+          data: [
+            { $sort: { createdAt: -1 } },
+            { $skip: skip },
+            { $limit: limit }
+          ]
+        }
+      }
+    ])
+
+    const transfers = result.data || []
+    const total = result.metadata[0]?.total || 0
+
+    const transactions = transfers.map((transfer: any) => {
+      const txType = transfer.meta?.txType || 'debit'
+      return {
+        _id: transfer._id.toString(),
+        txRef: transfer.txRef,
+        txType: txType,
+        amount: transfer.amount,
+        currency: transfer.currency,
+        createdAt: transfer.completedAt || transfer.createdAt,
+        status: transfer.txStatus,
+        recipient: txType === 'credit' ? (transfer.senderName || transfer.accountHolder) : transfer.accountHolder,
+        description: transfer.description,
+      }
+    })
+
     return { transactions, total, page, totalPages: Math.ceil(total / limit) }
   } catch (error) {
     console.error("Error fetching transactions:", error)
@@ -79,7 +103,7 @@ export default async function TransactionsPage({
     }
 
     const user = toPlainObject(userDoc)
-    
+
     const page = searchParams.page ? parseInt(searchParams.page as string) : 1
     const status = (searchParams.status as string) || "all"
     const type = (searchParams.type as string) || "all"
@@ -102,8 +126,8 @@ export default async function TransactionsPage({
                 <h1 className="text-3xl font-bold text-slate-800">History</h1>
                 <p className="text-slate-600">View all your account transactions</p>
               </div>
-              <Button 
-                asChild 
+              <Button
+                asChild
                 className="bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-green-200 transition-all duration-300"
               >
                 <Link href="/dashboard">
@@ -123,7 +147,7 @@ export default async function TransactionsPage({
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <TransactionsList 
+              <TransactionsList
                 initialTransactions={transactions}
                 total={total}
                 currentPage={page}
