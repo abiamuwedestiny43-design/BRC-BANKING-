@@ -30,7 +30,7 @@ async function getRecentTransfers(userId: string) {
   try {
     const transfers = await Transfer.aggregate([
       { $match: { userId } },
-      { $sort: { createdAt: -1 } },
+      { $sort: { txDate: -1 } },
       { $limit: 5 },
       {
         $lookup: {

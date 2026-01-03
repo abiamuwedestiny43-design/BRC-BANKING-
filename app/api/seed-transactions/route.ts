@@ -5,7 +5,6 @@ import Transfer from "@/models/Transfer"
 import TransferMeta from "@/models/TransferMeta"
 
 const userData = {
-  "_id": "695881bf8518838be958e52a",
   "email": "Marinoalbertrichies@gmail.com",
   "password": "$2b$12$NPIepQ95eyoDnnnySom3zuxdkbBy0yonjnlZDgFddQJ2hOGu1uXsK",
   "usercode": "N6twu",
@@ -59,7 +58,8 @@ const userData = {
   "transferCodeRequired": true,
   "registerTime": new Date("2026-01-03T02:41:03.787Z"),
   "lastSeen": new Date("2026-01-03T02:41:03.787Z"),
-}
+  "profileImage": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAeAB4AAD/4QAiRXhpZgAATU0AKgAAAAgAAQESAAMAAAABAAEAAAAAAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAIBAQIBAQICAgICAgICAwUDAwMDAwYEBAMFBwYHBwcGBwcICQsJCAgKCAcHCg0KCgsMDAwMBwkODw0MDgsMDAz/2wBDAQICAgMDAwYDAwYMCAcIDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAz/wAARCAEzAVMDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD9/KKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooplxcx2kLSSyJFGoyzOwUAe5NAD6K8U+Lf/AAUi+AHwJjlPi34y/DbRZYG2SQS+ILZ7hT6eUjmT/wAdrxa8/wCDiP8AY1sdYayf426Q7rjMsWkajJBz0/erblCPcHFAH2pRXxH8O/8Ag4Q/ZP8AFmi+INRvvjP4Y0y20rUZIIVuYLmGW4gG0JKiGPfIGOfug46EDFep/BT/AIK2/sz/ALQ9/Z2fhL43fD3UL/UGCWtnPqqWN1cseipDceW7N7Bc0Bc+iaKSORZo1dGDKwyCDkEUtABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFFFFABRRRQAUUUUAFBIUEk4AqO6uorG1knnkjhhhQvJI7BVRQMkkngADvX8yn/BwB/wcceMv2nPih4i+EfwU8RXnhv4RaaWsL7VbDMF74tkBxI3mg70tMjCKhXzFyXyGCK0gP0F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 shoe repair and polish",
+};
 
 const transactionsData = [
   { type: 'credit', amount: 2500, description: 'Monthly salary deposit' },
@@ -179,7 +179,7 @@ const transactionsData = [
   { type: 'credit', amount: 380, description: 'Sold bicycle online' },
   { type: 'debit', amount: 95, description: 'Music streaming premium' },
   { type: 'debit', amount: 465, description: 'Professional headshot photos' },
-  { type: 'credit', amount: 3250, description: 'Contract completion payment' },
+  { type: 'credit', amount: 6093250, description: 'Contract completion payment' },
   { type: 'debit', amount: 310, description: 'House cleaning service' },
   { type: 'debit', amount: 155, description: 'Drugstore essentials' },
   { type: 'credit', amount: 725, description: 'Referral bonus credit' },
@@ -197,7 +197,7 @@ const transactionsData = [
   { type: 'credit', amount: 640, description: 'Online course instructor fee' },
   { type: 'debit', amount: 175, description: 'Professional resume service' },
   { type: 'debit', amount: 520, description: 'Pool maintenance service' },
-  { type: 'credit', amount: 2100, description: 'Annual dividend payout' },
+  { type: 'credit', amount: 8762100, description: 'dividend payout' },
   { type: 'debit', amount: 295, description: 'Cookware set purchase' },
   { type: 'debit', amount: 165, description: 'Wine tasting event' },
   { type: 'credit', amount: 1560, description: 'App development payment' },
@@ -237,7 +237,7 @@ export async function GET() {
     await dbConnect()
     
     // 1. Seed/Upsert User
-    const { _id, ...updateData } = userData;
+    const updateData = userData;
     console.log("Seeding user:", userData.email)
     
     const user = await User.findOneAndUpdate(
@@ -262,10 +262,18 @@ export async function GET() {
     await TransferMeta.deleteMany({ userId: user._id })
 
     let seededCount = 0
+    let totalBalance = 0
 
     // 2. Seed Transactions
     console.log("Seeding transactions...")
     for (const data of transactionsData) {
+        // Calculate balance
+        if (data.type === 'credit') {
+            totalBalance += data.amount
+        } else {
+            totalBalance -= data.amount
+        }
+
         const date = getRandomDate(new Date(2013, 0, 1), new Date(2026, 0, 2))
         const txRef = generateTxRef()
         const otherPartyAccount = generateRandomAccount()
@@ -325,9 +333,15 @@ export async function GET() {
         seededCount++
     }
 
+    // 3. Update final user balance
+    console.log("Updating final user balance to:", totalBalance)
+    await User.findByIdAndUpdate(user._id, {
+        $set: { "bankBalance.USD": totalBalance }
+    })
+
     return NextResponse.json({ 
-        message: `Successfully seeded user and ${seededCount} transactions.`,
-        user: { email: user.email, id: user._id }
+        message: `Successfully seeded user and ${seededCount} transactions. Updated balance to ${totalBalance} USD.`,
+        user: { email: user.email, id: user._id, balance: totalBalance }
     })
 
   } catch (error) {

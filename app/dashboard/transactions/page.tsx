@@ -48,7 +48,7 @@ async function getTransactionsData(userId: string, page: number = 1, limit: numb
         $facet: {
           metadata: [{ $count: "total" }],
           data: [
-            { $sort: { createdAt: -1 } },
+            { $sort: { txDate: -1 } },
             { $skip: skip },
             { $limit: limit }
           ]
