@@ -1,5 +1,27 @@
+"use client"
+
 import { motion } from "framer-motion"
 import { cn } from "@/lib/utils"
+import {
+  Building,
+  CheckCircle,
+  DollarSign,
+  Globe,
+  Hash,
+  User,
+  ArrowLeft,
+  Download,
+  Info
+} from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent
+} from "@/components/ui/card"
 
 interface ReceiptPageProps {
   transfer: {
@@ -28,177 +50,191 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
       const { jsPDF } = await import("jspdf")
 
       const doc = new jsPDF({ unit: "mm", format: "a4", orientation: "portrait" })
-      const margin = 10
+      const margin = 20
       const pageWidth = 210
       const pageHeight = 297
       const usableWidth = pageWidth - margin * 2
-      const footerHeight = 35
-      let y = 18
+      let y = 20
 
       const colors = {
         primary: [0, 28, 16], // Dark Emerald
         secondary: [16, 185, 129], // Emerald
         success: [16, 185, 129],
-        text: [31, 41, 55],
-        textMuted: [107, 114, 128],
-        textLight: [156, 163, 175],
-        border: [229, 231, 235],
-      }
+        text: [15, 23, 42],
+        textMuted: [71, 85, 105],
+        textLight: [148, 163, 184],
+        border: [226, 232, 240],
+        accent: [248, 250, 252],
+      } as const
 
-      // HEADER
+      // === HEADER / LOGO ===
       doc.setFillColor(...colors.primary)
-      doc.rect(0, 0, pageWidth, 28, "F")
+      doc.rect(0, 0, pageWidth, 45, "F")
 
+      // Logo Text
       doc.setFont("helvetica", "bold")
-      doc.setFontSize(18)
+      doc.setFontSize(24)
       doc.setTextColor(255, 255, 255)
-      doc.text("Nova Financial", margin, 14)
+      doc.text("NOVA", margin, 25)
 
       doc.setFont("helvetica", "normal")
-      doc.setFontSize(10)
-      doc.setTextColor(220, 255, 220)
-      doc.text("High-Velocity Liquid Routing • Secure Protocol", margin, 22)
+      doc.setTextColor(16, 185, 129)
+      doc.text("CORE", margin + 28, 25)
 
-      // STATUS
-      doc.setFillColor(...colors.success)
-      doc.roundedRect(pageWidth - margin - 35, 9, 32, 10, 2, 2, "F")
+      doc.setFontSize(10)
+      doc.setTextColor(16, 185, 129)
       doc.setFont("helvetica", "bold")
+      doc.text("SECURE TRANSMISSION PROTOCOL", margin, 32)
+
+      // Receipt Type
       doc.setFontSize(9)
+      doc.setTextColor(148, 163, 184)
+      doc.setFont("helvetica", "normal")
+      doc.text("Official Ledger Entry", pageWidth - margin, 25, { align: "right" })
       doc.setTextColor(255, 255, 255)
-      doc.text(" AUTHORIZED", pageWidth - margin - 33, 16)
+      doc.setFontSize(14)
+      doc.setFont("helvetica", "bold")
+      doc.text("Payment Advice", pageWidth - margin, 32, { align: "right" })
 
       y = 60
 
-      // RECEIPT TITLE
-      doc.setFont("helvetica", "bold")
-      doc.setFontSize(14)
-      doc.setTextColor(...colors.text)
-      doc.text("Transmission Ledger", margin, y)
-      y += 8
+      // === STATUS BANNER ===
+      doc.setFillColor(...colors.accent)
+      doc.roundedRect(margin, y, usableWidth, 20, 2, 2, "F")
 
-      doc.setFont("helvetica", "normal")
       doc.setFontSize(9)
       doc.setTextColor(...colors.textMuted)
-      doc.text(`Ref: ${transfer.txRef}`, margin, y)
-      doc.text(
-        transfer.txDate ? new Date(transfer.txDate).toLocaleString() : "",
-        pageWidth - margin,
-        y,
-        { align: "right" }
-      )
+      doc.setFont("helvetica", "bold")
+      doc.text("TRANSMISSION STATUS:", margin + 8, y + 12)
+
+      doc.setTextColor(...colors.success)
+      doc.setFontSize(11)
+      doc.text("AUTHORIZED & VERIFIED", margin + 55, y + 12)
+
+      doc.setFontSize(9)
+      doc.setTextColor(...colors.textMuted)
+      doc.setFont("helvetica", "normal")
+      doc.text(`Ref: ${transfer.txRef}`, pageWidth - margin - 8, y + 12, { align: "right" })
+
+      y += 35
+
+      // === AMOUNT SECTION ===
+      doc.setFontSize(10)
+      doc.setTextColor(...colors.textMuted)
+      doc.text("Transmission Value", margin, y)
+      y += 8
+
+      doc.setFontSize(32)
+      doc.setTextColor(...colors.text)
+      doc.setFont("helvetica", "bold")
+      doc.text(formatCurrency(transfer.amount, transfer.currency), margin, y + 10)
+
+      doc.setFontSize(10)
+      doc.setTextColor(...colors.textMuted)
+      doc.setFont("helvetica", "normal")
+      doc.text(`Date & Time: ${new Date(transfer.txDate).toLocaleString()}`, pageWidth - margin, y + 8, { align: "right" })
+
+      y += 25
+
+      // === DETAILS TABLE ===
+      doc.setDrawColor(...colors.border)
+      doc.setLineWidth(0.2)
+      doc.line(margin, y, pageWidth - margin, y)
       y += 12
 
-      // AMOUNT BOX
-      doc.setFillColor(245, 255, 250)
-      doc.roundedRect(margin, y, usableWidth, 25, 3, 3, "F")
-      doc.setDrawColor(...colors.border)
-      doc.roundedRect(margin, y, usableWidth, 25, 3, 3, "S")
-
-      doc.setFont("helvetica", "normal")
-      doc.setFontSize(9)
-      doc.setTextColor(...colors.textMuted)
-      doc.text("Routed Value", margin + 5, y + 8)
-
-      doc.setFont("helvetica", "bold")
-      doc.setFontSize(16)
-      doc.setTextColor(...colors.success)
-      doc.text(formatCurrency(transfer.amount, transfer.currency), margin + 5, y + 18)
-
-      y += 30
-
-      // DETAILS
-      const addDetailRow = (label: string, value: string, yPos: number, isLast = false) => {
-        doc.setFont("helvetica", "normal")
+      const addRow = (label: string, value: string, currentY: number) => {
         doc.setFontSize(9)
         doc.setTextColor(...colors.textMuted)
-        doc.text(label, margin + 5, yPos)
+        doc.setFont("helvetica", "normal")
+        doc.text(label, margin, currentY)
 
-        doc.setFont("helvetica", "bold")
-        doc.setFontSize(9)
         doc.setTextColor(...colors.text)
-        doc.text(value, pageWidth - margin - 5, yPos, { align: "right" })
+        doc.setFont("helvetica", "bold")
+        doc.text(value, pageWidth - margin, currentY, { align: "right" })
 
-        if (!isLast) {
-          doc.setDrawColor(...colors.border)
-          doc.setLineWidth(0.3)
-          doc.line(margin + 5, yPos + 2, pageWidth - margin - 5, yPos + 2)
-        }
+        doc.setDrawColor(...colors.border)
+        doc.line(margin, currentY + 4, pageWidth - margin, currentY + 4)
+        return currentY + 12
       }
 
-      doc.setFont("helvetica", "bold")
       doc.setFontSize(12)
-      doc.text("System Parameters", margin, y)
-      y += 8
-
-      addDetailRow("Transmission Val:", formatCurrency(transfer.amount, transfer.currency), y)
-      y += 8
-      addDetailRow("Protocol Fee:", formatCurrency(transfer.txCharge, transfer.currency), y)
-      y += 8
-      addDetailRow(
-        "Net Egress:",
-        formatCurrency((transfer.amount || 0) + (transfer.txCharge || 0), transfer.currency),
-        y,
-        true
-      )
-      y += 14
-
-      // RECIPIENT
+      doc.setTextColor(...colors.primary)
       doc.setFont("helvetica", "bold")
+      doc.text("Originator & Gateway Info", margin, y)
+      y += 10
+
+      y = addRow("Source Details", "Nova Financial Ecosystem", y)
+      y = addRow("Transmission Ref", transfer.txRef, y)
+      y = addRow("Region Protocol", transfer.txRegion || "International", y)
+
+      y += 10
       doc.setFontSize(12)
-      doc.text("Target Node", margin, y)
-      y += 8
+      doc.setTextColor(...colors.primary)
+      doc.setFont("helvetica", "bold")
+      doc.text("Receiver  Details", margin, y)
+      y += 10
 
-      addDetailRow("Account Holder:", transfer.bankHolder || "N/A", y)
-      y += 8
-      addDetailRow("Gateway Identity:", transfer.bankName || "N/A", y)
-      y += 8
-      addDetailRow("Identity Marker:", transfer.bankAccount || "N/A", y)
-      y += 8
-      addDetailRow("Relay Type:", transfer.txRegion || "N/A", y, true)
-      y += 14
+      y = addRow("Account Holder", transfer.bankHolder || "N/A", y)
+      y = addRow("Target Institution", transfer.bankName || "N/A", y)
+      y = addRow("Identity Marker", transfer.bankAccount || "N/A", y)
 
-      // DESCRIPTION
+      y += 10
+      doc.setFontSize(12)
+      doc.setTextColor(...colors.primary)
+      doc.setFont("helvetica", "bold")
+      doc.text("Fiscal Parameters", margin, y)
+      y += 10
+
+      y = addRow("Subtotal Val", formatCurrency(transfer.amount, transfer.currency), y)
+      y = addRow("Protocol Fee", formatCurrency(transfer.txCharge || 0, transfer.currency), y)
+
+      doc.setFillColor(...colors.primary)
+      doc.roundedRect(margin, y - 2, usableWidth, 12, 1, 1, "F")
+      doc.setTextColor(255, 255, 255)
+      doc.setFontSize(10)
+      doc.text("TOTAL SYSTEM DEBIT", margin + 5, y + 6)
+      doc.text(formatCurrency((transfer.amount || 0) + (transfer.txCharge || 0), transfer.currency), pageWidth - margin - 5, y + 6, { align: "right" })
+
+      y += 25
+
+      // === MEMO ===
       if (transfer.txReason) {
+        doc.setFillColor(...colors.accent)
+        doc.roundedRect(margin, y, usableWidth, 20, 2, 2, "F")
+        doc.setTextColor(...colors.textMuted)
+        doc.setFontSize(8)
         doc.setFont("helvetica", "bold")
-        doc.setFontSize(12)
-        doc.text("Transmission Memo", margin, y)
-        y += 8
-        doc.setFont("helvetica", "normal")
+        doc.text("TRANSMISSION MEMO:", margin + 5, y + 7)
+        doc.setTextColor(...colors.text)
         doc.setFontSize(9)
-        const descLines = doc.splitTextToSize(transfer.txReason, usableWidth - 10)
-        doc.text(descLines, margin + 5, y)
-        y += descLines.length * 2 + 6
+        doc.setFont("helvetica", "italic")
+        doc.text(`"${transfer.txReason}"`, margin + 5, y + 14)
       }
 
       // === FOOTER ===
-      const footerY = pageHeight - footerHeight + 8
+      const footerY = pageHeight - 30
+      doc.setDrawColor(...colors.border)
+      doc.setLineWidth(0.5)
+      doc.line(margin, footerY, pageWidth - margin, footerY)
 
-      doc.setFont("helvetica", "bold")
-      doc.setFontSize(13)
+      doc.setFontSize(8)
       doc.setTextColor(...colors.textLight)
-      doc.text("Corporate Financial Systems • Authorized", pageWidth / 2, footerY, { align: "center" })
-
       doc.setFont("helvetica", "normal")
-      doc.setFontSize(11)
-      doc.text("Protocol: Nova V2 | Integrity Verified | Sector: Global", pageWidth / 2, footerY + 6, { align: "center" })
-      doc.text("www.nova-financial.io | Secure • Private • Rapid", pageWidth / 2, footerY + 12, { align: "center" })
+      doc.text("Nova Financial Core Transmission Protocol V2.4", pageWidth / 2, footerY + 8, { align: "center" })
+      doc.text("This document is an immutable record of a secure financial transmission. Issued by Nova Global Systems.", pageWidth / 2, footerY + 12, { align: "center" })
+      doc.text("Nova Financial © 2026 | Secure • Authorized • Verified", pageWidth / 2, footerY + 16, { align: "center" })
 
-      doc.setFontSize(10)
-      doc.text(`Authenticated on ${new Date().toLocaleString()}`, pageWidth / 2, footerY + 18, { align: "center" })
-
-      // WATERMARK
-      doc.setFontSize(30)
-      doc.setTextColor(240, 240, 240)
-      doc.text("AUTHORIZED TRANSMISSION", pageWidth / 2, pageHeight / 2, {
-        align: "center",
-        angle: 45,
-      })
+      // Watermark
+      doc.setTextColor(245, 245, 245)
+      doc.setFontSize(50)
+      doc.setFont("helvetica", "bold")
+      doc.text("VERIFIED", pageWidth / 2, pageHeight / 2 + 20, { align: "center", angle: 45 })
 
       const timestamp = new Date().toISOString().slice(0, 10)
-      doc.save(`Nova-Transmission-${transfer.txRef}-${timestamp}.pdf`)
+      doc.save(`Nova_Receipt_${transfer.txRef}_${timestamp}.pdf`)
     } catch (err) {
-      console.error("Transmission receipt generation failed:", err)
-      alert("Failed to compile receipt protocol.")
+      console.error("Receipt generation failed:", err)
+      alert("System failed to compile receipt protocol.")
     }
   }
 
@@ -271,7 +307,7 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
                       <div className="space-y-1">
                         <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest flex items-center gap-2">
                           <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                          Egress Value
+                          Debit Value
                         </p>
                         <p className="text-5xl font-black text-white tracking-tighter">
                           {formatCurrency(transfer.amount, transfer.currency)}
@@ -289,7 +325,7 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
                         </p>
                       </div>
                       <div className="space-y-1 text-right">
-                        <p className="text-[9px] font-black text-red-500/70 uppercase tracking-widest">Net System Egress</p>
+                        <p className="text-[9px] font-black text-red-500/70 uppercase tracking-widest">Net System Debit</p>
                         <p className="text-2xl font-black text-red-400">
                           {formatCurrency((transfer.amount || 0) + (transfer.txCharge || 0), transfer.currency)}
                         </p>
@@ -378,7 +414,5 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
         </div>
       </div>
     </div>
-  )
-}
   )
 }

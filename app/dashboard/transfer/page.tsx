@@ -253,7 +253,7 @@ export default function TransferPage() {
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
                   <div className="space-y-2">
                     <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">Transaction Profile</p>
-                    <CardTitle className="text-2xl md:text-3xl font-black text-white uppercase tracking-tight">Egress Specifications</CardTitle>
+                    <CardTitle className="text-2xl md:text-3xl font-black text-white uppercase tracking-tight">Debit Specifications</CardTitle>
                   </div>
                   <div className="flex bg-black/20 p-1.5 rounded-2xl border border-white/5 shadow-inner">
                     <button
@@ -294,7 +294,7 @@ export default function TransferPage() {
                   <div className="space-y-6">
                     <Label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] flex items-center gap-3">
                       <BookUser className="h-4 w-4 text-emerald-500" />
-                      Known Recipient Nodes
+                      Known Recipient Details
                     </Label>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div
@@ -308,7 +308,7 @@ export default function TransferPage() {
                           {!selectedBeneficiaryId && <CheckCircle2 className="h-4 w-4 text-[#001c10]" />}
                         </div>
                         <div>
-                          <p className="font-black text-white text-sm uppercase tracking-tight">Manual Injection</p>
+                          <p className="font-black text-white text-sm uppercase tracking-tight">Manual Credit</p>
                           <p className="text-[10px] font-bold text-slate-500 uppercase">Input new parameters</p>
                         </div>
                       </div>
@@ -519,7 +519,7 @@ export default function TransferPage() {
                         <Loader2 className="h-8 w-8 animate-spin" />
                       ) : (
                         <div className="flex items-center gap-3">
-                          Execute Protocol Injection
+                          Execute Protocol Transfer
                           <ArrowRight className="h-6 w-6 group-hover:translate-x-2 transition-transform" />
                         </div>
                       )}

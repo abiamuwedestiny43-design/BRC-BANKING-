@@ -287,7 +287,7 @@ export default function RegisterPage() {
           <div className="p-10 bg-emerald-500/5 border-t border-white/5 flex flex-wrap items-center justify-center gap-8">
             <div className="flex items-center gap-2">
               <Globe className="w-4 h-4 text-emerald-500/40" />
-              <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Cross-Region Nodes</span>
+              <span className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Cross-Region Details</span>
             </div>
             <div className="flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-emerald-500/40" />

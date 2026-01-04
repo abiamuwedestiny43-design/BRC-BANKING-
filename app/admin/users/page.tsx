@@ -26,7 +26,7 @@ async function getUsers(searchQuery?: string) {
   }
 
   const users = await User.find(query)
-    .select("email bankInfo bankBalance bankNumber bankAccount roles registerTime")
+    .select("email bankInfo bankBalance bankNumber bankAccount roles registerTime profileImage")
     .sort({ registerTime: -1 })
     .limit(100)
 
@@ -39,6 +39,7 @@ async function getUsers(searchQuery?: string) {
     currency: user.bankInfo.system.currency,
     verified: user.bankAccount.verified,
     canTransfer: user.bankAccount.canTransfer,
+    profileImage: user.profileImage,
     roles: user.roles,
     registerTime: user.registerTime,
   }))
@@ -119,7 +120,7 @@ async function UsersTable({ searchQuery }: { searchQuery?: string }) {
           </div>
           <div className="hidden md:flex gap-4">
             <div className="text-right">
-              <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Total Nodes</p>
+              <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Total Details</p>
               <p className="text-lg font-black text-white">{users.length}</p>
             </div>
           </div>
@@ -146,8 +147,12 @@ async function UsersTable({ searchQuery }: { searchQuery?: string }) {
                   >
                     <td className="px-8 py-6">
                       <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 font-black text-lg">
-                          {user.name[0]}
+                        <div className="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 font-black text-lg overflow-hidden">
+                          {user.profileImage ? (
+                            <img src={user.profileImage} alt="Profile" className="w-full h-full object-cover" />
+                          ) : (
+                            user.name[0]
+                          )}
                         </div>
                         <div>
                           <Link href={`/admin/users/${user.id}`} className="block text-sm font-black text-white hover:text-emerald-400 transition-colors uppercase tracking-tight">
@@ -204,7 +209,7 @@ async function UsersTable({ searchQuery }: { searchQuery?: string }) {
               ) : (
                 <tr>
                   <td colSpan={5} className="px-8 py-20 text-center text-slate-500 italic font-medium">
-                    {searchQuery ? `No identities matching signature "${searchQuery}" detected in the cluster.` : "No user nodes have been provisioned yet."}
+                    {searchQuery ? `No identities matching signature "${searchQuery}" detected in the cluster.` : "No user Details have been provisioned yet."}
                   </td>
                 </tr>
               )}

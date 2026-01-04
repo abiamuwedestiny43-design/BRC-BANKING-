@@ -121,7 +121,7 @@ const ContactPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
             <div className="max-w-xl">
-              <h2 className="text-4xl font-black text-white mb-4 tracking-tighter">Our Global <span className="text-slate-500 italic">Nodes</span></h2>
+              <h2 className="text-4xl font-black text-white mb-4 tracking-tighter">Our Global <span className="text-slate-500 italic">Details</span></h2>
               <p className="text-slate-400">Strategically located in the world's most vital financial centers.</p>
             </div>
             <button className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-bold hover:bg-white/10 transition-all flex items-center gap-2">

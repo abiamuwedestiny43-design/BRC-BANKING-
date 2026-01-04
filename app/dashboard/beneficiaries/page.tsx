@@ -97,7 +97,7 @@ export default function BeneficiariesPage() {
             <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter lowercase">
               Transfer <span className="text-slate-500 italic">Gateways</span>
             </h1>
-            <p className="text-slate-400 font-medium text-lg">Manage authorized recipient nodes for high-velocity liquid routing.</p>
+            <p className="text-slate-400 font-medium text-lg">Manage authorized recipient Details for high-velocity liquid routing.</p>
           </div>
         </motion.div>
 
@@ -208,7 +208,7 @@ export default function BeneficiariesPage() {
             <div className="flex items-center justify-between px-4 pb-2">
               <h2 className="text-2xl font-black text-white lowercase tracking-tighter">Active <span className="text-slate-500 italic">Inventory</span></h2>
               <div className="px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-widest">
-                {isLoading ? "Scanning..." : `${beneficiaries.length} Nodes Online`}
+                {isLoading ? "Scanning..." : `${beneficiaries.length} Details Online`}
               </div>
             </div>
 
@@ -217,7 +217,7 @@ export default function BeneficiariesPage() {
                 {beneficiaries.length === 0 ? (
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-12 text-center rounded-[2.5rem] border border-dashed border-white/10 bg-white/[0.02]">
                     <Users className="h-12 w-12 text-slate-800 mx-auto mb-4" />
-                    <p className="text-slate-600 font-bold uppercase tracking-widest text-xs">Registry Empty — No nodes detected.</p>
+                    <p className="text-slate-600 font-bold uppercase tracking-widest text-xs">Registry Empty — No Details detected.</p>
                   </motion.div>
                 ) : (
                   beneficiaries.map((b: any, index: number) => (

@@ -34,7 +34,7 @@ export default async function SecurityPage() {
               Auth Integrity
             </div>
             <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter lowercase">
-              Security <span className="text-slate-500 italic">Nodes</span>
+              Security <span className="text-slate-500 italic">Details</span>
             </h1>
             <p className="text-slate-400 font-medium text-lg">Monitor identity verification and system access logs.</p>
           </div>

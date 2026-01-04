@@ -248,7 +248,7 @@ export default function AdminSettingsPage() {
 
                   {/* Local */}
                   <div className="space-y-3 p-5 rounded-2xl bg-white/5 border border-white/5">
-                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest text-center">Local Nodes</p>
+                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest text-center">Local Details</p>
                     <div className="flex flex-col gap-2">
                       <Button
                         onClick={() => bulkSetUsersTransfer(true, "local")}
@@ -301,7 +301,7 @@ export default function AdminSettingsPage() {
               <ShieldCheck className="w-5 h-5 text-emerald-500" /> INDIVIDUAL OVERRIDE
             </h3>
             <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-6 leading-relaxed">
-              Target specific identity nodes for precise protocol modulation.
+              Target specific identity Details for precise protocol modulation.
             </p>
 
             <div className="space-y-6">

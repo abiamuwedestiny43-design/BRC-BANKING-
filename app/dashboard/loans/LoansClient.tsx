@@ -62,7 +62,7 @@ export default function LoansClient({ loans }: LoansClientProps) {
                 {/* Status Overview cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {[
-                        { label: "Active Nodes", val: activeLoans.length, icon: TrendingUp, color: "text-emerald-400", bg: "bg-emerald-500/10 border-emerald-500/20" },
+                        { label: "Active Details", val: activeLoans.length, icon: TrendingUp, color: "text-emerald-400", bg: "bg-emerald-500/10 border-emerald-500/20" },
                         { label: "Pending Auth", val: pendingLoans.length, icon: Clock, color: "text-yellow-400", bg: "bg-yellow-500/10 border-yellow-500/20" },
                         { label: "Archived Files", val: completedLoans.length, icon: CheckCircle2, color: "text-slate-400", bg: "bg-white/5 border-white/10" },
                     ].map((item, i) => (

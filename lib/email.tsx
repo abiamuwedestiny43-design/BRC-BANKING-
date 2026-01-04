@@ -43,56 +43,75 @@ export function generateTransferCode(): string {
   return Math.floor(1000 + Math.random() * 9000).toString()
 }
 
+const brandStyles = `
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+  body { font-family: 'Inter', Arial, sans-serif; line-height: 1.6; color: #cbd5e1; background-color: #001c10; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 600px; margin: 40px auto; background: #002a18; border-radius: 24px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
+  .header { padding: 40px; text-align: center; background: linear-gradient(to bottom, #003d24, #002a18); border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .logo { font-size: 24px; font-weight: 900; color: #ffffff; letter-spacing: -1px; text-transform: lowercase; font-style: italic; text-decoration: none; }
+  .logo span { color: #10b981; }
+  .content { padding: 40px; }
+  h1 { font-size: 28px; font-weight: 900; color: #ffffff; margin: 0 0 10px; letter-spacing: -1px; line-height: 1.2; }
+  p { margin: 0 0 20px; color: #94a3b8; font-size: 15px; }
+  .info-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 24px; margin: 24px 0; }
+  .info-label { color: #64748b; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .info-value { color: #ffffff; font-weight: 700; font-size: 14px; }
+  .button { display: inline-block; padding: 16px 32px; background: #10b981; color: #001c10 !important; text-decoration: none; border-radius: 12px; font-weight: 900; text-transform: uppercase; font-size: 13px; letter-spacing: 1px; }
+  .footer { padding: 30px 40px; text-align: center; color: #475569; font-size: 11px; border-top: 1px solid rgba(255,255,255,0.05); }
+  .otp-code { font-size: 40px; font-weight: 900; color: #10b981; letter-spacing: 10px; margin: 20px 0; font-family: monospace; text-align: center; background: rgba(16, 185, 129, 0.05); padding: 20px; border-radius: 12px; border: 1px dashed rgba(16, 185, 129, 0.3); }
+  .badge { display: inline-block; padding: 4px 12px; border-radius: 99px; font-size: 10px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .badge-success { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+  .badge-danger { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+  .amount { font-size: 32px; font-weight: 900; color: #ffffff; margin: 12px 0; }
+  .divider { height: 1px; background: rgba(255,255,255,0.05); margin: 20px 0; }
+`
+
 export const emailTemplates = {
   welcome: (name: string, accountNumber: string) => ({
-    subject: "Welcome to Corporate Bank - Account Created Successfully",
+    subject: "Welcome to NOVA - Identity Initialized",
     html: `
       <!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Welcome to Corporate Bank</title>
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: #1f2937; color: white; padding: 20px; text-align: center; }
-            .content { padding: 30px 20px; background: #f9fafb; }
-            .footer { background: #374151; color: white; padding: 20px; text-align: center; font-size: 14px; }
-            .button { display: inline-block; background: #3b82f6; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 20px 0; }
-            .account-info { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #3b82f6; }
-          </style>
+          <style>${brandStyles}</style>
         </head>
         <body>
           <div class="container">
             <div class="header">
-              <h1>Welcome to Corporate Bank</h1>
+              <div class="logo">nova<span>core</span></div>
             </div>
             <div class="content">
-              <h2>Hello ${name},</h2>
-              <p>Congratulations! Your Corporate Bank account has been created successfully.</p>
+              <div class="badge badge-success">Protocol Initialized</div>
+              <h1>Welcome to the Ecosystem</h1>
+              <p>Hello ${name}, your global banking identity has been established. You now have access to our secure liquidity network.</p>
               
-              <div class="account-info">
-                <h3>Your Account Details:</h3>
-                <p><strong>Account Number:</strong> ${accountNumber}</p>
-                <p><strong>Account Type:</strong> Savings Account</p>
-                <p><strong>Status:</strong> Pending Verification</p>
+              <div class="info-box">
+                <div class="info-label">Account Identification</div>
+                <div class="info-value" style="font-size: 24px; margin-top: 8px;">${accountNumber}</div>
+                <div class="divider"></div>
+                <div style="display: flex; justify-content: space-between;">
+                  <div>
+                    <div class="info-label">Status</div>
+                    <div class="info-value">Provisioned</div>
+                  </div>
+                  <div style="text-align: right;">
+                    <div class="info-label">Network</div>
+                    <div class="info-value">Mainnet v4.0</div>
+                  </div>
+                </div>
               </div>
               
-              <p>To complete your account setup and enable transfers, please:</p>
-              <ul>
-                <li>Log in to your account</li>
-                <li>Complete your profile information</li>
-                <li>Upload required documents for verification</li>
-              </ul>
+              <p>To finalize your node synchronization and enable global transfers, please complete your identity verification in the dashboard.</p>
               
-              <p>If you have any questions, our customer support team is here to help 24/7.</p>
-              
-              <p>Thank you for choosing Corporate Bank!</p>
+              <div style="text-align: center; margin: 40px 0;">
+                <a href="${process.env.NEXT_PUBLIC_APP_URL}/dashboard" class="button">Access Terminal</a>
+              </div>
             </div>
             <div class="footer">
-              <p>&copy; 2024 Corporate Bank. All rights reserved.</p>
-              <p>This is an automated message, please do not reply to this email.</p>
+              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
+              <p>Secure Transmission Protocol ID: ${Math.random().toString(36).substring(7).toUpperCase()}</p>
             </div>
           </div>
         </body>
@@ -101,56 +120,42 @@ export const emailTemplates = {
   }),
 
   transferOTP: (name: string, otp: string, amount: number, currency: string, recipient: string, bankName: string) => ({
-    subject: "Transfer OTP Code - Corporate Bank",
+    subject: "Critical: Transaction Authorization Required",
     html: `
       <!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Transfer OTP Code</title>
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: #1f2937; color: white; padding: 20px; text-align: center; }
-            .content { padding: 30px 20px; background: #f9fafb; }
-            .footer { background: #374151; color: white; padding: 20px; text-align: center; font-size: 14px; }
-            .otp-box { background: white; padding: 30px; text-align: center; border-radius: 8px; margin: 20px 0; border: 2px solid #3b82f6; }
-            .otp-code { font-size: 32px; font-weight: bold; color: #3b82f6; letter-spacing: 8px; margin: 20px 0; }
-            .transfer-details { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; }
-            .warning { background: #fef3c7; border: 1px solid #f59e0b; padding: 15px; border-radius: 6px; margin: 20px 0; }
-          </style>
+          <style>${brandStyles}</style>
         </head>
         <body>
           <div class="container">
             <div class="header">
-              <h1>Transfer OTP Code</h1>
+              <div class="logo">nova<span>core</span></div>
             </div>
             <div class="content">
-              <h2>Hello ${name},</h2>
-              <p>You have initiated a money transfer. Please use the OTP code below to complete your transaction:</p>
+              <div class="badge badge-danger">High Priority Authorization</div>
+              <h1>Authorize Transmission</h1>
+              <p>Verification protocol required for an outgoing liquidity transfer of ${amount.toLocaleString()} ${currency}.</p>
               
-              <div class="otp-box">
-                <p>Your OTP Code:</p>
-                <div class="otp-code">${otp}</div>
-                <p><small>This code will expire in 10 minutes</small></p>
+              <div class="otp-code">${otp}</div>
+              
+              <div class="info-box">
+                <div class="info-label">Target Recipient</div>
+                <div class="info-value">${recipient}</div>
+                <div class="divider"></div>
+                <div class="info-label">Destination Node</div>
+                <div class="info-value">${bankName}</div>
+                <div class="divider"></div>
+                <div class="info-label">Timestamp</div>
+                <div class="info-value">${new Date().toLocaleString()}</div>
               </div>
               
-              <div class="transfer-details">
-                <h3>Transfer Details:</h3>
-                <p><strong>Amount:</strong> ${amount.toLocaleString()} ${currency}</p>
-                <p><strong>Recipient:</strong> ${recipient}</p>
-                <p><strong>Bank:</strong> ${bankName}</p>
-                <p><strong>Time:</strong> ${new Date().toLocaleString()}</p>
-              </div>
-              
-              <div class="warning">
-                <p><strong>Security Notice:</strong> Never share this OTP with anyone. Corporate Bank will never ask for your OTP over phone or email.</p>
-              </div>
+              <p style="font-size: 12px; color: #64748b;">Security Notice: If you did not initiate this transmission, immediately disable your node and contact core security.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 Corporate Bank. All rights reserved.</p>
-              <p>This is an automated message, please do not reply to this email.</p>
+              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -168,53 +173,52 @@ export const emailTemplates = {
     balance: number,
     txRef: string,
   ) => ({
-    subject: `Transaction Alert - ${type === "credit" ? "Money Received" : "Money Sent"} - Corporate Bank`,
+    subject: `Network Alert: ${type === "credit" ? "Ingress" : "Egress"} Observed`,
     html: `
       <!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Transaction Alert</title>
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: ${type === "credit" ? "#059669" : "#dc2626"}; color: white; padding: 20px; text-align: center; }
-            .content { padding: 30px 20px; background: #f9fafb; }
-            .footer { background: #374151; color: white; padding: 20px; text-align: center; font-size: 14px; }
-            .transaction-box { background: white; padding: 25px; border-radius: 8px; margin: 20px 0; border-left: 4px solid ${type === "credit" ? "#059669" : "#dc2626"}; }
-            .amount { font-size: 24px; font-weight: bold; color: ${type === "credit" ? "#059669" : "#dc2626"}; }
-            .balance-info { background: #e5e7eb; padding: 15px; border-radius: 6px; margin: 15px 0; }
-          </style>
+          <style>${brandStyles}</style>
         </head>
         <body>
           <div class="container">
             <div class="header">
-              <h1>Transaction Alert</h1>
-              <p>${type === "credit" ? "Money Received" : "Money Sent"}</p>
+              <div class="logo">nova<span>core</span></div>
             </div>
             <div class="content">
-              <h2>Hello ${name},</h2>
-              <p>This is to notify you that an amount of <strong>${amount.toLocaleString()} ${currency}</strong> has been ${type === "credit" ? "credited to" : "debited from"} your account.</p>
+              <div class="badge ${type === "credit" ? "badge-success" : "badge-danger"}">
+                ${type === "credit" ? "Node Ingress" : "Node Egress"} Verified
+              </div>
+              <h1>Transaction ${type === "credit" ? "Received" : "Sent"}</h1>
+              <p>A fiscal state change has been recorded on your primary account.</p>
               
-              <div class="transaction-box">
-                <h3>Transaction Details:</h3>
-                <p><strong>Amount:</strong> <span class="amount">${type === "credit" ? "+" : "-"}${amount.toLocaleString()} ${currency}</span></p>
-                <p><strong>Account:</strong> ${accountNumber.slice(0, 3)}***${accountNumber.slice(-3)}</p>
-                <p><strong>Description:</strong> ${description || "No description"}</p>
-                <p><strong>Reference:</strong> ${txRef}</p>
-                <p><strong>Date & Time:</strong> ${new Date().toLocaleString()}</p>
-                
-                <div class="balance-info">
-                  <p><strong>Available Balance:</strong> ${balance.toLocaleString()} ${currency}</p>
-                </div>
+              <div class="amount" style="color: ${type === "credit" ? "#10b981" : "#ffffff"}">
+                ${type === "credit" ? "+" : "-"}${amount.toLocaleString()} ${currency}
               </div>
               
-              <p>If you did not authorize this transaction, please contact our customer support immediately.</p>
+              <div class="info-box">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                   <div>
+                      <div class="info-label">Reference ID</div>
+                      <div class="info-value">${txRef}</div>
+                   </div>
+                   <div style="text-align: right;">
+                      <div class="info-label">Identifier</div>
+                      <div class="info-value">...${accountNumber.slice(-4)}</div>
+                   </div>
+                </div>
+                <div class="divider"></div>
+                <div class="info-label">Description</div>
+                <div class="info-value">${description || "System initiated protocol"}</div>
+                <div class="divider"></div>
+                <div class="info-label">New Account Flux</div>
+                <div class="info-value" style="color: #ffffff;">${balance.toLocaleString()} ${currency}</div>
+              </div>
             </div>
             <div class="footer">
-              <p>&copy; 2024 Corporate Bank. All rights reserved.</p>
-              <p>This is an automated message, please do not reply to this email.</p>
+              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -223,54 +227,39 @@ export const emailTemplates = {
   }),
 
   accountVerification: (name: string, accountNumber: string) => ({
-    subject: "Account Verified Successfully - Corporate Bank",
+    subject: "Core Protocol: Identity Fully Verified",
     html: `
       <!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Account Verified</title>
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: #059669; color: white; padding: 20px; text-align: center; }
-            .content { padding: 30px 20px; background: #f9fafb; }
-            .footer { background: #374151; color: white; padding: 20px; text-align: center; font-size: 14px; }
-            .success-box { background: white; padding: 25px; text-align: center; border-radius: 8px; margin: 20px 0; border: 2px solid #059669; }
-            .checkmark { font-size: 48px; color: #059669; margin-bottom: 20px; }
-            .features { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; }
-          </style>
+          <style>${brandStyles}</style>
         </head>
         <body>
           <div class="container">
             <div class="header">
-              <h1>Account Verified!</h1>
+              <div class="logo">nova<span>core</span></div>
             </div>
             <div class="content">
-              <div class="success-box">
-                <div class="checkmark">✓</div>
-                <h2>Congratulations ${name}!</h2>
-                <p>Your Corporate Bank account has been successfully verified.</p>
-                <p><strong>Account Number:</strong> ${accountNumber}</p>
+              <div class="badge badge-success">Verification Complete</div>
+              <h1>Clearance Granted</h1>
+              <p>Hello ${name}, your identity parameters have been verified. Full network permissions are now active.</p>
+              
+              <div class="info-box">
+                <div class="info-label">Permission Level</div>
+                <div class="info-value">Unlimited / Level 2 Secure</div>
+                <div class="divider"></div>
+                <div class="info-label">Capabilities</div>
+                <div class="info-value">Global Transfers, Card Issuance, Credit Lines</div>
               </div>
               
-              <div class="features">
-                <h3>You can now enjoy full banking features:</h3>
-                <ul>
-                  <li>Send and receive money transfers</li>
-                  <li>Apply for debit and credit cards</li>
-                  <li>Access all banking services</li>
-                  <li>Higher transaction limits</li>
-                  <li>Priority customer support</li>
-                </ul>
+              <div style="text-align: center; margin: 40px 0;">
+                <a href="${process.env.NEXT_PUBLIC_APP_URL}/dashboard" class="button">Access Mainnet</a>
               </div>
-              
-              <p>Thank you for choosing Corporate Bank. We're excited to serve you!</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 Corporate Bank. All rights reserved.</p>
-              <p>This is an automated message, please do not reply to this email.</p>
+              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -279,51 +268,33 @@ export const emailTemplates = {
   }),
 
   passwordReset: (name: string, resetUrl: string) => ({
-    subject: "Password Reset Request - Corporate Bank",
+    subject: "Security: Recovery Protocol Initiated",
     html: `
       <!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Password Reset</title>
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-            .content { padding: 30px 20px; background: #f9fafb; }
-            .footer { background: #374151; color: white; padding: 20px; text-align: center; font-size: 14px; border-radius: 0 0 10px 10px; }
-            .button { display: inline-block; padding: 12px 30px; background: #3b82f6; color: white; text-decoration: none; border-radius: 6px; margin: 20px 0; }
-            .security-notice { background: #fef3c7; border: 1px solid #f59e0b; padding: 15px; border-radius: 6px; margin: 20px 0; }
-          </style>
+          <style>${brandStyles}</style>
         </head>
         <body>
           <div class="container">
             <div class="header">
-              <h1>Password Reset Request</h1>
+              <div class="logo">nova<span>core</span></div>
             </div>
             <div class="content">
-              <h2>Hello ${name},</h2>
-              <p>We received a request to reset your Corporate Bank account password.</p>
+              <div class="badge badge-danger">Security Recovery</div>
+              <h1>Reset Credentials</h1>
+              <p>A credential reset protocol was requested for your identity node.</p>
               
-              <p>Click the button below to reset your password. This link will expire in 1 hour.</p>
-              
-              <div style="text-align: center;">
-                <a href="${resetUrl}" class="button">Reset Password</a>
+              <div style="text-align: center; margin: 40px 0;">
+                <a href="${resetUrl}" class="button">Re-authenticate</a>
               </div>
               
-              <p>Or copy and paste this link into your browser:</p>
-              <p style="word-break: break-all; color: #3b82f6;">${resetUrl}</p>
-              
-              <div class="security-notice">
-                <p><strong>Security Notice:</strong> If you did not request a password reset, please ignore this email or contact support if you have concerns.</p>
-              </div>
-              
-              <p>This link will expire in 1 hour for security reasons.</p>
+              <p style="font-size: 12px; color: #64748b;">This link will expire in 60 minutes. If you did not request this, please ignore this transmission.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 Corporate Bank. All rights reserved.</p>
-              <p>This is an automated message, please do not reply to this email.</p>
+              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -332,41 +303,35 @@ export const emailTemplates = {
   }),
 
   profileUpdated: (name: string) => ({
-    subject: `Profile Updated - Corporate Bank`,
+    subject: "System Alert: Identity Node Updated",
     html: `
       <!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Profile Updated</title>
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-            .content { padding: 30px 20px; background: #f9fafb; }
-            .footer { background: #374151; color: white; padding: 20px; text-align: center; font-size: 14px; border-radius: 0 0 10px 10px; }
-            .security-notice { background: #fef3c7; border: 1px solid #f59e0b; padding: 15px; border-radius: 6px; margin: 20px 0; }
-          </style>
+          <style>${brandStyles}</style>
         </head>
         <body>
           <div class="container">
             <div class="header">
-              <h1>Profile Updated</h1>
+              <div class="logo">nova<span>core</span></div>
             </div>
             <div class="content">
-              <h2>Hello ${name},</h2>
-              <p>Your Corporate Bank profile information has been successfully updated.</p>
+              <div class="badge badge-success">Meta-data Update</div>
+              <h1>Node Synchronization</h1>
+              <p>Hello ${name}, your core identity parameters have been synchronized across all network clusters.</p>
               
-              <div class="security-notice">
-                <p><strong>Security Notice:</strong> If you did not make these changes, please contact our support team immediately.</p>
+              <div class="info-box">
+                <div class="info-label">Last Activity</div>
+                <div class="info-value">Profile Metadata Updated</div>
+                <div class="divider"></div>
+                <div class="info-label">Status</div>
+                <div class="info-value">Fully Synchronized</div>
               </div>
-              
-              <p>If you have any questions, our customer support team is here to help.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 Corporate Bank. All rights reserved.</p>
-              <p>This is an automated message, please do not reply to this email.</p>
+              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -375,47 +340,37 @@ export const emailTemplates = {
   }),
 
   passwordChanged: (name: string) => ({
-    subject: `Password Changed - Corporate Bank`,
+    subject: "Critical: Credential Change Confirmed",
     html: `
       <!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Password Changed</title>
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #059669, #10b981); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-            .content { padding: 30px 20px; background: #f9fafb; }
-            .footer { background: #374151; color: white; padding: 20px; text-align: center; font-size: 14px; border-radius: 0 0 10px 10px; }
-            .security-alert { background: #fef2f2; border: 1px solid #fecaca; padding: 15px; border-radius: 6px; margin: 20px 0; }
-          </style>
+          <style>${brandStyles}</style>
         </head>
         <body>
           <div class="container">
             <div class="header">
-              <h1>Password Changed</h1>
+              <div class="logo">nova<span>core</span></div>
             </div>
             <div class="content">
-              <h2>Hello ${name},</h2>
-              <p>Your Corporate Bank account password has been successfully changed.</p>
+              <div class="badge badge-danger">Security Synchronized</div>
+              <h1>Credentials Updated</h1>
+              <p>Your authentication key for NOVA CORE has been successfully changed.</p>
               
-              <div class="security-alert">
-                <h3>Important Security Information:</h3>
-                <ul>
-                  <li>If you did not make this change, contact support immediately</li>
-                  <li>Use a strong, unique password</li>
-                  <li>Never share your password with anyone</li>
-                  <li>Enable two-factor authentication for added security</li>
-                </ul>
+              <div class="info-box">
+                <div class="info-label">Change Status</div>
+                <div class="info-value">Authorization Success</div>
+                <div class="divider"></div>
+                <div class="info-label">Action Taken</div>
+                <div class="info-value">Main Password Rotated</div>
               </div>
               
-              <p>If you have any questions, please contact our support team.</p>
+              <p style="font-size: 12px; color: #64748b;">If you did not authorize this change, immediately terminate all active sessions and contact security.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 Corporate Bank. All rights reserved.</p>
-              <p>This is an automated message, please do not reply to this email.</p>
+              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -429,50 +384,40 @@ export const emailTemplates = {
     amount: number,
     currency: string
   ) => ({
-    subject: `Loan Application Received - Corporate Bank`,
+    subject: "Protocol Alert: Credit Application Received",
     html: `
       <!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Loan Application Received</title>
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-            .content { padding: 30px 20px; background: #f9fafb; }
-            .footer { background: #374151; color: white; padding: 20px; text-align: center; font-size: 14px; border-radius: 0 0 10px 10px; }
-            .loan-preview { background: white; padding: 25px; border-radius: 15px; margin: 20px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #667eea; }
-            .status-badge { display: inline-block; padding: 5px 15px; border-radius: 20px; font-weight: bold; background: #f59e0b; color: white; }
-          </style>
+          <style>${brandStyles}</style>
         </head>
         <body>
           <div class="container">
             <div class="header">
-              <h1>Loan Application Received</h1>
+              <div class="logo">nova<span>core</span></div>
             </div>
             <div class="content">
-              <h2>Hello ${name},</h2>
-              <p>Thank you for applying for an Corporate Bank ${loanType} loan.</p>
+              <div class="badge badge-success">Application Logged</div>
+              <h1>Liquidity Provisioning Request</h1>
+              <p>Hello ${name}, your application for a ${loanType} credit facility has been received and added to the processing queue.</p>
               
-              <div class="loan-preview">
-                <h3>Application Details:</h3>
-                <p><strong>Loan Type:</strong> ${loanType.charAt(0).toUpperCase() + loanType.slice(1)
-      } Loan</p>
-                <p><strong>Amount:</strong> ${amount.toLocaleString()} ${currency}</p>
-                <p><strong>Status:</strong> <span class="status-badge">Pending Approval</span></p>
-                <p><strong>Applied Date:</strong> ${new Date().toLocaleDateString()}</p>
+              <div class="info-box">
+                <div class="info-label">Facility Type</div>
+                <div class="info-value">${loanType.toUpperCase()} RESOURCE</div>
+                <div class="divider"></div>
+                <div class="info-label">Requested Flux</div>
+                <div class="info-value">${amount.toLocaleString()} ${currency}</div>
+                <div class="divider"></div>
+                <div class="info-label">Status</div>
+                <div class="info-value">Under Vetting</div>
               </div>
               
-              <p>Your application is currently under review. Our team will assess your application and you will receive another email once a decision has been made.</p>
-              <p>Typically, this process takes 3-5 business days.</p>
-              
-              <p>Thank you for choosing Corporate Bank!</p>
+              <p>The evaluation protocol typically completes within 72-96 hours. You will receive a synchronization alert once the decision is finalized.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 Corporate Bank. All rights reserved.</p>
-              <p>This is an automated message, please do not reply to this email.</p>
+              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -488,92 +433,45 @@ export const emailTemplates = {
     status: string,
     reason?: string
   ) => ({
-    subject: `Loan Application ${status.charAt(0).toUpperCase() + status.slice(1)
-      } - Corporate Bank`,
+    subject: `Protocol Update: Credit Facility ${status.toUpperCase()}`,
     html: `
       <!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Loan Status Update</title>
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { 
-              background: ${status === 'approved'
-        ? 'linear-gradient(135deg, #059669, #10b981)'
-        : status === 'rejected'
-          ? 'linear-gradient(135deg, #dc2626, #ef4444)'
-          : 'linear-gradient(135deg, #f59e0b, #fbbf24)'
-      }; 
-              color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; 
-            }
-            .content { padding: 30px 20px; background: #f9fafb; }
-            .footer { background: #374151; color: white; padding: 20px; text-align: center; font-size: 14px; border-radius: 0 0 10px 10px; }
-            .loan-details { background: white; padding: 25px; border-radius: 15px; margin: 20px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-            .status-badge { 
-              display: inline-block; padding: 8px 20px; border-radius: 20px; font-weight: bold; color: white;
-              background: ${status === 'approved'
-        ? '#059669'
-        : status === 'rejected'
-          ? '#dc2626'
-          : '#f59e0b'
-      };
-            }
-          </style>
+          <style>${brandStyles}</style>
         </head>
         <body>
           <div class="container">
             <div class="header">
-              <h1>Loan Application ${status === 'approved'
-        ? 'Approved'
-        : status === 'rejected'
-          ? 'Rejected'
-          : 'Updated'
-      }</h1>
+              <div class="logo">nova<span>core</span></div>
             </div>
             <div class="content">
-              <h2>Hello ${name},</h2>
-              <p>Your Corporate Bank ${loanType} loan application has been <strong>${status}</strong>.</p>
+              <div class="badge ${status === 'approved' ? 'badge-success' : 'badge-danger'}">
+                Decision Finalized: ${status.toUpperCase()}
+              </div>
+              <h1>Facility Synchronization</h1>
+              <p>Hello ${name}, the vetting protocol for your ${loanType} credit request has concluded.</p>
               
-              <div class="loan-details">
-                <h3>Loan Details:</h3>
-                <p><strong>Loan Type:</strong> ${loanType.charAt(0).toUpperCase() + loanType.slice(1)
-      } Loan</p>
-                <p><strong>Amount:</strong> ${amount.toLocaleString()} ${currency}</p>
-                <p><strong>Status:</strong> <span class="status-badge">${status.charAt(0).toUpperCase() + status.slice(1)
-      }</span></p>
+              <div class="info-box">
+                <div class="info-label">Resource ID</div>
+                <div class="info-value">${loanType.toUpperCase()} PROVISION</div>
+                <div class="divider"></div>
+                <div class="info-label">Amount</div>
+                <div class="info-value">${amount.toLocaleString()} ${currency}</div>
+                <div class="divider"></div>
                 ${status === 'approved'
-        ? `
-                  <p><strong>Next Steps:</strong> The loan amount will be disbursed to your account within 24-48 hours.</p>
-                `
-        : ''
-      }
-                ${status === 'rejected' && reason
-        ? `
-                  <p><strong>Reason:</strong> ${reason}</p>
-                `
-        : ''
-      }
+        ? `<div class="info-label">Next Phase</div><div class="info-value">Disbursement within 24h</div>`
+        : `<div class="info-label">Reason</div><div class="info-value">${reason || 'Criteria mismatch'}</div>`}
               </div>
               
               ${status === 'approved'
-        ? `
-                <p>You can view your loan details and repayment schedule in your Corporate Bank dashboard.</p>
-              `
-        : status === 'rejected'
-          ? `
-                <p>If you have any questions about this decision, please contact our customer support team.</p>
-              `
-          : ''
-      }
-              
-              <p>Thank you for choosing Corporate Bank!</p>
+        ? `<p>The liquidity will be injected into your primary node shortly. You can track repayment protocols in your dashboard.</p>`
+        : `<p>If you require clarification on this protocol decision, contact core support.</p>`}
             </div>
             <div class="footer">
-              <p>&copy; 2024 Corporate Bank. All rights reserved.</p>
-              <p>This is an automated message, please do not reply to this email.</p>
+              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -582,51 +480,40 @@ export const emailTemplates = {
   }),
 
   cardApplication: (name: string, cardType: string, vendor: string) => ({
-    subject: `Card Application Received - Corporate Bank`,
+    subject: "System Alert: Asset Retrieval Protocol Initiated",
     html: `
       <!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Card Application Received</title>
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
-            .content { padding: 30px 20px; background: #f9fafb; }
-            .footer { background: #374151; color: white; padding: 20px; text-align: center; font-size: 14px; border-radius: 0 0 10px 10px; }
-            .card-preview { background: white; padding: 25px; border-radius: 15px; margin: 20px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 4px solid #667eea; }
-            .status-badge { display: inline-block; padding: 5px 15px; border-radius: 20px; font-weight: bold; background: #f59e0b; color: white; }
-          </style>
+          <style>${brandStyles}</style>
         </head>
         <body>
           <div class="container">
             <div class="header">
-              <h1>Card Application Received</h1>
+              <div class="logo">nova<span>core</span></div>
             </div>
             <div class="content">
-              <h2>Hello ${name},</h2>
-              <p>Thank you for applying for an Corporate Bank ${vendor} ${cardType} card.</p>
+              <div class="badge badge-success">Asset Requested</div>
+              <h1>Hardware Interface Request</h1>
+              <p>Hello ${name}, your request for a ${vendor} ${cardType} physical interface has been logged.</p>
               
-              <div class="card-preview">
-                <h3>Application Details:</h3>
-                <p><strong>Card Type:</strong> ${cardType.charAt(0).toUpperCase() + cardType.slice(1)
-      } Card</p>
-                <p><strong>Vendor:</strong> ${vendor.charAt(0).toUpperCase() + vendor.slice(1)
-      }</p>
-                <p><strong>Status:</strong> <span class="status-badge">Pending Approval</span></p>
-                <p><strong>Applied Date:</strong> ${new Date().toLocaleDateString()}</p>
+              <div class="info-box">
+                <div class="info-label">Asset Type</div>
+                <div class="info-value">${cardType.toUpperCase()} INTERFACE</div>
+                <div class="divider"></div>
+                <div class="info-label">Network Provider</div>
+                <div class="info-value">${vendor.toUpperCase()}</div>
+                <div class="divider"></div>
+                <div class="info-label">Status</div>
+                <div class="info-value">Identity Vetting</div>
               </div>
               
-              <p>Your application is currently under review. You will receive another email once your application has been processed.</p>
-              <p>Typically, this process takes 2-3 business days.</p>
-              
-              <p>Thank you for choosing Corporate Bank!</p>
+              <p>Once approved, your physical asset will be dispatched via secure transport. Virtual credentials will be active immediately upon approval.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 Corporate Bank. All rights reserved.</p>
-              <p>This is an automated message, please do not reply to this email.</p>
+              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -641,105 +528,52 @@ export const emailTemplates = {
     status: string,
     cardNumber?: string
   ) => ({
-    subject: `Card Application ${status.charAt(0).toUpperCase() + status.slice(1)
-      } - Corporate Bank`,
+    subject: `System Alert: Asset Protocol ${status.toUpperCase()}`,
     html: `
       <!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Card Status Update</title>
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { 
-              background: ${status === 'active'
-        ? 'linear-gradient(135deg, #059669, #10b981)'
-        : status === 'rejected'
-          ? 'linear-gradient(135deg, #dc2626, #ef4444)'
-          : 'linear-gradient(135deg, #f59e0b, #fbbf24)'
-      }; 
-              color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; 
-            }
-            .content { padding: 30px 20px; background: #f9fafb; }
-            .footer { background: #374151; color: white; padding: 20px; text-align: center; font-size: 14px; border-radius: 0 0 10px 10px; }
-            .card-details { background: white; padding: 25px; border-radius: 15px; margin: 20px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-            .status-badge { 
-              display: inline-block; padding: 8px 20px; border-radius: 20px; font-weight: bold; color: white;
-              background: ${status === 'active'
-        ? '#059669'
-        : status === 'rejected'
-          ? '#dc2626'
-          : '#f59e0b'
-      };
-            }
-            .card-number { 
-              font-family: monospace; 
-              font-size: 18px; 
-              letter-spacing: 2px; 
-              background: #f3f4f6; 
-              padding: 15px; 
-              border-radius: 8px; 
-              text-align: center;
-              margin: 15px 0;
-            }
-          </style>
+          <style>${brandStyles}</style>
         </head>
         <body>
           <div class="container">
             <div class="header">
-              <h1>Card Application ${status === 'active'
-        ? 'Approved'
-        : status === 'rejected'
-          ? 'Rejected'
-          : 'Updated'
-      }</h1>
+              <div class="logo">nova<span>core</span></div>
             </div>
             <div class="content">
-              <h2>Hello ${name},</h2>
-              <p>Your Corporate Bank ${vendor} ${cardType} card application has been <strong>${status}</strong>.</p>
+              <div class="badge ${status === 'active' ? 'badge-success' : 'badge-danger'}">
+                Protocol State: ${status.toUpperCase()}
+              </div>
+              <h1>Asset Activation</h1>
+              <p>Hello ${name}, the status of your ${vendor} ${cardType} interface has been updated.</p>
               
-              <div class="card-details">
-                <h3>Card Details:</h3>
-                <p><strong>Card Type:</strong> ${cardType.charAt(0).toUpperCase() + cardType.slice(1)
-      } Card</p>
-                <p><strong>Vendor:</strong> ${vendor.charAt(0).toUpperCase() + vendor.slice(1)
-      }</p>
-                <p><strong>Status:</strong> <span class="status-badge">${status.charAt(0).toUpperCase() + status.slice(1)
-      }</span></p>
+              <div class="info-box">
+                <div class="info-label">Asset Specification</div>
+                <div class="info-value">${cardType.toUpperCase()} - ${vendor.toUpperCase()}</div>
+                <div class="divider"></div>
                 ${status === 'active' && cardNumber
         ? `
-                  <p><strong>Card Number:</strong></p>
-                  <div class="card-number">${cardNumber.replace(
-          /(.{4})/g,
-          '$1 '
-        )}</div>
-                  <p><small><strong>Important:</strong> Your physical card will arrive within 7-10 business days.</small></p>
-                `
-        : ''
-      }
-                ${status === 'rejected'
-        ? `
-                  <p>Unfortunately, your card application has been rejected. This could be due to various reasons including verification issues or eligibility criteria.</p>
-                  <p>Please contact our customer support for more information.</p>
-                `
-        : ''
+                    <div class="info-label">Virtual Credentials</div>
+                    <div class="info-value" style="letter-spacing: 2px; font-family: monospace;">${cardNumber.replace(/(.{4})/g, '$1 ')}</div>
+                    <div class="divider"></div>
+                    <div class="info-label">Physical Logistics</div>
+                    <div class="info-value">Dispatching via Secure Node</div>
+                    `
+        : `
+                    <div class="info-label">Final Decision</div>
+                    <div class="info-value">Provisioning Terminated</div>
+                    `
       }
               </div>
               
               ${status === 'active'
-        ? `
-                <p>You can now use your virtual card for online transactions. Your physical card is being prepared for delivery.</p>
-              `
-        : ''
-      }
-              
-              <p>Thank you for choosing Corporate Bank!</p>
+        ? `<p>Virtual liquidity is now active for this asset. Secure transport for the physical interface will arrive within 7-10 cycles.</p>`
+        : `<p>Identity or credit vetting parameters were not met for this specific asset request.</p>`}
             </div>
             <div class="footer">
-              <p>&copy; 2024 Corporate Bank. All rights reserved.</p>
-              <p>This is an automated message, please do not reply to this email.</p>
+              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -748,49 +582,39 @@ export const emailTemplates = {
   }),
 
   accountVerifiedByAdmin: (name: string, adminEmail: string, notes?: string) => ({
-    subject: "Account Verified by Admin - Corporate Bank",
+    subject: "Core Permission: Manual Override Verified",
     html: `
       <!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Account Verified</title>
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: #059669; color: white; padding: 20px; text-align: center; }
-            .content { padding: 30px 20px; background: #f9fafb; }
-            .footer { background: #374151; color: white; padding: 20px; text-align: center; font-size: 14px; }
-            .success-box { background: white; padding: 25px; text-align: center; border-radius: 8px; margin: 20px 0; border: 2px solid #059669; }
-            .notes { background: #f3f4f6; padding: 15px; border-radius: 6px; margin: 20px 0; border-left: 4px solid #3b82f6; }
-          </style>
+          <style>${brandStyles}</style>
         </head>
         <body>
           <div class="container">
             <div class="header">
-              <h1>Account Verified</h1>
+              <div class="logo">nova<span>core</span></div>
             </div>
             <div class="content">
-              <div class="success-box">
-                <h2>Hello ${name},</h2>
-                <p>Your Corporate Bank account has been manually verified by our administration team.</p>
+              <div class="badge badge-success">Manual Clearance</div>
+              <h1>Identity Absolute</h1>
+              <p>Hello ${name}, your identity node has been manually verified by a senior administrator.</p>
+              
+              <div class="info-box">
+                <div class="info-label">Authorized By</div>
+                <div class="info-value">${adminEmail}</div>
+                ${notes ? `
+                  <div class="divider"></div>
+                  <div class="info-label">Admin Annotations</div>
+                  <div class="info-value">${notes}</div>
+                ` : ''}
               </div>
               
-              ${notes ? `
-                <div class="notes">
-                  <h3>Admin Notes:</h3>
-                  <p>${notes}</p>
-                </div>
-              ` : ''}
-              
-              <p>You now have full access to all banking features.</p>
-              <p>Verified by: ${adminEmail}</p>
-              
-              <p>Thank you for choosing Corporate Bank!</p>
+              <p>Total network access is now synchronized. All restrictions have been purged.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 Corporate Bank. All rights reserved.</p>
+              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -799,43 +623,37 @@ export const emailTemplates = {
   }),
 
   roleApproved: (name: string, role: string, adminEmail: string) => ({
-    subject: "Role Request Approved - Corporate Bank",
+    subject: "Permission Alert: Elevated Privileges Granted",
     html: `
       <!DOCTYPE html>
       <html>
         <head>
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
-          <title>Role Approved</title>
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: #3b82f6; color: white; padding: 20px; text-align: center; }
-            .content { padding: 30px 20px; background: #f9fafb; }
-            .footer { background: #374151; color: white; padding: 20px; text-align: center; font-size: 14px; }
-            .role-box { background: white; padding: 25px; text-align: center; border-radius: 8px; margin: 20px 0; border: 2px solid #3b82f6; }
-            .role-name { font-size: 24px; font-weight: bold; color: #3b82f6; margin: 10px 0; }
-          </style>
+          <style>${brandStyles}</style>
         </head>
         <body>
           <div class="container">
             <div class="header">
-              <h1>Role Request Approved</h1>
+              <div class="logo">nova<span>core</span></div>
             </div>
             <div class="content">
-              <div class="role-box">
-                <h2>Hello ${name},</h2>
-                <p>Your request for the following role has been approved:</p>
-                <div class="role-name">${role.toUpperCase()}</div>
+              <div class="badge badge-success">Elevated Access</div>
+              <h1>System Permissions Updated</h1>
+              <p>Hello ${name}, your request for elevated network privileges has been authorized.</p>
+              
+              <div class="info-box">
+                <div class="info-label">Assigned Role</div>
+                <div class="info-value" style="color: #10b981;">NETWORK ${role.toUpperCase()}</div>
+                <div class="divider"></div>
+                <div class="info-label">Authorizing Entity</div>
+                <div class="info-value">${adminEmail}</div>
               </div>
               
-              <p>You now have the permissions associated with this role.</p>
-              <p>Approved by: ${adminEmail}</p>
-              
-              <p>Thank you for being part of Corporate Bank!</p>
+              <p>New terminal capabilities should be visible upon your next synchronization session.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 Corporate Bank. All rights reserved.</p>
+              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>

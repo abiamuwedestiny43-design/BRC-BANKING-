@@ -176,14 +176,14 @@ export default async function AdminDashboard() {
           <Card className="bg-white/[0.03] border-white/5 rounded-[3rem] p-10 h-[300px] relative overflow-hidden group">
             <div className="relative z-10">
               <h3 className="text-2xl font-black text-white mb-2 italic">Global Liquidity Heatmap</h3>
-              <p className="text-slate-500 text-sm font-medium">Monitoring real-time assets across 12 infrastructure nodes.</p>
+              <p className="text-slate-500 text-sm font-medium">Monitoring real-time assets across 12 infrastructure Details.</p>
             </div>
             <div className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity">
               <Globe className="w-[500px] h-[500px] absolute -right-24 -bottom-24 text-emerald-500/20" />
             </div>
             <div className="absolute bottom-10 left-10 flex gap-6 z-10">
               <div className="text-center">
-                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Active nodes</p>
+                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Active Details</p>
                 <p className="text-2xl font-black text-emerald-400">12/12</p>
               </div>
               <div className="text-center">

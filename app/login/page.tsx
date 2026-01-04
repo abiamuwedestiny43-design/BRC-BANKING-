@@ -265,7 +265,7 @@ export default function LoginPage() {
             </Button>
 
             <p className="text-[9px] font-black text-slate-600 uppercase tracking-[0.3em] text-center">
-              Target Node: <span className="text-emerald-500/50">{authUser?.email?.toUpperCase()}</span>
+              User Email: <span className="text-emerald-500/50">{authUser?.email?.toUpperCase()}</span>
             </p>
           </form>
         </DialogContent>

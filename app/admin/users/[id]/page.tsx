@@ -39,6 +39,7 @@ async function getUserDetails(id: string) {
     balance: user.bankBalance.get(user.bankInfo.system.currency) || 0,
     verified: user.bankAccount.verified,
     canTransfer: user.bankAccount.canTransfer,
+    profileImage: user.profileImage,
     roles: user.roles,
     registerTime: user.registerTime,
     transfers: transfers.map((t) => ({
@@ -107,8 +108,12 @@ async function UserDetailsContent({ userId }: { userId: string }) {
           <CardHeader className="p-10 border-b border-white/5 bg-white/[0.01]">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div className="flex items-center gap-6">
-                <div className="w-20 h-20 rounded-[2rem] bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-4xl font-black">
-                  {user.name[0]}
+                <div className="w-20 h-20 rounded-[2rem] bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400 text-4xl font-black overflow-hidden">
+                  {user.profileImage ? (
+                    <img src={user.profileImage} alt="Profile" className="w-full h-full object-cover" />
+                  ) : (
+                    user.name[0]
+                  )}
                 </div>
                 <div>
                   <h2 className="text-3xl font-black text-white uppercase tracking-tight">{user.name}</h2>
@@ -259,7 +264,7 @@ async function UserDetailsContent({ userId }: { userId: string }) {
         <Card className="bg-white/[0.03] border-white/5 rounded-[2.5rem] p-8 space-y-4 relative">
           <h3 className="text-sm font-black text-white italic tracking-tight">Security Advisory</h3>
           <p className="text-xs text-slate-500 leading-relaxed italic border-l-2 border-emerald-500/30 pl-4">
-            "Subject remains within expected behavior parameters. All logins originated from verified geopolitical nodes."
+            "Subject remains within expected behavior parameters. All logins originated from verified geopolitical Details."
           </p>
         </Card>
       </div>

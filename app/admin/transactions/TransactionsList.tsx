@@ -138,7 +138,7 @@ export default function TransactionsList({
                   <SelectValue placeholder="All Origins" />
                 </SelectTrigger>
                 <SelectContent className="bg-[#001c10] border-emerald-500/20 text-white backdrop-blur-xl">
-                  <SelectItem value="all">All Global Nodes</SelectItem>
+                  <SelectItem value="all">All Global Details</SelectItem>
                   {users.map(user => (
                     <SelectItem key={user.id} value={user.id} className="focus:bg-emerald-500 focus:text-black">
                       {user.name}
@@ -172,8 +172,8 @@ export default function TransactionsList({
               </SelectTrigger>
               <SelectContent className="bg-[#001c10] border-emerald-500/20 text-white backdrop-blur-xl">
                 <SelectItem value="all">All Migrations</SelectItem>
-                <SelectItem value="debit">Extraction</SelectItem>
-                <SelectItem value="credit">Injection</SelectItem>
+                <SelectItem value="debit">Debit</SelectItem>
+                <SelectItem value="credit">Credit</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -230,8 +230,8 @@ export default function TransactionsList({
                     <div className="flex items-center gap-6">
                       {/* Icon Cluster */}
                       <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 border ${transaction.txType === "credit"
-                          ? "bg-emerald-500/5 border-emerald-500/10 text-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.05)]"
-                          : "bg-red-500/5 border-red-500/10 text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.05)]"
+                        ? "bg-emerald-500/5 border-emerald-500/10 text-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.05)]"
+                        : "bg-red-500/5 border-red-500/10 text-red-500 shadow-[0_0_15px_rgba(239,68,68,0.05)]"
                         }`}>
                         {transaction.txType === "credit" ? (
                           <ArrowDownLeft className="h-6 w-6 group-hover:scale-110 transition-transform" />
@@ -244,7 +244,7 @@ export default function TransactionsList({
                       <div className="space-y-1">
                         <div className="flex items-center gap-3">
                           <p className="font-black text-white uppercase tracking-tight text-lg">
-                            {transaction.txType === "credit" ? "Injection" : "Extraction"}
+                            {transaction.txType === "credit" ? "Credit" : "Debit"}
                           </p>
                           {getStatusBadge(transaction.status)}
                         </div>
@@ -324,8 +324,8 @@ export default function TransactionsList({
                       size="sm"
                       onClick={() => handlePageChange(pageNum)}
                       className={`w-10 h-10 rounded-xl font-black text-[10px] transition-all ${currentPage === pageNum
-                          ? "bg-emerald-500 text-[#001c10] shadow-lg shadow-emerald-500/20"
-                          : "bg-white/5 border border-white/5 text-slate-500 hover:text-white"
+                        ? "bg-emerald-500 text-[#001c10] shadow-lg shadow-emerald-500/20"
+                        : "bg-white/5 border border-white/5 text-slate-500 hover:text-white"
                         }`}
                     >
                       {pageNum}

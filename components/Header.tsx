@@ -102,8 +102,12 @@ const Header = () => {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button className="flex items-center gap-3 p-1 pr-4 rounded-2xl bg-white/5 border border-white/10 hover:bg-white/10 transition-all">
-                    <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-400 to-green-600 flex items-center justify-center font-black text-[#001c10]">
-                      {currentUser?.bankInfo?.bio?.firstname?.[0] || 'U'}
+                    <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-400 to-green-600 flex items-center justify-center font-black text-[#001c10] overflow-hidden">
+                      {currentUser?.profileImage ? (
+                        <img src={currentUser.profileImage} alt="Profile" className="w-full h-full object-cover" />
+                      ) : (
+                        currentUser?.bankInfo?.bio?.firstname?.[0] || 'U'
+                      )}
                     </div>
                     <span className="text-sm font-black text-white">{currentUser?.bankInfo?.bio?.firstname || 'Account'}</span>
                     <ChevronDown className="w-4 h-4 text-emerald-400" />

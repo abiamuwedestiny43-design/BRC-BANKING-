@@ -1,75 +1,227 @@
+"use client"
+
+import { motion } from "framer-motion"
+import { Building2, Users, Zap, BarChart3, Globe, Briefcase, ArrowRight, ShieldCheck, PieChart } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+
 export default function BusinessBankingPage() {
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+    transition: { duration: 0.6 }
+  }
+
+  const features = [
+    {
+      title: "Enterprise Accounts",
+      description: "Operate with multi-user permissions, granular role controls, and global treasury management.",
+      icon: Building2,
+      image: "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80",
+      color: "text-emerald-500",
+      bg: "bg-emerald-500/10"
+    },
+    {
+      title: "Commercial Flux",
+      description: "Fixed-term financing and revolving credit lines designed for rapid scaling and inventory cycles.",
+      icon: Zap,
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
+      color: "text-blue-500",
+      bg: "bg-blue-500/10"
+    }
+  ]
+
+  const metrics = [
+    { title: "Team Management", desc: "Define roles for founders, finance teams, and auditors with ease.", icon: Users },
+    { title: "Global Mesh", desc: "Execute cross-border vendor payments with local currency settlement.", icon: Globe },
+    { title: "Flow Analytics", desc: "Deep cash flow visibility with automated reporting and categorization.", icon: BarChart3 }
+  ]
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <section
-        className="relative h-[400px] md:h-[580px] w-full mb-8 flex items-center justify-center text-center overflow-hidden"
-        style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1920&q=80')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat"
-        }}
-      >
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="relative z-10 px-6 animate-fade-in-up">
-          <h1 className="text-4xl md:text-6xl font-bold text-white text-balance">
-            Business Banking
-          </h1>
-          <p className="mt-3 max-w-3xl font-semibold text-xl md:text-2xl mx-auto text-white/90 leading-relaxed animation-delay-200 animate-fade-in-up">
-            Operate, pay, and scale with confidence—roles, controls, and cash flow insights included.
-          </p>
+    <div className="min-h-screen bg-[#001c10] text-slate-200 selection:bg-emerald-500/30">
+      {/* Hero Section */}
+      <section className="relative h-[80vh] flex items-center justify-center overflow-hidden pt-20">
+        <div
+          className="absolute inset-0 bg-fixed bg-cover bg-center"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1920&q=80')" }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-[#001c10]/80 via-[#001c10]/60 to-[#001c10]" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center space-y-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-4"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-[0.3em] mb-4">
+              <Zap className="w-3 h-3" /> Enterprise Infrastructure
+            </div>
+            <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter lowercase">
+              business <span className="text-emerald-500 italic">banking</span>
+            </h1>
+            <p className="max-w-2xl mx-auto text-xl md:text-2xl text-slate-400 font-medium">
+              Scale with confidence. Nova provides the liquidity, controls, and insights your venture demands.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 1 }}
+            className="flex flex-wrap justify-center gap-4 pt-8"
+          >
+            <Button size="lg" className="bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black px-10 h-16 rounded-2xl shadow-xl shadow-emerald-500/20 text-lg uppercase tracking-tight" asChild>
+              <Link href="/register">Launch Business Node</Link>
+            </Button>
+            <Button size="lg" variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10 text-white font-black px-10 h-16 rounded-2xl backdrop-blur-md text-lg uppercase tracking-tight" asChild>
+              <Link href="/about">Platform Overview</Link>
+            </Button>
+          </motion.div>
+        </div>
+
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30">
+          <div className="w-[1px] h-12 bg-gradient-to-b from-transparent to-emerald-500" />
+          <p className="text-[10px] font-black uppercase tracking-widest text-emerald-500">Scroll Down</p>
         </div>
       </section>
 
-      <section className="py-16 max-w-5xl mx-auto px-6">
-        <div className="grid md:grid-cols-2 gap-6 mb-10">
-          <div className="p-6 bg-white rounded-lg shadow animate-slide-up">
-            <img
-              src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&q=80"
-              alt="Business accounts and cash management"
-              className="w-full h-44 object-cover rounded-md mb-4"
-            />
-            <h3 className="text-xl font-semibold mb-2">Business Accounts</h3>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Manage operating and reserve accounts with granular roles for founders, finance, and accountants. Automate
-              approvals and vendor payments, and get richer context for every transaction.
-            </p>
-          </div>
-          <div className="p-6 bg-white rounded-lg shadow animate-slide-up animation-delay-200">
-            <img
-              src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80"
-              alt="Commercial loans and lines of credit"
-              className="w-full h-44 object-cover rounded-md mb-4"
-            />
-            <h3 className="text-xl font-semibold mb-2">Commercial Loans</h3>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Access revolving credit or fixed-term financing with predictable terms. We help you fund inventory, expand
-              teams, or bridge receivables without compromising cash flow.
-            </p>
+      {/* Narrative Section */}
+      <section className="py-32 relative">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-12 gap-20 items-center">
+            <motion.div {...fadeInUp} className="lg:col-span-12 text-center mb-20">
+              <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-8">
+                The Operating System for <span className="text-emerald-500">Corporate Finance</span>
+              </h2>
+              <p className="text-xl text-slate-400 max-w-4xl mx-auto font-medium leading-relaxed">
+                Modern ventures require more than just an account. You need a platform that understands cash flow cycles,
+                manages team spending, and provides the capital required for expansion.
+              </p>
+            </motion.div>
+
+            <motion.div {...fadeInUp} className="lg:col-span-5 relative">
+              <div className="p-10 rounded-[3rem] bg-white/[0.03] border border-white/10 backdrop-blur-md space-y-8 shadow-3xl">
+                <div className="h-16 w-16 rounded-2xl bg-emerald-500/20 flex items-center justify-center text-emerald-500 border border-emerald-500/30">
+                  <PieChart className="w-8 h-8" />
+                </div>
+                <h3 className="text-3xl font-black text-white tracking-tighter lowercase">Liquidity Management</h3>
+                <p className="text-slate-400 font-medium">Manage operating and reserve accounts with granular roles. Automate approvals and vendor payments, and get richer context for every transaction.</p>
+                <div className="pt-6 border-t border-white/5 grid grid-cols-2 gap-6">
+                  <div>
+                    <p className="text-2xl font-black text-white">256-bit</p>
+                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Encyption Standard</p>
+                  </div>
+                  <div>
+                    <p className="text-2xl font-black text-emerald-500">99.9%</p>
+                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">System Uptime</p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div {...fadeInUp} className="lg:col-span-7">
+              <div className="relative aspect-video rounded-[3rem] overflow-hidden border border-white/10 group shadow-3xl">
+                <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1200&q=80" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Business Growth" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#001c10] to-transparent opacity-60" />
+                <div className="absolute bottom-10 left-10">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500 text-[#001c10] text-[9px] font-black uppercase tracking-widest">Verified Infrastructure</div>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
+      </section>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="p-6 bg-white rounded-lg shadow animate-zoom-in">
-            <h4 className="font-semibold mb-2">Multi-user Access</h4>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Set roles, limits, and approvals. Your accountant can reconcile while managers handle day-to-day spend.
-            </p>
+      {/* Product Grid */}
+      <section className="py-24 bg-black/20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-10">
+            {features.map((feature, i) => (
+              <motion.div
+                key={i}
+                {...fadeInUp}
+                transition={{ delay: i * 0.2 }}
+                className="group relative h-[600px] rounded-[3rem] overflow-hidden border border-white/5 shadow-2xl"
+              >
+                <img
+                  src={feature.image}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  alt={feature.title}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                <div className="absolute bottom-0 p-12 space-y-6">
+                  <div className={cn("h-14 w-14 rounded-2xl flex items-center justify-center border border-white/10 backdrop-blur-md shadow-2xl transition-transform group-hover:scale-110", feature.bg, feature.color)}>
+                    <feature.icon className="w-7 h-7" />
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="text-3xl font-black text-white tracking-tighter">{feature.title}</h3>
+                    <p className="text-slate-400 font-medium leading-relaxed max-w-sm">{feature.description}</p>
+                  </div>
+                  <Button variant="ghost" className="text-emerald-500 font-black p-0 h-auto hover:bg-transparent group-hover:translate-x-2 transition-transform">
+                    Deploy Solution <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                </div>
+              </motion.div>
+            ))}
           </div>
-          <div className="p-6 bg-white rounded-lg shadow animate-zoom-in animation-delay-100">
-            <h4 className="font-semibold mb-2">Integrated Payments</h4>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Streamline vendor payouts and payroll with templates, scheduled transfers, and clear audit trails.
-            </p>
+        </div>
+      </section>
+
+      {/* Corporate Features */}
+      <section className="py-32 relative">
+        <div className="max-w-7xl mx-auto px-6 text-center space-y-16">
+          <div className="space-y-4">
+            <h2 className="text-4xl font-black text-white tracking-tighter lowercase">Platform <span className="text-slate-500 italic">Capabilities</span></h2>
+            <div className="w-20 h-1 bg-emerald-500 mx-auto rounded-full" />
           </div>
-          <div className="p-6 bg-white rounded-lg shadow animate-zoom-in animation-delay-200">
-            <h4 className="font-semibold mb-2">Insights & Controls</h4>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Cash flow views, category budgets, and alerts help you anticipate needs and prevent surprises.
-            </p>
+          <div className="grid md:grid-cols-3 gap-8">
+            {metrics.map((m, i) => (
+              <motion.div
+                key={i}
+                {...fadeInUp}
+                transition={{ delay: i * 0.1 }}
+                className="p-10 rounded-[2.5rem] bg-white/[0.03] border border-white/5 hover:bg-white/[0.05] transition-all group text-left"
+              >
+                <div className="h-12 w-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-8 border border-emerald-500/20 group-hover:scale-110 transition-transform shadow-lg shadow-emerald-500/10">
+                  <m.icon className="w-6 h-6" />
+                </div>
+                <h4 className="text-xl font-black text-white lowercase tracking-tighter mb-2">{m.title}</h4>
+                <p className="text-sm text-slate-500 font-medium leading-relaxed">{m.desc}</p>
+              </motion.div>
+            ))}
           </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-32 relative overflow-hidden bg-gradient-to-b from-transparent to-[#00130b]">
+        <div className="max-w-5xl mx-auto px-6 relative z-10 text-center space-y-12">
+          <motion.div {...fadeInUp} className="space-y-4">
+            <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter">
+              Ready to <span className="text-emerald-500">Accelerate?</span>
+            </h2>
+            <p className="text-xl text-slate-400 font-medium max-w-2xl mx-auto">
+              Onboard your venture to the Nova ecosystem and experience the future of commercial banking.
+            </p>
+          </motion.div>
+
+          <motion.div {...fadeInUp} transition={{ delay: 0.2 }} className="flex justify-center flex-wrap gap-6">
+            <Button size="lg" className="bg-emerald-500 text-[#001c10] hover:bg-emerald-400 font-black px-12 h-16 rounded-2xl shadow-xl shadow-emerald-500/20 text-lg uppercase tracking-tight" asChild>
+              <Link href="/register">Start Initialization</Link>
+            </Button>
+            <Button size="lg" variant="outline" className="text-white border-white/10 bg-white/5 hover:bg-white/10 font-black px-12 h-16 rounded-2xl text-lg uppercase tracking-tight" asChild>
+              <Link href="/contact">Schedule Protocol Demo</Link>
+            </Button>
+          </motion.div>
         </div>
       </section>
     </div>
   )
+}
+
+function cn(...inputs: any[]) {
+  return inputs.filter(Boolean).join(" ")
 }

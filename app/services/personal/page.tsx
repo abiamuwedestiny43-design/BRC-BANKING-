@@ -1,86 +1,226 @@
+"use client"
+
+import { motion } from "framer-motion"
+import { ShieldCheck, Smartphone, PiggyBank, CreditCard, Headset, Wallet, ArrowRight, CheckCircle2 } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+
 export default function PersonalBankingPage() {
+  const fadeInUp = {
+    initial: { opacity: 0, y: 20 },
+    whileInView: { opacity: 1, y: 0 },
+    viewport: { once: true },
+    transition: { duration: 0.6 }
+  }
+
+  const features = [
+    {
+      title: "Checking & Savings",
+      description: "High-velocity accounts with real-time settlement and automated rounding protocols.",
+      icon: Wallet,
+      image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&q=80",
+      color: "text-emerald-500",
+      bg: "bg-emerald-500/10"
+    },
+    {
+      title: "Global Credit Line",
+      description: "Fast, paperless lending with transparent APR and cross-border liquidity options.",
+      icon: CreditCard,
+      image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&q=80",
+      color: "text-blue-500",
+      bg: "bg-blue-500/10"
+    }
+  ]
+
+  const metrics = [
+    { title: "Smart Ecosystem", desc: "Category budgets and AI-driven spending analytics.", icon: Smartphone },
+    { title: "Security Matrix", desc: "Device binding and multi-factor authentication protocols.", icon: ShieldCheck },
+    { title: "Human Support", desc: "24/7 access to specialized financial engineers.", icon: Headset }
+  ]
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <section
-        className="relative h-[400px] md:h-[580px] w-full mb-8 flex items-center justify-center text-center overflow-hidden"
-        style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=1920&q=80')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat"
-        }}
-      >
-        <div className="absolute inset-0 bg-black/40" />
-        <div className="relative z-10 px-6 animate-fade-in-up">
-          <h1 className="text-4xl md:text-6xl font-bold text-white text-balance">Personal Banking</h1>
-          <p className="mt-3 text-xl md:text-2xl font-semibold max-w-3xl mx-auto text-white/90 leading-relaxed animation-delay-200 animate-fade-in-up">
-            Everyday money made simple—secure accounts, smarter tools, and helpful insights built around you.
-          </p>
+    <div className="min-h-screen bg-[#001c10] text-slate-200 selection:bg-emerald-500/30">
+      {/* Hero Section */}
+      <section className="relative h-[80vh] flex items-center justify-center overflow-hidden pt-20">
+        <div
+          className="absolute inset-0 bg-fixed bg-cover bg-center"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1556742502-ec7c0e9f34b1?w=1920&q=80')" }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-[#001c10]/80 via-[#001c10]/60 to-[#001c10]" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-6 text-center space-y-8">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-4"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-[0.3em] mb-4">
+              <ShieldCheck className="w-3 h-3" /> Retail Banking Protocol
+            </div>
+            <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter lowercase">
+              personal <span className="text-emerald-500 italic">banking</span>
+            </h1>
+            <p className="max-w-2xl mx-auto text-xl md:text-2xl text-slate-400 font-medium">
+              Everyday money re-engineered—secure accounts, high-velocity tools, and precision insights.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 1 }}
+            className="flex flex-wrap justify-center gap-4 pt-8"
+          >
+            <Button size="lg" className="bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black px-10 h-16 rounded-2xl shadow-xl shadow-emerald-500/20 text-lg uppercase tracking-tight" asChild>
+              <Link href="/register">Initialize Account</Link>
+            </Button>
+            <Button size="lg" variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10 text-white font-black px-10 h-16 rounded-2xl backdrop-blur-md text-lg uppercase tracking-tight" asChild>
+              <Link href="/about">Protocol Specs</Link>
+            </Button>
+          </motion.div>
+        </div>
+
+        {/* Decorative Scrollers */}
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30">
+          <div className="w-[1px] h-12 bg-gradient-to-b from-transparent to-emerald-500" />
+          <p className="text-[10px] font-black uppercase tracking-widest text-emerald-500">Scroll Down</p>
         </div>
       </section>
 
-      <section className="py-16 max-w-5xl mx-auto px-6">
-        <p className="text-gray-600 mb-8 leading-relaxed animate-fade-in">
-          Our Personal Banking suite is designed to make money management simple, secure, and rewarding. From
-          fee-friendly checking accounts to high-yield savings, we help you build healthier financial habits without
-          friction. You get modern tools like real-time alerts, budgeting insights, and instant card controls—all inside
-          a clean, secure experience. Whether you're organizing everyday spending, saving for a milestone, or building
-          an emergency fund, our products are engineered to reduce complexity and improve outcomes.
-        </p>
+      {/* Narrative Section */}
+      <section className="py-32 relative">
+        <div className="absolute top-0 right-0 w-1/2 h-1/2 bg-emerald-500/5 blur-[120px] rounded-full pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid lg:grid-cols-12 gap-20 items-center">
+            <motion.div {...fadeInUp} className="lg:col-span-7 space-y-10">
+              <h2 className="text-4xl md:text-5xl font-black text-white tracking-tighter leading-[1.1]">
+                Engineered for <span className="text-slate-600">Financial Fluidity</span>
+              </h2>
+              <div className="space-y-6 text-lg text-slate-400 font-medium leading-relaxed">
+                <p>
+                  Our Personal Banking suite is designed to make money management simple, secure, and rewarding. From
+                  fee-friendly checking accounts to high-yield savings, we help you build healthier financial habits without
+                  friction.
+                </p>
+                <p>
+                  You get modern tools like real-time alerts, budgeting insights, and instant card controls—all inside
+                  a clean, secure experience. Whether you're organizing everyday spending, saving for a milestone, or building
+                  an emergency fund, our products are engineered to reduce complexity and improve outcomes.
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-8 pt-6">
+                <div className="space-y-2">
+                  <p className="text-4xl font-black text-white tracking-tighter">0.00%</p>
+                  <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Maintenance Fees</p>
+                </div>
+                <div className="space-y-2">
+                  <p className="text-4xl font-black text-emerald-500 tracking-tighter">Instant</p>
+                  <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Node Settlement</p>
+                </div>
+              </div>
+            </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-10">
-          <div className="p-6 bg-white rounded-lg shadow animate-slide-up">
-            <img
-              src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&q=80"
-              alt="Debit card and mobile banking"
-              className="w-full h-44 object-cover rounded-md mb-4"
-            />
-            <h3 className="text-xl font-semibold mb-2">Checking & Savings</h3>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Enjoy everyday checking with instant notifications, virtual cards, and zero hidden fees. Complement it
-              with a high-yield savings account that pays competitive interest on your balance. Use automated saving
-              rules—round-ups or scheduled transfers—to consistently grow your savings without thinking about it.
-            </p>
-          </div>
-          <div className="p-6 bg-white rounded-lg shadow animate-slide-up animation-delay-200">
-            <img
-              src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&q=80"
-              alt="Personal loans and credit"
-              className="w-full h-44 object-cover rounded-md mb-4"
-            />
-            <h3 className="text-xl font-semibold mb-2">Personal Loans</h3>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Access flexible personal credit with transparent pricing and no prepayment penalties. Our process is fast,
-              paperless, and designed to help you consolidate debt, fund a project, or cover an unexpected bill without
-              disrupting your financial plan.
-            </p>
+            <motion.div {...fadeInUp} className="lg:col-span-5 relative">
+              <div className="absolute -inset-4 bg-emerald-500/20 blur-2xl rounded-full opacity-30" />
+              <div className="relative aspect-square rounded-[3rem] bg-gradient-to-br from-white/10 to-transparent p-1 border border-white/10 overflow-hidden group shadow-3xl">
+                <img
+                  src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=800&q=80"
+                  className="w-full h-full object-cover rounded-[2.8rem] transition-transform duration-1000 group-hover:scale-110"
+                  alt="Financial Insights"
+                />
+                <div className="absolute inset-0 bg-emerald-950/40 mix-blend-multiply" />
+              </div>
+            </motion.div>
           </div>
         </div>
+      </section>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          <div className="p-6 bg-white rounded-lg shadow animate-zoom-in">
-            <h4 className="font-semibold mb-2">Smart Tools</h4>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Real-time balances, spending analytics, category budgets, and goals help you stay on track. Lock your
-              card, set travel notices, and manage beneficiaries with a tap.
-            </p>
+      {/* Product Grid */}
+      <section className="py-24 bg-black/20">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-2 gap-10">
+            {features.map((feature, i) => (
+              <motion.div
+                key={i}
+                {...fadeInUp}
+                transition={{ delay: i * 0.2 }}
+                className="group relative h-[600px] rounded-[3rem] overflow-hidden border border-white/5 shadow-2xl"
+              >
+                <img
+                  src={feature.image}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  alt={feature.title}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                <div className="absolute bottom-0 p-12 space-y-6">
+                  <div className={cn("h-14 w-14 rounded-2xl flex items-center justify-center border border-white/10 backdrop-blur-md shadow-2xl transition-transform group-hover:scale-110", feature.bg, feature.color)}>
+                    <feature.icon className="w-7 h-7" />
+                  </div>
+                  <div className="space-y-2">
+                    <h3 className="text-3xl font-black text-white tracking-tighter">{feature.title}</h3>
+                    <p className="text-slate-400 font-medium leading-relaxed max-w-sm">{feature.description}</p>
+                  </div>
+                  <Button variant="ghost" className="text-emerald-500 font-black p-0 h-auto hover:bg-transparent group-hover:translate-x-2 transition-transform">
+                    Deploy Protocol <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                </div>
+              </motion.div>
+            ))}
           </div>
-          <div className="p-6 bg-white rounded-lg shadow animate-zoom-in animation-delay-100">
-            <h4 className="font-semibold mb-2">Security First</h4>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              We use device binding, 2FA options, and transaction screening to keep accounts safe. You're always in
-              control with OTP for local transfers and multi-step verification for international transfers.
-            </p>
+        </div>
+      </section>
+
+      {/* Metrics Section */}
+      <section className="py-32 relative">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid md:grid-cols-3 gap-8">
+            {metrics.map((m, i) => (
+              <motion.div
+                key={i}
+                {...fadeInUp}
+                transition={{ delay: i * 0.1 }}
+                className="p-10 rounded-[2.5rem] bg-white/[0.03] border border-white/5 hover:bg-white/[0.05] transition-all group"
+              >
+                <div className="h-12 w-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-500 mb-8 border border-emerald-500/20 group-hover:scale-110 transition-transform shadow-lg shadow-emerald-500/10">
+                  <m.icon className="w-6 h-6" />
+                </div>
+                <h4 className="text-xl font-black text-white lowercase tracking-tighter mb-2">{m.title}</h4>
+                <p className="text-sm text-slate-500 font-medium leading-relaxed">{m.desc}</p>
+              </motion.div>
+            ))}
           </div>
-          <div className="p-6 bg-white rounded-lg shadow animate-zoom-in animation-delay-200">
-            <h4 className="font-semibold mb-2">Customer Support</h4>
-            <p className="text-sm text-gray-600 leading-relaxed">
-              Get quick answers through in-app support, detailed statements, and helpful guides. When you need a human,
-              we respond fast and follow through until your issue is resolved.
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-32 relative overflow-hidden">
+        <div className="absolute inset-0 bg-emerald-500/5 backdrop-blur-3xl" />
+        <div className="max-w-5xl mx-auto px-6 relative z-10 text-center space-y-12">
+          <motion.div {...fadeInUp} className="space-y-4">
+            <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none">
+              Ready to Upgrade your <span className="text-emerald-500 italic">Financial OS?</span>
+            </h2>
+            <p className="text-xl text-slate-400 font-medium max-w-2xl mx-auto">
+              Join thousands of users who have streamlined their economic existence through the Nova protocol.
             </p>
-          </div>
+          </motion.div>
+
+          <motion.div {...fadeInUp} transition={{ delay: 0.2 }} className="flex justify-center flex-wrap gap-6">
+            <Button size="lg" className="bg-white text-[#001c10] hover:bg-slate-200 font-black px-12 h-16 rounded-2xl shadow-2xl text-lg uppercase tracking-tight" asChild>
+              <Link href="/register">Create Identity</Link>
+            </Button>
+            <Button size="lg" variant="ghost" className="text-emerald-500 font-black px-12 h-16 rounded-2xl border border-emerald-500/20 hover:bg-emerald-500/10 text-lg uppercase tracking-tight" asChild>
+              <Link href="/contact">Speak to Engineer</Link>
+            </Button>
+          </motion.div>
         </div>
       </section>
     </div>
   )
+}
+
+function cn(...inputs: any[]) {
+  return inputs.filter(Boolean).join(" ")
 }

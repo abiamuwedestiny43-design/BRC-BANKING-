@@ -164,7 +164,7 @@ export default async function AdminTransactionsPage({
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
           {[
-            { label: "Detected Nodes", value: total, icon: Database, color: "text-blue-400", bg: "bg-blue-500/5", border: "border-blue-500/10" },
+            { label: "Detected Details", value: total, icon: Database, color: "text-blue-400", bg: "bg-blue-500/5", border: "border-blue-500/10" },
             { label: "Synchronized", value: successCount, icon: ShieldCheck, color: "text-emerald-400", bg: "bg-emerald-500/5", border: "border-emerald-500/10" },
             { label: "Awaiting Audit", value: pendingCount, icon: Clock, color: "text-yellow-400", bg: "bg-yellow-500/5", border: "border-yellow-500/10" },
             { label: "System Aborts", value: failedCount, icon: Lock, color: "text-red-400", bg: "bg-red-500/5", border: "border-red-500/10" },

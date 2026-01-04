@@ -131,7 +131,7 @@ async function TransactionContent({ id }: { id: string }) {
                                     <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center">
                                         <Database className="w-4 h-4 text-blue-400" />
                                     </div>
-                                    <h3 className="text-sm font-black text-white uppercase tracking-[0.2em]">Source Node</h3>
+                                    <h3 className="text-sm font-black text-white uppercase tracking-[0.2em]">Source Details</h3>
                                 </div>
 
                                 <div className="space-y-6">

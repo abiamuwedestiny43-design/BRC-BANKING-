@@ -62,9 +62,20 @@ export default function DashboardClient({
     loansSection
 }: DashboardClientProps) {
 
-    const { data: notificationData } = useSWR("/api/user/notifications", fetcher)
+    const { data: notificationData, mutate } = useSWR("/api/user/notifications", fetcher)
     const notifications = notificationData?.notifications || []
     const unreadCount = notifications.filter((n: any) => !n.viewed).length
+
+    const handleMarkAsRead = async () => {
+        if (unreadCount > 0) {
+            try {
+                await fetch("/api/user/notifications", { method: "PATCH" })
+                mutate()
+            } catch (error) {
+                console.error("Failed to mark notifications as read", error)
+            }
+        }
+    }
 
     const fadeInUp = {
         initial: { opacity: 0, y: 20 },
@@ -92,7 +103,7 @@ export default function DashboardClient({
                         <p className="text-slate-400 font-medium">Your financial ecosystem at a glance.</p>
                     </div>
                     <div className="flex items-center gap-4">
-                        <DropdownMenu>
+                        <DropdownMenu onOpenChange={(open) => open && handleMarkAsRead()}>
                             <DropdownMenuTrigger asChild>
                                 <Button variant="ghost" size="icon" className="h-12 w-12 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 relative text-white transition-all">
                                     <Bell className="h-5 w-5" />
@@ -147,8 +158,12 @@ export default function DashboardClient({
                         </DropdownMenu>
 
                         <Link href="/dashboard/settings" className="group">
-                            <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-[#001c10] text-xl font-bold shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform">
-                                {firstName?.[0]}
+                            <div className="h-14 w-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-500 text-xl font-bold shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-all overflow-hidden">
+                                {user.profileImage ? (
+                                    <img src={user.profileImage} alt="Profile" className="w-full h-full object-cover" />
+                                ) : (
+                                    firstName?.[0]
+                                )}
                             </div>
                         </Link>
                     </div>
@@ -158,11 +173,11 @@ export default function DashboardClient({
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Main Balance card */}
                     <motion.div {...fadeInUp} className="lg:col-span-2">
-                        <Card className="h-full border-white/10 shadow-3xl bg-gradient-to-br from-[#003d24] via-[#002a18] to-[#011a0f] text-white overflow-hidden relative group rounded-[3rem]">
+                        <Card className="h-full border-white/10 shadow-3xl bg-gradient-to-br from-[#003d24] via-[#002a18] to-[#011a0f] text-white overflow-hidden relative group rounded-[2.5rem]">
                             <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-                                <Wallet className="h-48 w-48" />
+                                <Wallet className="h-32 w-32" />
                             </div>
-                            <CardHeader className="relative z-10 p-10">
+                            <CardHeader className="relative z-10 p-8">
                                 <div className="flex justify-between items-center mb-6">
                                     <div className="flex items-center gap-3">
                                         <div className="h-10 w-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-emerald-400">
@@ -178,7 +193,7 @@ export default function DashboardClient({
                                     </Button>
                                 </div>
                                 <div>
-                                    <h2 className="text-6xl md:text-7xl font-black tracking-tighter mb-4">
+                                    <h2 className="text-5xl md:text-6xl font-black tracking-tighter mb-4">
                                         {formatCurrency(balance, currency)}
                                     </h2>
                                     <div className="flex items-center gap-4">
@@ -192,7 +207,7 @@ export default function DashboardClient({
                                     </div>
                                 </div>
                             </CardHeader>
-                            <CardContent className="px-10 pb-10 relative z-10">
+                            <CardContent className="px-8 pb-8 relative z-10">
                                 <div className="flex flex-wrap gap-4 pt-6 border-t border-white/5">
                                     <Button asChild className="bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black px-8 h-14 rounded-2xl shadow-xl shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95 text-base">
                                         <Link href="/dashboard/transfer" className="flex items-center gap-2">
@@ -212,32 +227,32 @@ export default function DashboardClient({
                     </motion.div>
 
                     {/* Quick Status Cards */}
-                    <motion.div {...fadeInUp} transition={{ delay: 0.1 }} className="grid grid-cols-1 gap-6">
-                        <Card className="border-white/5 bg-white/[0.03] hover:bg-white/[0.05] p-8 flex items-center justify-between group transition-all duration-500 rounded-[2.5rem]">
-                            <div className="space-y-2">
-                                <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest">Identity Status</p>
-                                <h3 className="text-2xl font-black text-white group-hover:text-emerald-400 transition-colors">{user.bankAccount?.verified ? "Verified" : "Pending"}</h3>
-                                <p className="text-xs text-slate-600 font-medium">Compliance vetting active</p>
+                    <motion.div {...fadeInUp} transition={{ delay: 0.1 }} className="grid grid-cols-1 gap-4">
+                        <Card className="border-white/5 bg-white/[0.03] hover:bg-white/[0.05] p-6 flex items-center justify-between group transition-all duration-500 rounded-[2rem]">
+                            <div className="space-y-1">
+                                <p className="text-slate-500 text-[9px] font-black uppercase tracking-widest">Identity Status</p>
+                                <h3 className="text-xl font-black text-white group-hover:text-emerald-400 transition-colors">{user.bankAccount?.verified ? "Verified" : "Pending"}</h3>
+                                <p className="text-[10px] text-slate-600 font-medium">Compliance vetting active</p>
                             </div>
                             <div className={cn(
-                                "h-16 w-16 rounded-[1.5rem] flex items-center justify-center transition-all shadow-lg",
+                                "h-12 w-12 rounded-xl flex items-center justify-center transition-all shadow-lg",
                                 user.bankAccount?.verified ? "bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-[#001c10]" : "bg-yellow-500/10 text-yellow-500 group-hover:bg-yellow-500 group-hover:text-[#001c10]"
                             )}>
-                                <ShieldCheck className="h-8 w-8" />
+                                <ShieldCheck className="h-6 w-6" />
                             </div>
                         </Card>
 
-                        <Card className="border-white/5 bg-white/[0.03] hover:bg-white/[0.05] p-8 flex items-center justify-between group transition-all duration-500 rounded-[2.5rem]">
-                            <div className="space-y-2">
-                                <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest">Transfer Access</p>
-                                <h3 className="text-2xl font-black text-white group-hover:text-emerald-400 transition-colors">{user.bankAccount?.canTransfer ? "Enabled" : "Restricted"}</h3>
-                                <p className="text-xs text-slate-600 font-medium">Gateway communication live</p>
+                        <Card className="border-white/5 bg-white/[0.03] hover:bg-white/[0.05] p-6 flex items-center justify-between group transition-all duration-500 rounded-[2rem]">
+                            <div className="space-y-1">
+                                <p className="text-slate-500 text-[9px] font-black uppercase tracking-widest">Transfer Access</p>
+                                <h3 className="text-xl font-black text-white group-hover:text-emerald-400 transition-colors">{user.bankAccount?.canTransfer ? "Enabled" : "Restricted"}</h3>
+                                <p className="text-[10px] text-slate-600 font-medium">Gateway communication live</p>
                             </div>
                             <div className={cn(
-                                "h-16 w-16 rounded-[1.5rem] flex items-center justify-center transition-all shadow-lg",
+                                "h-12 w-12 rounded-xl flex items-center justify-center transition-all shadow-lg",
                                 user.bankAccount?.canTransfer ? "bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-[#001c10]" : "bg-red-500/10 text-red-500 group-hover:bg-red-500 group-hover:text-[#001c10]"
                             )}>
-                                <ArrowUpRight className="h-8 w-8" />
+                                <ArrowUpRight className="h-6 w-6" />
                             </div>
                         </Card>
                     </motion.div>
@@ -295,15 +310,15 @@ export default function DashboardClient({
                                 { href: "/dashboard/beneficiaries", label: "Auth Payees", sub: "Trusted node list", icon: Users, color: "text-orange-400", bg: "bg-orange-500/10" },
                             ].map((action, i) => (
                                 <Link key={i} href={action.href} className="group">
-                                    <Card className="bg-white/[0.03] border-white/5 hover:bg-white/[0.06] p-5 flex items-center gap-5 transition-all group-hover:-translate-y-1 rounded-2xl">
-                                        <div className={cn("h-12 w-12 rounded-xl flex items-center justify-center shadow-lg", action.bg, action.color)}>
-                                            <action.icon className="h-6 w-6" />
+                                    <Card className="bg-white/[0.03] border-white/5 hover:bg-white/[0.06] p-4 flex items-center gap-4 transition-all group-hover:-translate-y-1 rounded-2xl">
+                                        <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center shadow-lg", action.bg, action.color)}>
+                                            <action.icon className="h-5 w-5" />
                                         </div>
                                         <div>
-                                            <p className="font-bold text-white group-hover:text-emerald-400 transition-colors uppercase tracking-tight text-sm">{action.label}</p>
-                                            <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">{action.sub}</p>
+                                            <p className="font-bold text-white group-hover:text-emerald-400 transition-colors uppercase tracking-tight text-xs">{action.label}</p>
+                                            <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest">{action.sub}</p>
                                         </div>
-                                        <ArrowRight className="h-4 w-4 ml-auto text-slate-700 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all" />
+                                        <ArrowRight className="h-3 w-3 ml-auto text-slate-700 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all" />
                                     </Card>
                                 </Link>
                             ))}
@@ -337,41 +352,40 @@ export default function DashboardClient({
                                         <Link
                                             key={transfer._id}
                                             href={`/dashboard/receipt/${transfer.txRef}`}
-                                            className="p-8 flex items-center justify-between hover:bg-white/[0.04] transition-all group relative"
+                                            className="p-6 flex items-center justify-between hover:bg-white/[0.04] transition-all group relative"
                                         >
-                                            <div className="flex items-center gap-6">
+                                            <div className="flex items-center gap-5">
                                                 <div className={cn(
-                                                    "h-16 w-16 rounded-2xl flex items-center justify-center transition-all group-hover:scale-110 duration-500 shadow-xl",
+                                                    "h-12 w-12 rounded-xl flex items-center justify-center transition-all group-hover:scale-110 duration-500 shadow-xl",
                                                     transfer.txType === "credit" ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500"
                                                 )}>
-                                                    {transfer.txType === "credit" ? <ArrowDownLeft className="h-8 w-8" /> : <ArrowUpRight className="h-8 w-8" />}
+                                                    {transfer.txType === "credit" ? <ArrowDownLeft className="h-6 w-6" /> : <ArrowUpRight className="h-6 w-6" />}
                                                 </div>
                                                 <div>
-                                                    <p className="text-xl font-black text-white group-hover:text-emerald-400 transition-colors">
-                                                        {transfer.txType === "credit" ? "Incoming Node" : "Node Egress"}
+                                                    <p className="text-lg font-black text-white group-hover:text-emerald-400 transition-colors">
+                                                        {transfer.txType === "credit" ? "Credit" : "Debit"}
                                                     </p>
-                                                    <div className="flex items-center gap-3 mt-1">
-                                                        <span className="text-[10px] font-black uppercase tracking-widest text-[#001c10] bg-emerald-500 px-2 py-0.5 rounded shadow-sm">{transfer.txRef}</span>
-                                                        <span className="text-xs text-slate-500 font-medium italic">{new Date(transfer.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                                                    <div className="flex items-center gap-2 mt-0.5">
+                                                        <span className="text-[9px] font-black uppercase tracking-widest text-[#001c10] bg-emerald-500 px-2 py-0.5 rounded shadow-sm">{transfer.txRef}</span>
+                                                        <span className="text-[10px] text-slate-500 font-medium italic">{new Date(transfer.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="text-right">
                                                 <p className={cn(
-                                                    "text-2xl font-black tracking-tight",
+                                                    "text-xl font-black tracking-tight",
                                                     transfer.txType === "credit" ? "text-emerald-400" : "text-white"
                                                 )}>
                                                     {transfer.txType === "credit" ? "+" : "−"}
                                                     {formatCurrency(transfer.amount, transfer.currency || currency)}
                                                 </p>
-                                                <div className="flex items-center justify-end gap-2 mt-1">
-                                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Signal:</p>
+                                                <div className="flex items-center justify-end gap-1.5 mt-0.5">
                                                     <div className={cn(
-                                                        "h-2 w-2 rounded-full",
+                                                        "h-1.5 w-1.5 rounded-full",
                                                         transfer.status === "success" ? "bg-emerald-500" : "bg-yellow-500"
                                                     )}></div>
                                                     <span className={cn(
-                                                        "text-[10px] font-black uppercase tracking-tighter",
+                                                        "text-[9px] font-black uppercase tracking-tighter",
                                                         transfer.status === "success" ? "text-emerald-500" : "text-yellow-500"
                                                     )}>{transfer.status}</span>
                                                 </div>

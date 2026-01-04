@@ -215,8 +215,8 @@ export default function TransactionsList({
                   </SelectTrigger>
                   <SelectContent className="bg-[#002a18] border-white/10 text-white rounded-xl">
                     <SelectItem value="all">All Flow</SelectItem>
-                    <SelectItem value="debit">Outbound</SelectItem>
-                    <SelectItem value="credit">Inbound</SelectItem>
+                    <SelectItem value="debit">Debit</SelectItem>
+                    <SelectItem value="credit">Credit</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -227,7 +227,7 @@ export default function TransactionsList({
                   <div className="relative flex-1 group">
                     <Search className="absolute left-3 top-3.5 h-4 w-4 text-slate-500 group-focus-within:text-emerald-500 transition-colors" />
                     <Input
-                      placeholder="Search references, nodes..."
+                      placeholder="Search references, Details..."
                       value={filters.search}
                       onChange={(e) => setFilters((prev) => ({ ...prev, search: e.target.value }))}
                       className="pl-10 h-12 bg-white/5 border-white/10 focus:bg-white/10 focus:ring-emerald-500 transition-all rounded-xl font-bold text-white"
@@ -295,7 +295,7 @@ export default function TransactionsList({
                         <div className="space-y-2 flex-1 min-w-0">
                           <div className="flex items-center gap-3">
                             <p className="text-xl font-black text-white group-hover:text-emerald-400 transition-colors truncate">
-                              {transaction.txType === "credit" ? "Node Ingress" : "Node Egress"}
+                              {transaction.txType === "credit" ? "Credit" : "Debit"}
                               <span className="font-medium text-slate-500 ml-3 italic">
                                 {transaction.recipient ? `• ${transaction.recipient}` : ""}
                               </span>

@@ -65,8 +65,12 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
           <div className="px-6 mb-10">
             <div className="p-4 rounded-[1.5rem] bg-emerald-500/5 border border-emerald-500/10 flex items-center space-x-4">
               <div className="relative">
-                <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-green-600 rounded-xl flex items-center justify-center text-[#001c10] font-black text-lg">
-                  {user.bankInfo.bio.firstname[0]}
+                <div className="w-12 h-12 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-center justify-center text-emerald-500 font-black text-lg overflow-hidden">
+                  {user.profileImage ? (
+                    <img src={user.profileImage} alt="Profile" className="w-full h-full object-cover" />
+                  ) : (
+                    user.bankInfo.bio.firstname[0]
+                  )}
                 </div>
                 <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-[#00130b] rounded-full"></div>
               </div>

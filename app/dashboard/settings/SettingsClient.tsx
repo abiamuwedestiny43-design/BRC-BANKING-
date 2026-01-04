@@ -265,9 +265,16 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                                     className="space-y-8"
                                 >
                                     <Card className="border border-white/5 shadow-2xl overflow-hidden bg-white/[0.03] backdrop-blur-md rounded-[3rem]">
-                                        <div className="h-40 bg-gradient-to-r from-emerald-900 via-emerald-800 to-black relative overflow-hidden group">
-                                            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
-                                            <div className="absolute -bottom-16 left-12 p-1.5 rounded-[2.5rem] bg-[#001c10] border border-white/10 shadow-3xl">
+                                        <div className="relative">
+                                            <div className="h-40 bg-gradient-to-r from-emerald-900 via-emerald-800 to-black relative overflow-hidden group">
+                                                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+                                                {/* Decorative Label */}
+                                                <div className="absolute top-8 right-8 text-right hidden md:block">
+                                                    <p className="text-[10px] font-black text-emerald-500/50 uppercase tracking-[0.4em] leading-none mb-1">Authorization</p>
+                                                    <p className="text-white/20 font-black text-2xl tracking-tighter opacity-30 italic leading-none lowercase">node_active</p>
+                                                </div>
+                                            </div>
+                                            <div className="absolute -bottom-16 left-12 p-1.5 rounded-[2.5rem] bg-[#001c10] border border-white/10 shadow-3xl z-10">
                                                 <div className="h-32 w-32 rounded-[2rem] bg-white/5 flex items-center justify-center relative overflow-hidden group/avatar cursor-pointer">
                                                     {user?.profileImage ? (
                                                         <img src={user.profileImage} alt="Profile" className="h-full w-full object-cover group-hover/avatar:scale-110 transition-transform duration-700" />
@@ -295,11 +302,6 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                                                         }}
                                                     />
                                                 </div>
-                                            </div>
-                                            {/* Decorative Label */}
-                                            <div className="absolute top-8 right-8 text-right hidden md:block">
-                                                <p className="text-[10px] font-black text-emerald-500/50 uppercase tracking-[0.4em] leading-none mb-1">Authorization</p>
-                                                <p className="text-white/20 font-black text-2xl tracking-tighter opacity-30 italic leading-none lowercase">node_active</p>
                                             </div>
                                         </div>
 

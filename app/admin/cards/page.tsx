@@ -269,7 +269,7 @@ export default function AdminCardsPage() {
             {filteredCards.length === 0 && (
               <div className="text-center py-20 space-y-4">
                 <Search className="h-16 w-16 text-slate-500/20 mx-auto" />
-                <p className="text-slate-500 font-medium italic">No asset nodes detected with specified signatures.</p>
+                <p className="text-slate-500 font-medium italic">No asset Details detected with specified signatures.</p>
               </div>
             )}
           </div>
