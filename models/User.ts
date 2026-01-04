@@ -14,6 +14,11 @@ export interface IUser extends Document {
       pin: string
     }
     bio: {
+      address: any
+      city: any
+      state: any
+      country: any
+      zipcode: any
       firstname: string
       lastname: string
       phone: string

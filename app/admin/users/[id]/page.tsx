@@ -3,12 +3,13 @@ import { notFound } from "next/navigation"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { ArrowLeft, Edit, User, ShieldCheck, Activity, Globe, CreditCard, Mail, Phone, MapPin, Clock } from "lucide-react"
+import { ArrowLeft, Edit, User as UserIcon, ShieldCheck, Activity, Globe, CreditCard, Mail, Phone, MapPin, Clock } from "lucide-react"
 import Link from "next/link"
 import dbConnect from "@/lib/database"
 import User from "@/models/User"
 import Transfer from "@/models/Transfer"
 import { formatCurrency } from "@/lib/utils/banking"
+import { Separator } from "@/components/ui/separator"
 import UserActions from "@/components/admin/user-actions"
 
 async function getUserDetails(id: string) {
@@ -27,7 +28,7 @@ async function getUserDetails(id: string) {
     email: user.email,
     name: `${user.bankInfo.bio.firstname} ${user.bankInfo.bio.lastname}`,
     bankNumber: user.bankNumber,
-    userCode: user.userCode,
+    userCode: user.usercode,
     phone: user.bankInfo.bio.phone,
     address: user.bankInfo.bio.address,
     city: user.bankInfo.bio.city,
@@ -59,7 +60,7 @@ export default async function UserDetailsPage({ params }: { params: { id: string
       <div className="absolute top-0 right-0 w-[30%] h-[30%] bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none"></div>
 
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-10">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-50">
         <div className="flex items-center gap-6">
           <Button variant="ghost" asChild className="h-14 w-14 rounded-2xl bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white border border-white/5 transition-all p-0">
             <Link href="/admin/users">
@@ -68,7 +69,7 @@ export default async function UserDetailsPage({ params }: { params: { id: string
           </Button>
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-widest">
-              <User className="w-3 h-3" /> Identity Profiling
+              <UserIcon className="w-3 h-3" /> Identity Profiling
             </div>
             <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter">
               Identity <span className="text-slate-500 italic">Audit</span>

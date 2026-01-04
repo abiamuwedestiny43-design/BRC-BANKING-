@@ -56,6 +56,8 @@ export interface ITransfer extends Document {
   otpExpiry?: Date
   completedAt?: Date
   txType?: "debit" | "credit"
+  createdAt: Date
+  updatedAt: Date
 }
 
 const TransferSchema = new Schema<ITransfer>(

@@ -1,7 +1,7 @@
 // app/admin/transactions/page.tsx
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-import { ArrowUpRight, ArrowDownLeft, Search, Filter, ChevronLeft, ChevronRight, Activity, ShieldCheck, Zap } from "lucide-react"
+import { ArrowUpRight, ArrowDownLeft, Search, Filter, ChevronLeft, ChevronRight, Activity, ShieldCheck, Zap, Database, Globe, Lock, Clock } from "lucide-react"
 import Link from "next/link"
 import { formatCurrency } from "@/lib/utils/banking"
 import TransactionsList from "./TransactionsList"
@@ -127,86 +127,100 @@ export default async function AdminTransactionsPage({
 
     const users = await getAllUsers()
 
+    // Get stats for current view (could also get global stats)
+    const successCount = transactions.filter(t => t.status === 'success').length
+    const pendingCount = transactions.filter(t => t.status === 'pending').length
+    const failedCount = transactions.filter(t => t.status === 'failed').length
+
     return (
-      <div className="p-4 md:p-10 space-y-10 relative">
+      <div className="p-4 md:p-10 space-y-10 relative pb-20">
         {/* Background Decor */}
-        <div className="absolute top-0 right-0 w-[30%] h-[30%] bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+        <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none"></div>
 
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-10">
-          <div className="space-y-2">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 relative z-10">
+          <div className="space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-widest">
-              <Activity className="w-3 h-3" /> Transaction Flux
+              <Activity className="w-3 h-3" /> Transaction Ledger
             </div>
-            <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter">
-              Global <span className="text-slate-500 italic">Transfers</span>
+            <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter">
+              Global <span className="text-slate-500 italic font-medium">Flux Monitoring</span>
             </h1>
-            <p className="text-slate-400 font-medium max-w-md">Monitoring all liquidity movement across the global NOVA BANK framework.</p>
+            <p className="text-slate-400 font-medium max-w-xl text-lg leading-relaxed">
+              Monitoring the global movement of assets across the NOVA BANK ecosystem. Protocol synchronization status and node audit trails.
+            </p>
           </div>
 
-          <Button asChild className="bg-white/5 hover:bg-white/10 text-white font-bold h-12 px-8 rounded-xl border border-white/10 backdrop-blur-md">
-            <Link href="/admin">
-              <ChevronLeft className="mr-2 h-5 w-5" />
-              Return to Command
-            </Link>
-          </Button>
+          <div className="flex gap-4">
+            <Button asChild variant="ghost" className="h-14 px-8 rounded-2xl bg-white/5 hover:bg-white/10 text-white font-black border border-white/5 backdrop-blur-md uppercase tracking-widest text-[10px] gap-2">
+              <Link href="/admin">
+                <ChevronLeft className="h-4 w-4" /> Command
+              </Link>
+            </Button>
+          </div>
         </div>
 
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative z-10">
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
           {[
-            { label: "Detected Nodes", value: total, desc: "Total lifecycle events", color: "text-blue-400", bg: "bg-blue-500/5" },
-            { label: "Successful", value: transactions.filter(t => t.status === 'success').length, desc: "Finalized transfers", color: "text-emerald-400", bg: "bg-emerald-500/5" },
-            { label: "Pending", value: transactions.filter(t => t.status === 'pending').length, desc: "Awaiting execution", color: "text-yellow-400", bg: "bg-yellow-500/5" },
-            { label: "Failed/Aborted", value: transactions.filter(t => t.status === 'failed').length, desc: "System rejections", color: "text-red-400", bg: "bg-red-500/5" },
+            { label: "Detected Nodes", value: total, icon: Database, color: "text-blue-400", bg: "bg-blue-500/5", border: "border-blue-500/10" },
+            { label: "Synchronized", value: successCount, icon: ShieldCheck, color: "text-emerald-400", bg: "bg-emerald-500/5", border: "border-emerald-500/10" },
+            { label: "Awaiting Audit", value: pendingCount, icon: Clock, color: "text-yellow-400", bg: "bg-yellow-500/5", border: "border-yellow-500/10" },
+            { label: "System Aborts", value: failedCount, icon: Lock, color: "text-red-400", bg: "bg-red-500/5", border: "border-red-500/10" },
           ].map((stat, i) => (
-            <Card key={i} className={`bg-white/[0.03] border-white/5 rounded-[2rem] p-6 group hover:bg-white/[0.05] transition-all`}>
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-2">{stat.label}</p>
-              <div className={`text-4xl font-black ${stat.color} tracking-tighter mb-1`}>{stat.value}</div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest opacity-60">{stat.desc}</p>
+            <Card key={i} className={`bg-white/[0.02] ${stat.border} rounded-[2rem] p-8 group hover:bg-white/[0.04] transition-all duration-500 relative overflow-hidden`}>
+              <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+                <stat.icon className={`w-16 h-16 ${stat.color}`} />
+              </div>
+              <div className="relative z-10">
+                <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 mb-4">{stat.label}</p>
+                <div className={`text-5xl font-black ${stat.color} tracking-tighter mb-2`}>{stat.value}</div>
+                <div className="w-12 h-1 bg-white/5 rounded-full">
+                  <div className={`h-full rounded-full ${stat.bg.replace('/5', '')} w-1/2`}></div>
+                </div>
+              </div>
             </Card>
           ))}
         </div>
 
-        {/* Transactions List */}
-        <Card className="bg-white/[0.03] border-white/5 rounded-[3rem] overflow-hidden relative z-10">
-          <CardHeader className="p-8 border-b border-white/5 bg-white/[0.01]">
-            <div className="flex justify-between items-center">
-              <div>
-                <CardTitle className="text-2xl font-black text-white italic tracking-tight">Real-Time Data Feed</CardTitle>
-                <CardDescription className="text-slate-500 font-medium italic">
-                  Low-latency monitoring of global asset migrations.
-                </CardDescription>
-              </div>
-              <div className="flex gap-2">
-                <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Live Engine</span>
-              </div>
+        {/* Live Feed Container */}
+        <div className="relative z-10">
+          <div className="flex items-center gap-4 mb-6">
+            <h2 className="text-2xl font-black text-white italic tracking-tight">Real-Time Data Streams</h2>
+            <div className="h-px bg-white/5 flex-1" />
+            <div className="flex items-center gap-2">
+              <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Live Ledger</span>
             </div>
-          </CardHeader>
-          <CardContent className="p-8 shadow-inner">
-            <TransactionsList
-              initialTransactions={transactions}
-              users={users}
-              total={total}
-              currentPage={page}
-              totalPages={totalPages}
-              currentFilters={{ status, type, search, user: userFilter }}
-              isAdmin={true}
-            />
-          </CardContent>
-        </Card>
+          </div>
+
+          <TransactionsList
+            initialTransactions={transactions}
+            users={users}
+            total={total}
+            currentPage={page}
+            totalPages={totalPages}
+            currentFilters={{ status, type, search, user: userFilter }}
+            isAdmin={true}
+          />
+        </div>
       </div>
     )
   } catch (error) {
     console.error("Error in AdminTransactionsPage:", error)
     return (
       <div className="min-h-screen bg-[#001c10] flex items-center justify-center p-6 text-center">
-        <div className="space-y-4">
-          <h1 className="text-2xl font-black text-red-500 uppercase tracking-widest italic">System Fault Detected</h1>
-          <p className="text-slate-500">An unexpected exception occurred during data synchronization.</p>
-          <Button onClick={() => window.location.reload()} className="bg-white/5 text-white font-black uppercase tracking-widest text-xs px-8 py-4 rounded-xl border border-white/10">
-            Retry Sync
+        <div className="space-y-6">
+          <div className="w-20 h-20 bg-red-500/10 border border-red-500/20 rounded-full flex items-center justify-center mx-auto">
+            <Lock className="w-10 h-10 text-red-500" />
+          </div>
+          <div>
+            <h1 className="text-3xl font-black text-red-500 uppercase tracking-widest italic mb-2">System Fault Detected</h1>
+            <p className="text-slate-500 font-medium">An unexpected exception occurred during data synchronization.</p>
+          </div>
+          <Button onClick={() => window.location.reload()} className="h-14 px-10 rounded-2xl bg-white/5 text-white font-black uppercase tracking-widest text-[10px] border border-white/10 hover:bg-white/10 transition-all">
+            Initiate System Recovery
           </Button>
         </div>
       </div>

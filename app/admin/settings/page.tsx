@@ -19,6 +19,26 @@ export default function AdminSettingsPage() {
   const [bulkBusy, setBulkBusy] = useState(false)
   const [singleBusy, setSingleBusy] = useState(false)
   const [singleUserId, setSingleUserId] = useState("")
+  const [foundUser, setFoundUser] = useState<any>(null)
+
+  const toggleUserPerm = async (type: "local" | "international", enabled: boolean) => {
+    if (!foundUser) return
+    setError(null)
+    try {
+      const res = await fetch("/api/admin/users/permissions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId: foundUser.id, type, enabled }),
+      })
+      const data = await res.json()
+      if (!res.ok) setError(data?.message || "Protocol update failed.")
+      else {
+        setFoundUser({ ...foundUser, [type === "local" ? "canLocalTransfer" : "canInternationalTransfer"]: enabled })
+      }
+    } catch {
+      setError("System failure during protocol sync.")
+    }
+  }
 
   useEffect(() => {
     let mounted = true
@@ -84,14 +104,14 @@ export default function AdminSettingsPage() {
     }
   }
 
-  const bulkSetUsersTransfer = async (canTransfer: boolean) => {
+  const bulkSetUsersTransfer = async (enabled: boolean, type: "all" | "local" | "international" = "all") => {
     setBulkBusy(true)
     setError(null)
     try {
       const res = await fetch("/api/admin/settings/users-transfer", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ canTransfer }),
+        body: JSON.stringify({ enabled, type }),
       })
       const data = await res.json()
       if (!res.ok) {
@@ -198,26 +218,75 @@ export default function AdminSettingsPage() {
               <Separator className="bg-white/5" />
 
               {/* Bulk Override */}
-              <div className="space-y-6">
+              <div className="space-y-8">
                 <div className="space-y-1">
-                  <Label className="text-lg font-black text-white italic">BULK PERMISSION OVERRIDE</Label>
-                  <p className="text-sm text-slate-500">Atomic permission updates for the entire user registry.</p>
+                  <Label className="text-xl font-black text-white italic">BULK PERMISSION OVERRIDE</Label>
+                  <p className="text-sm text-slate-500 font-medium">Atomic permission updates for the entire user registry. Use with caution.</p>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <Button
-                    onClick={() => bulkSetUsersTransfer(true)}
-                    disabled={bulkBusy}
-                    className="h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 font-black hover:bg-emerald-500 hover:text-[#001c10] transition-all uppercase tracking-widest text-[10px]"
-                  >
-                    Initialize Global Uplink
-                  </Button>
-                  <Button
-                    onClick={() => bulkSetUsersTransfer(false)}
-                    disabled={bulkBusy}
-                    className="h-14 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-500 font-black hover:bg-red-500 hover:text-white transition-all uppercase tracking-widest text-[10px]"
-                  >
-                    Atomic Protocol Revoke
-                  </Button>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {/* Unified */}
+                  <div className="space-y-3 p-5 rounded-2xl bg-white/5 border border-white/5">
+                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest text-center">Unified Protocol</p>
+                    <div className="flex flex-col gap-2">
+                      <Button
+                        onClick={() => bulkSetUsersTransfer(true, "all")}
+                        disabled={bulkBusy}
+                        className="w-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 font-black hover:bg-emerald-500 hover:text-black transition-all uppercase tracking-widest text-[9px] h-10"
+                      >
+                        Enable All
+                      </Button>
+                      <Button
+                        onClick={() => bulkSetUsersTransfer(false, "all")}
+                        disabled={bulkBusy}
+                        className="w-full bg-red-500/10 border border-red-500/20 text-red-500 font-black hover:bg-red-500 transition-all uppercase tracking-widest text-[9px] h-10"
+                      >
+                        Revoke All
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Local */}
+                  <div className="space-y-3 p-5 rounded-2xl bg-white/5 border border-white/5">
+                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest text-center">Local Nodes</p>
+                    <div className="flex flex-col gap-2">
+                      <Button
+                        onClick={() => bulkSetUsersTransfer(true, "local")}
+                        disabled={bulkBusy}
+                        className="w-full bg-blue-500/10 border border-blue-500/20 text-blue-500 font-black hover:bg-blue-500 hover:text-black transition-all uppercase tracking-widest text-[9px] h-10"
+                      >
+                        Enable Local
+                      </Button>
+                      <Button
+                        onClick={() => bulkSetUsersTransfer(false, "local")}
+                        disabled={bulkBusy}
+                        className="w-full bg-red-500/10 border border-red-500/20 text-red-500 font-black hover:bg-red-500 transition-all uppercase tracking-widest text-[9px] h-10"
+                      >
+                        Revoke Local
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* International */}
+                  <div className="space-y-3 p-5 rounded-2xl bg-white/5 border border-white/5">
+                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest text-center">Intl Protocols</p>
+                    <div className="flex flex-col gap-2">
+                      <Button
+                        onClick={() => bulkSetUsersTransfer(true, "international")}
+                        disabled={bulkBusy}
+                        className="w-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 font-black hover:bg-emerald-500 hover:text-black transition-all uppercase tracking-widest text-[9px] h-10"
+                      >
+                        Enable Intl
+                      </Button>
+                      <Button
+                        onClick={() => bulkSetUsersTransfer(false, "international")}
+                        disabled={bulkBusy}
+                        className="w-full bg-red-500/10 border border-red-500/20 text-red-500 font-black hover:bg-red-500 transition-all uppercase tracking-widest text-[9px] h-10"
+                      >
+                        Revoke Intl
+                      </Button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </CardContent>
@@ -226,41 +295,84 @@ export default function AdminSettingsPage() {
 
         {/* Side Panel */}
         <div className="space-y-8">
-          <Card className="bg-white/[0.03] border-white/5 rounded-[2.5rem] p-8">
-            <h3 className="text-xl font-black text-white mb-6 flex items-center gap-3">
-              <ShieldCheck className="w-5 h-5 text-emerald-500" /> Point-to-Point
+          <Card className="bg-white/[0.03] border-white/5 rounded-[2.5rem] p-8 overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full blur-3xl"></div>
+            <h3 className="text-xl font-black text-white mb-6 flex items-center gap-3 italic">
+              <ShieldCheck className="w-5 h-5 text-emerald-500" /> INDIVIDUAL OVERRIDE
             </h3>
-            <p className="text-xs text-slate-500 mb-8 leading-relaxed italic">Precise identity permission targeting by cryptographic ID.</p>
-            <div className="space-y-4">
-              <Input
-                placeholder="MongoNode_ID"
-                value={singleUserId}
-                onChange={(e) => setSingleUserId(e.target.value)}
-                className="bg-white/5 border-white/10 rounded-xl h-12 text-white font-mono text-xs focus:border-emerald-500 transition-all"
-              />
-              <Button
-                disabled={singleBusy || !singleUserId}
-                onClick={async () => {
-                  setSingleBusy(true)
-                  setError(null)
-                  try {
-                    const res = await fetch("/api/admin/users/toggle-transfer", {
-                      method: "POST",
-                      headers: { "Content-Type": "application/json" },
-                      body: JSON.stringify({ userId: singleUserId }),
-                    })
-                    const data = await res.json()
-                    if (!res.ok) setError(data?.message || "Protocol target mismatch.")
-                  } catch {
-                    setError("Fault in targeting system.")
-                  } finally {
-                    setSingleBusy(false)
-                  }
-                }}
-                className="w-full h-12 rounded-xl bg-white/5 hover:bg-white/10 text-white font-black uppercase tracking-widest text-[10px] border border-white/10"
-              >
-                {singleBusy ? "Tuning..." : "Toggle Node Permission"}
-              </Button>
+            <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-6 leading-relaxed">
+              Target specific identity nodes for precise protocol modulation.
+            </p>
+
+            <div className="space-y-6">
+              <div className="relative">
+                <Input
+                  placeholder="Identity Node (Email/ID)"
+                  value={singleUserId}
+                  onChange={(e) => setSingleUserId(e.target.value)}
+                  className="bg-white/5 border-white/10 rounded-xl h-12 text-white font-mono text-xs focus:border-emerald-500 transition-all placeholder:text-slate-600"
+                />
+                <Button
+                  size="sm"
+                  onClick={async () => {
+                    if (!singleUserId) return
+                    setSingleBusy(true)
+                    setError(null)
+                    try {
+                      const res = await fetch(`/api/admin/users/permissions?identifier=${encodeURIComponent(singleUserId)}`)
+                      const data = await res.json()
+                      if (!res.ok) {
+                        setError(data?.message || "Node signature not found.")
+                        setFoundUser(null)
+                      } else {
+                        setFoundUser(data)
+                      }
+                    } catch {
+                      setError("Network interrupt during node lookup.")
+                    } finally {
+                      setSingleBusy(false)
+                    }
+                  }}
+                  className="absolute right-1 top-1 h-10 px-4 rounded-lg bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-500 font-black text-[10px] uppercase tracking-widest"
+                >
+                  {singleBusy ? "..." : "FETCH"}
+                </Button>
+              </div>
+
+              {foundUser && (
+                <div className="p-5 rounded-2xl bg-white/5 border border-white/5 space-y-5 animate-in fade-in slide-in-from-top-4 duration-300">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500 font-black text-xs uppercase">
+                      {foundUser.name[0]}
+                    </div>
+                    <div>
+                      <p className="text-xs font-black text-white uppercase tracking-tight">{foundUser.name}</p>
+                      <p className="text-[9px] text-slate-500 italic truncate max-w-[150px]">{foundUser.email}</p>
+                    </div>
+                  </div>
+
+                  <Separator className="bg-white/5" />
+
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Local Transfer</span>
+                      <Switch
+                        checked={foundUser.canLocalTransfer}
+                        onCheckedChange={(val) => toggleUserPerm("local", val)}
+                        className="data-[state=checked]:bg-blue-500 scale-75"
+                      />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Intl Transfer</span>
+                      <Switch
+                        checked={foundUser.canInternationalTransfer}
+                        onCheckedChange={(val) => toggleUserPerm("international", val)}
+                        className="data-[state=checked]:bg-emerald-500 scale-75"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </Card>
 

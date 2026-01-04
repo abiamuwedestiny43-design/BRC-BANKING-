@@ -9,8 +9,20 @@ export async function PUT(request: Request) {
     return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
   }
   const body = await request.json()
-  const canTransfer = Boolean(body?.canTransfer)
+  const enabled = Boolean(body?.enabled)
+  const type = body?.type || "all"
+  
   await dbConnect()
-  const result = await User.updateMany({}, { $set: { "bankAccount.canTransfer": canTransfer } })
+  
+  let updateObj = {}
+  if (type === "local") {
+    updateObj = { "bankAccount.canLocalTransfer": enabled }
+  } else if (type === "international") {
+    updateObj = { "bankAccount.canInternationalTransfer": enabled }
+  } else {
+    updateObj = { "bankAccount.canTransfer": enabled }
+  }
+  
+  const result = await User.updateMany({}, { $set: updateObj })
   return NextResponse.json({ updated: result.modifiedCount })
 }
