@@ -211,182 +211,195 @@ export default function TransferPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] w-full p-4 md:p-8 lg:p-12 pt-24 md:pt-32">
-      <div className="max-w-4xl mx-auto space-y-8">
+    <div className="min-h-screen bg-[#001c10] w-full p-4 md:p-8 lg:p-12 pt-24 md:pt-32 relative overflow-hidden text-white">
+      {/* Background Decor */}
+      <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+      <div className="max-w-4xl mx-auto space-y-10 relative z-10">
 
         {/* Header Section */}
-        <motion.div {...fadeInUp} className="text-center space-y-3">
-          <div className="inline-flex items-center justify-center p-3 bg-green-100 rounded-2xl mb-2">
-            <ArrowRightLeft className="h-8 w-8 text-green-600" />
+        <motion.div {...fadeInUp} className="text-center space-y-4">
+          <div className="inline-flex items-center justify-center p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-3xl mb-2">
+            <ArrowRightLeft className="h-10 w-10 text-emerald-500" />
           </div>
-          <h1 className="text-4xl font-extrabold tracking-tight text-slate-900">Transfer Funds</h1>
-          <p className="text-slate-500 text-lg font-medium max-w-2xl mx-auto">
-            Securely send money to any bank account worldwide.
-            Choose between <span className="text-green-600 font-bold">local priority</span> and <span className="text-blue-600 font-bold">international wire</span>.
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-widest mx-auto">
+              <ShieldCheck className="w-3 h-3" /> Secure Node Transfer Protocol
+            </div>
+            <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter">
+              Initiate <span className="text-slate-500 italic">Transfer</span>
+            </h1>
+          </div>
+          <p className="text-slate-400 font-medium max-w-2xl mx-auto text-lg leading-relaxed">
+            Execute cross-border settlement and peer-to-peer liquidity provisioning via encrypted gateways.
           </p>
         </motion.div>
 
         {!localEnabled && (
           <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
-            <Alert variant="destructive" className="border-none shadow-lg bg-red-50 text-red-700 rounded-2xl">
-              <ShieldCheck className="h-5 w-5" />
-              <AlertDescription className="font-bold ml-2">Local transfers are currently disabled by the administrator.</AlertDescription>
+            <Alert variant="destructive" className="border-red-500/20 shadow-2xl bg-red-500/5 text-red-400 rounded-3xl p-6">
+              <ShieldCheck className="h-6 w-6" />
+              <AlertDescription className="font-black ml-4 uppercase tracking-widest text-xs">Local transfers are restricted by system administrator.</AlertDescription>
             </Alert>
           </motion.div>
         )}
 
         <div className="grid grid-cols-1 gap-10">
           <motion.div {...fadeInUp} transition={{ delay: 0.1 }}>
-            <Card className="border-none shadow-2xl shadow-slate-200/50 overflow-hidden bg-white/90 backdrop-blur-md rounded-[2.5rem]">
-              <div className="h-4 bg-gradient-to-r from-green-600 via-green-400 to-green-600" />
-              <CardHeader className="p-8 pb-4">
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                  <div>
-                    <CardTitle className="text-2xl font-black text-slate-900 uppercase tracking-tight">Transaction Details</CardTitle>
-                    <CardDescription className="text-slate-500 font-medium pt-1">Provide the recipient's banking information below.</CardDescription>
+            <Card className="border-white/5 bg-white/[0.03] backdrop-blur-md overflow-hidden rounded-[3rem] shadow-2xl relative">
+              <div className="h-2 bg-gradient-to-r from-emerald-500 via-emerald-400 to-emerald-500 opacity-50" />
+              <CardHeader className="p-10 pb-6 border-b border-white/5">
+                <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+                  <div className="space-y-2">
+                    <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500">Transaction Profile</p>
+                    <CardTitle className="text-2xl md:text-3xl font-black text-white uppercase tracking-tight">Egress Specifications</CardTitle>
                   </div>
-                  <div className="flex bg-slate-100 p-1 rounded-2xl shadow-inner border border-slate-200">
+                  <div className="flex bg-black/20 p-1.5 rounded-2xl border border-white/5 shadow-inner">
                     <button
                       type="button"
                       onClick={() => setTransferType("local")}
                       disabled={!localEnabled}
                       className={cn(
-                        "flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-black transition-all",
-                        transferType === "local" ? "bg-white text-green-600 shadow-sm" : "text-slate-500 hover:text-slate-700"
+                        "flex items-center gap-2 px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
+                        transferType === "local" ? "bg-emerald-500 text-[#001c10] shadow-lg shadow-emerald-500/20" : "text-slate-500 hover:text-white disabled:opacity-20"
                       )}
                     >
-                      <MapPin className="h-4 w-4" /> Local
+                      <MapPin className="h-4 w-4" /> Local Node
                     </button>
                     <button
                       type="button"
                       onClick={() => setTransferType("international")}
                       className={cn(
-                        "flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-black transition-all",
-                        transferType === "international" ? "bg-white text-blue-600 shadow-sm" : "text-slate-500 hover:text-slate-700"
+                        "flex items-center gap-2 px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
+                        transferType === "international" ? "bg-white text-[#001c10] shadow-lg" : "text-slate-500 hover:text-white"
                       )}
                     >
-                      <Globe className="h-4 w-4" /> Wire
+                      <Globe className="h-4 w-4" /> Global Wire
                     </button>
                   </div>
                 </div>
               </CardHeader>
 
-              <CardContent className="p-8 pt-6">
-                <form onSubmit={handleSubmit} className="space-y-10">
+              <CardContent className="p-10 space-y-12">
+                <form onSubmit={handleSubmit} className="space-y-12">
                   {error && (
-                    <Alert variant="destructive" className="rounded-2xl border-none bg-red-50 text-red-700">
+                    <Alert variant="destructive" className="rounded-2xl border-red-500/20 bg-red-500/5 text-red-500 font-bold p-4">
                       <AlertCircle className="h-4 w-4" />
-                      <AlertDescription className="font-bold">{error}</AlertDescription>
+                      <AlertDescription className="font-black uppercase tracking-widest text-[10px] ml-2">{error}</AlertDescription>
                     </Alert>
                   )}
 
                   {/* Beneficiary Quick Select */}
-                  <div className="space-y-4">
-                    <Label className="text-sm font-black text-slate-700 uppercase tracking-widest flex items-center gap-2">
-                      <BookUser className="h-4 w-4 text-green-600" />
-                      Quick Select Beneficiary
+                  <div className="space-y-6">
+                    <Label className="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] flex items-center gap-3">
+                      <BookUser className="h-4 w-4 text-emerald-500" />
+                      Known Recipient Nodes
                     </Label>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div
                         onClick={() => setSelectedBeneficiaryId(null)}
                         className={cn(
-                          "p-4 rounded-2xl border-2 transition-all cursor-pointer flex items-center gap-3",
-                          !selectedBeneficiaryId ? "border-green-500 bg-green-50/50 shadow-md" : "border-slate-100 bg-slate-50 hover:border-slate-200"
+                          "p-6 rounded-[2rem] border-2 transition-all cursor-pointer flex items-center gap-5 group relative overflow-hidden",
+                          !selectedBeneficiaryId ? "border-emerald-500 bg-emerald-500/5 shadow-2xl shadow-emerald-500/10" : "border-white/5 bg-white/5 hover:border-white/10"
                         )}
                       >
-                        <div className={cn("h-6 w-6 rounded-full border-2 flex items-center justify-center transition-all", !selectedBeneficiaryId ? "border-green-600 bg-green-600" : "border-slate-300")}>
-                          {!selectedBeneficiaryId && <CheckCircle2 className="h-4 w-4 text-white" />}
+                        <div className={cn("h-7 w-7 rounded-full border-2 flex items-center justify-center transition-all shrink-0", !selectedBeneficiaryId ? "border-emerald-500 bg-emerald-500" : "border-slate-700")}>
+                          {!selectedBeneficiaryId && <CheckCircle2 className="h-4 w-4 text-[#001c10]" />}
                         </div>
-                        <span className="font-bold text-slate-700">New Recipient</span>
+                        <div>
+                          <p className="font-black text-white text-sm uppercase tracking-tight">Manual Injection</p>
+                          <p className="text-[10px] font-bold text-slate-500 uppercase">Input new parameters</p>
+                        </div>
                       </div>
                       {beneficiaries.map((b: any) => (
                         <div
                           key={b._id}
                           onClick={() => setSelectedBeneficiaryId(b._id)}
                           className={cn(
-                            "p-4 rounded-2xl border-2 transition-all cursor-pointer flex items-center justify-between group",
-                            selectedBeneficiaryId === b._id ? "border-green-500 bg-green-50/50 shadow-md" : "border-slate-100 bg-slate-50 hover:border-slate-200"
+                            "p-6 rounded-[2rem] border-2 transition-all cursor-pointer flex items-center justify-between group relative overflow-hidden",
+                            selectedBeneficiaryId === b._id ? "border-emerald-500 bg-emerald-500/5 shadow-2xl shadow-emerald-500/10" : "border-white/5 bg-white/5 hover:border-white/10"
                           )}
                         >
-                          <div className="flex items-center gap-3 flex-1 overflow-hidden">
-                            <div className={cn("h-6 w-6 rounded-full border-2 flex items-center justify-center shrink-0 transition-all", selectedBeneficiaryId === b._id ? "border-green-600 bg-green-600" : "border-slate-300")}>
-                              {selectedBeneficiaryId === b._id && <CheckCircle2 className="h-4 w-4 text-white" />}
+                          <div className="flex items-center gap-5 flex-1 overflow-hidden z-10">
+                            <div className={cn("h-7 w-7 rounded-full border-2 flex items-center justify-center shrink-0 transition-all", selectedBeneficiaryId === b._id ? "border-emerald-500 bg-emerald-500" : "border-slate-700")}>
+                              {selectedBeneficiaryId === b._id && <CheckCircle2 className="h-4 w-4 text-[#001c10]" />}
                             </div>
                             <div className="truncate">
-                              <p className="font-black text-slate-900 text-sm truncate">{b.bankInfo.bankHolder}</p>
-                              <p className="text-[10px] uppercase font-bold text-slate-500 tracking-tight">{b.bankInfo.bankName} • {b.bankAccount}</p>
+                              <p className="font-black text-white text-sm uppercase tracking-tight truncate">{b.bankInfo.bankHolder}</p>
+                              <p className="text-[10px] uppercase font-bold text-slate-500 tracking-tighter truncate">{b.bankInfo.bankName} <span className="mx-1 opacity-30">|</span> {b.bankAccount}</p>
                             </div>
                           </div>
-                          <span className={cn("text-[8px] font-black px-2 py-0.5 rounded uppercase ml-2", b.bankRegion === 'international' ? 'bg-blue-100 text-blue-600' : 'bg-green-100 text-green-600')}>
-                            {b.bankRegion === 'international' ? 'Wire' : 'Local'}
+                          <span className={cn("text-[8px] font-black px-2 py-1 rounded bg-black/40 uppercase ml-2 border z-10", b.bankRegion === 'international' ? 'text-blue-400 border-blue-400/20' : 'text-emerald-400 border-emerald-400/20')}>
+                            {b.bankRegion === 'international' ? 'WIRE' : 'LOCAL'}
                           </span>
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="bankName" className="text-sm font-bold text-slate-700">Bank Name</Label>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                    <div className="space-y-4">
+                      <Label htmlFor="bankName" className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Destination Entity</Label>
                       <div className="relative group">
-                        <Banknote className="absolute left-3 top-3.5 h-4 w-4 text-slate-400 group-focus-within:text-green-600 transition-colors" />
+                        <Banknote className="absolute left-4 top-4 h-5 w-5 text-slate-500 group-focus-within:text-emerald-500 transition-colors" />
                         <Input
                           id="bankName"
-                          placeholder="e.g. JPMorgan Chase"
+                          placeholder="Node Name (e.g. JPMorgan)"
                           value={formData.bankName}
                           onChange={(e) => handleChange("bankName", e.target.value)}
                           required
                           disabled={isLoading}
-                          className="pl-10 h-12 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-green-400 transition-all rounded-xl font-bold"
+                          className="pl-12 h-14 bg-white/5 border-white/10 focus:bg-white/10 focus:ring-emerald-500 transition-all rounded-2xl font-bold text-white placeholder:text-slate-600"
                         />
                       </div>
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="accountNumber" className="text-sm font-bold text-slate-700">Account Number</Label>
+                    <div className="space-y-4">
+                      <Label htmlFor="accountNumber" className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Terminal Address</Label>
                       <div className="relative group">
-                        <CreditCard className="absolute left-3 top-3.5 h-4 w-4 text-slate-400 group-focus-within:text-green-600 transition-colors" />
+                        <CreditCard className="absolute left-4 top-4 h-5 w-5 text-slate-500 group-focus-within:text-emerald-500 transition-colors" />
                         <Input
                           id="accountNumber"
-                          placeholder="Enter account number"
+                          placeholder="Account Identifier"
                           value={formData.accountNumber}
                           onChange={(e) => handleChange("accountNumber", e.target.value)}
                           required
                           disabled={isLoading}
-                          className="pl-10 h-12 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-green-400 transition-all rounded-xl font-bold"
+                          className="pl-12 h-14 bg-white/5 border-white/10 focus:bg-white/10 focus:ring-emerald-500 transition-all rounded-2xl font-bold text-white placeholder:text-slate-600"
                         />
                       </div>
                     </div>
 
-                    <div className="space-y-2 col-span-1 md:col-span-2">
-                      <Label htmlFor="accountHolder" className="text-sm font-bold text-slate-700">Account Holder Name</Label>
+                    <div className="space-y-4 col-span-1 md:col-span-2">
+                      <Label htmlFor="accountHolder" className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Recipient Identity</Label>
                       <div className="relative group">
-                        <User className="absolute left-3 top-3.5 h-4 w-4 text-slate-400 group-focus-within:text-green-600 transition-colors" />
+                        <User className="absolute left-4 top-4 h-5 w-5 text-slate-500 group-focus-within:text-emerald-500 transition-colors" />
                         <Input
                           id="accountHolder"
-                          placeholder="Legal name of recipient"
+                          placeholder="Full Legal Identity of Recipient"
                           value={formData.accountHolder}
                           onChange={(e) => handleChange("accountHolder", e.target.value)}
                           required
                           disabled={isLoading}
-                          className="pl-10 h-12 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-green-400 transition-all rounded-xl font-bold"
+                          className="pl-12 h-14 bg-white/5 border-white/10 focus:bg-white/10 focus:ring-emerald-500 transition-all rounded-2xl font-bold text-white placeholder:text-slate-600"
                         />
                       </div>
                     </div>
 
                     {transferType === "international" && (
-                      <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} className="col-span-1 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                        <div className="space-y-2">
-                          <Label htmlFor="country" className="text-sm font-bold text-slate-700">Country</Label>
+                      <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="col-span-1 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+                        <div className="space-y-4">
+                          <Label htmlFor="country" className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Geopolitical Region</Label>
                           <Select value={formData.country} onValueChange={(value) => handleChange("country", value)}>
-                            <SelectTrigger className="h-12 bg-slate-50/50 border-slate-200 rounded-xl font-bold focus:ring-green-400">
-                              <SelectValue placeholder="Select beneficiary country" />
+                            <SelectTrigger className="h-14 bg-white/5 border-white/10 rounded-2xl font-bold text-white focus:ring-emerald-500">
+                              <SelectValue placeholder="Select Country" />
                             </SelectTrigger>
-                            <SelectContent className="max-h-72 rounded-xl">
+                            <SelectContent className="max-h-72 rounded-2xl bg-[#002a18] border-white/10 text-white shadow-2xl">
                               {[
                                 "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo, Democratic Republic of the", "Congo, Republic of the", "Costa Rica", "Cote d'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe",
                               ].map((c) => (
-                                <SelectItem key={c} value={c} className="rounded-lg">
+                                <SelectItem key={c} value={c} className="rounded-xl hover:bg-emerald-500/10 focus:bg-emerald-500/20 px-4 py-3">
                                   {c}
                                 </SelectItem>
                               ))}
@@ -394,27 +407,27 @@ export default function TransferPage() {
                           </Select>
                         </div>
 
-                        <div className="space-y-2">
-                          <Label htmlFor="routingCode" className="text-sm font-bold text-slate-700">Swift / Routing Code</Label>
+                        <div className="space-y-4">
+                          <Label htmlFor="routingCode" className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Network Identifier (SWIFT)</Label>
                           <div className="relative group">
-                            <Globe className="absolute left-3 top-3.5 h-4 w-4 text-slate-400 group-focus-within:text-green-600 transition-colors" />
+                            <Globe className="absolute left-4 top-4 h-5 w-5 text-slate-500 group-focus-within:text-emerald-500 transition-colors" />
                             <Input
                               id="routingCode"
-                              placeholder="8 or 11 characters"
+                              placeholder="SWIFT BIC / Routing"
                               value={formData.routingCode}
                               onChange={(e) => handleChange("routingCode", e.target.value)}
                               disabled={isLoading}
-                              className="pl-10 h-12 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-green-400 transition-all rounded-xl font-bold uppercase"
+                              className="pl-12 h-14 bg-white/5 border-white/10 focus:bg-white/10 focus:ring-emerald-500 transition-all rounded-2xl font-bold text-white placeholder:text-slate-600 uppercase"
                             />
                           </div>
                         </div>
                       </motion.div>
                     )}
 
-                    <div className="space-y-2">
-                      <Label htmlFor="amount" className="text-sm font-bold text-slate-700">Transfer Amount</Label>
+                    <div className="space-y-4">
+                      <Label htmlFor="amount" className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Liquidity Volume</Label>
                       <div className="relative group">
-                        <span className="absolute left-3 top-3 text-lg font-black text-slate-300 group-focus-within:text-green-600 transition-colors">$</span>
+                        <span className="absolute left-4 top-3 text-2xl font-black text-slate-700 group-focus-within:text-emerald-500 transition-colors">$</span>
                         <Input
                           id="amount"
                           type="number"
@@ -424,61 +437,61 @@ export default function TransferPage() {
                           onChange={(e) => handleChange("amount", e.target.value)}
                           required
                           disabled={isLoading}
-                          className="pl-8 h-14 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-green-400 shadow-inner transition-all rounded-xl text-xl font-black"
+                          className="pl-10 h-16 bg-white/5 border-white/10 focus:bg-white/10 focus:ring-emerald-500 shadow-2xl transition-all rounded-2xl text-3xl font-black text-white"
                         />
                       </div>
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="currency" className="text-sm font-bold text-slate-700">Currency</Label>
+                    <div className="space-y-4">
+                      <Label htmlFor="currency" className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Asset Denomination</Label>
                       <Select value={formData.currency} onValueChange={() => { }} disabled>
-                        <SelectTrigger className="h-14 bg-slate-100 border-none rounded-xl font-black text-slate-600 cursor-not-allowed">
+                        <SelectTrigger className="h-16 bg-black/40 border-white/5 rounded-2xl font-black text-slate-400 opacity-60 cursor-not-allowed">
                           <SelectValue />
                         </SelectTrigger>
-                        <SelectContent className="rounded-xl">
+                        <SelectContent className="rounded-2xl bg-[#002a18] border-white/10">
                           <SelectItem value={assignedCurrency || "USD"}>{assignedCurrency || "USD"}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
                   </div>
 
-                  <div className="space-y-2">
-                    <Label htmlFor="description" className="text-sm font-bold text-slate-700">Note / Description <span className="text-slate-400 font-medium">(Optional)</span></Label>
+                  <div className="space-y-4">
+                    <Label htmlFor="description" className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Transaction Log Description</Label>
                     <Textarea
                       id="description"
                       value={formData.description}
                       onChange={(e) => handleChange("description", e.target.value)}
                       disabled={isLoading}
-                      placeholder="e.g. Rent payment, Business invoice"
-                      className="min-h-[100px] bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-green-400 transition-all rounded-[2rem] p-6 font-medium"
+                      placeholder="Input purpose of asset relocation..."
+                      className="min-h-[120px] bg-white/5 border-white/10 focus:bg-white/10 focus:ring-emerald-500 transition-all rounded-[2.5rem] p-8 font-medium text-white placeholder:text-slate-600 border-none"
                     />
                   </div>
 
-                  <div className="p-6 bg-slate-50/80 border border-slate-100 rounded-[2rem] flex flex-col md:flex-row items-center justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 bg-white rounded-xl flex items-center justify-center shadow-sm">
-                        <BookUser className="h-5 w-5 text-slate-400" />
+                  <div className="p-8 bg-white/[0.02] border border-white/5 rounded-[3rem] flex flex-col md:flex-row items-center justify-between gap-6 shadow-inner">
+                    <div className="flex items-center gap-5">
+                      <div className="h-14 w-14 bg-emerald-500/10 rounded-[1.5rem] flex items-center justify-center border border-emerald-500/20">
+                        <BookUser className="h-7 w-7 text-emerald-500" />
                       </div>
                       <div>
-                        <p className="text-sm font-black text-slate-700">Save Beneficiary</p>
-                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Store for future quick-pay</p>
+                        <p className="text-sm font-black text-white uppercase tracking-tight">Persistence Protocol</p>
+                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-[0.2em]">Cache node for recurring egress</p>
                       </div>
                     </div>
                     <RadioGroup
                       value={saveBeneficiaryChoice}
                       onValueChange={(v: "yes" | "no") => setSaveBeneficiaryChoice(v)}
-                      className="flex bg-white p-1 rounded-xl shadow-inner border border-slate-200"
+                      className="flex bg-black/40 p-2 rounded-2xl border border-white/5"
                     >
                       <div className="flex items-center">
                         <RadioGroupItem id="save-no" value="no" className="sr-only" />
                         <Label
                           htmlFor="save-no"
                           className={cn(
-                            "cursor-pointer px-6 py-1.5 rounded-lg text-xs font-black transition-all",
-                            saveBeneficiaryChoice === "no" ? "bg-slate-900 text-white shadow-md" : "text-slate-400 hover:text-slate-600"
+                            "cursor-pointer px-8 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
+                            saveBeneficiaryChoice === "no" ? "bg-slate-800 text-white shadow-lg" : "text-slate-500 hover:text-slate-300"
                           )}
                         >
-                          No
+                          Discard
                         </Label>
                       </div>
                       <div className="flex items-center">
@@ -486,35 +499,40 @@ export default function TransferPage() {
                         <Label
                           htmlFor="save-yes"
                           className={cn(
-                            "cursor-pointer px-6 py-1.5 rounded-lg text-xs font-black transition-all",
-                            saveBeneficiaryChoice === "yes" ? "bg-green-600 text-white shadow-md" : "text-slate-400 hover:text-slate-600"
+                            "cursor-pointer px-8 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all",
+                            saveBeneficiaryChoice === "yes" ? "bg-emerald-500 text-[#001c10] shadow-lg" : "text-slate-500 hover:text-slate-300"
                           )}
                         >
-                          Yes
+                          Persist
                         </Label>
                       </div>
                     </RadioGroup>
                   </div>
 
-                  <div className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-6 pt-6">
                     <Button
                       type="submit"
                       disabled={isLoading}
-                      className="w-full bg-slate-900 hover:bg-black text-white font-black h-16 rounded-2xl shadow-2xl shadow-slate-200 transition-all hover:scale-[1.01] active:scale-[0.99] group text-lg"
+                      className="w-full bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black h-20 rounded-[2.5rem] shadow-2xl shadow-emerald-500/20 transition-all hover:scale-[1.02] active:scale-[0.98] group text-xl uppercase tracking-tighter"
                     >
                       {isLoading ? (
-                        <Loader2 className="h-6 w-6 animate-spin" />
+                        <Loader2 className="h-8 w-8 animate-spin" />
                       ) : (
-                        <>
-                          Initiate Secure Transfer
-                          <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                        </>
+                        <div className="flex items-center gap-3">
+                          Execute Protocol Injection
+                          <ArrowRight className="h-6 w-6 group-hover:translate-x-2 transition-transform" />
+                        </div>
                       )}
                     </Button>
-                    <p className="items-center justify-center flex gap-1.5 text-[10px] font-black uppercase text-slate-400 tracking-widest pt-2">
-                      <ShieldCheck className="h-3 w-3" />
-                      Encrypted & Verified Transaction
-                    </p>
+                    <div className="flex flex-col items-center gap-2 opacity-40">
+                      <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.4em] text-slate-400">
+                        <ShieldCheck className="h-3 w-3 text-emerald-500" />
+                        End-to-End Quantum Encryption Active
+                      </div>
+                      <div className="h-1 w-32 bg-emerald-500/20 rounded-full overflow-hidden">
+                        <div className="h-full bg-emerald-500 w-2/3 animate-[shimmer_2s_infinite]"></div>
+                      </div>
+                    </div>
                   </div>
                 </form>
               </CardContent>
@@ -527,35 +545,38 @@ export default function TransferPage() {
       <AnimatePresence>
         {showOtpDialog && (
           <Dialog open={showOtpDialog} onOpenChange={setShowOtpDialog}>
-            <DialogContent className="rounded-[2.5rem] border-none shadow-2xl p-10 max-w-md overflow-hidden">
-              <div className="absolute top-0 left-0 w-full h-2 bg-green-500" />
-              <DialogHeader className="space-y-4">
-                <div className="h-16 w-16 bg-green-100 rounded-2xl flex items-center justify-center mx-auto mb-2">
-                  <ShieldCheck className="h-8 w-8 text-green-600" />
+            <DialogContent className="rounded-[3rem] border-white/10 bg-[#002a18]/95 backdrop-blur-2xl shadow-[0_0_100px_rgba(16,185,129,0.1)] p-12 max-w-md overflow-hidden text-white">
+              <div className="absolute top-0 left-0 w-full h-2 bg-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.5)]" />
+              <DialogHeader className="space-y-6">
+                <div className="h-20 w-20 bg-emerald-500/10 border border-emerald-500/20 rounded-[2rem] flex items-center justify-center mx-auto mb-2 shadow-2xl">
+                  <ShieldCheck className="h-10 w-10 text-emerald-500" />
                 </div>
-                <DialogTitle className="text-3xl font-black text-slate-900 text-center uppercase tracking-tighter">Enter OTP</DialogTitle>
-                <DialogDescription className="text-center text-slate-500 font-medium text-base">
-                  A security code has been sent to your email. Enter the <span className="text-slate-900 font-black">6-digit</span> code to authorize this transaction.
+                <div className="space-y-2 text-center">
+                  <p className="text-[10px] font-black uppercase tracking-[0.3em] text-emerald-500">Security Challenge</p>
+                  <DialogTitle className="text-4xl font-black text-white uppercase tracking-tighter">Auth <span className="text-slate-500 italic">Code</span></DialogTitle>
+                </div>
+                <DialogDescription className="text-center text-slate-400 font-medium text-base leading-relaxed">
+                  A verification token has been dispatched to your registered secure mail. Input the <span className="text-emerald-400 font-black tracking-widest">6-DIGIT</span> sequence.
                 </DialogDescription>
               </DialogHeader>
-              <div className="space-y-10 pt-6">
-                <div className="space-y-3">
-                  <Label className="text-[10px] font-black uppercase tracking-widest text-slate-400 text-center block">Security Code</Label>
+              <div className="space-y-12 pt-8">
+                <div className="space-y-4">
+                  <Label className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 text-center block">Factor Identification</Label>
                   <Input
                     type="text"
                     maxLength={6}
                     value={otpCode}
                     onChange={(e) => setOtpCode(e.target.value.replace(/\D/g, ""))}
-                    placeholder="• • • • • •"
-                    className="h-20 text-center text-4xl font-black tracking-[1rem] bg-slate-50 border-none rounded-2xl shadow-inner focus:ring-green-400 placeholder:text-slate-200"
+                    placeholder="......"
+                    className="h-24 text-center text-5xl font-black tracking-[1.2rem] bg-black/40 border-white/10 rounded-[1.5rem] shadow-inner focus:ring-emerald-500 placeholder:text-white/5 text-emerald-500"
                   />
                 </div>
-                <div className="flex flex-col gap-3">
-                  <Button onClick={handleOtpVerification} disabled={isLoading} className="h-14 bg-green-600 hover:bg-green-700 text-white font-black rounded-xl shadow-xl shadow-green-100 text-lg">
-                    {isLoading ? "Verifying..." : "Confirm & Send"}
+                <div className="flex flex-col gap-4">
+                  <Button onClick={handleOtpVerification} disabled={isLoading} className="h-16 bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black rounded-2xl shadow-2xl shadow-emerald-500/20 text-lg uppercase tracking-tight">
+                    {isLoading ? "Verifying Token..." : "Auth & Provision"}
                   </Button>
-                  <Button variant="ghost" onClick={() => setShowOtpDialog(false)} className="h-12 font-bold text-slate-400 hover:text-slate-600">
-                    Cancel Transaction
+                  <Button variant="ghost" onClick={() => setShowOtpDialog(false)} className="h-12 font-black text-slate-500 hover:text-white uppercase tracking-widest text-[10px]">
+                    Abort Session
                   </Button>
                 </div>
               </div>

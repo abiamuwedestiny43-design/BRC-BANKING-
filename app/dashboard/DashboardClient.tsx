@@ -73,53 +73,59 @@ export default function DashboardClient({
     }
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] w-full p-4 md:p-8 lg:p-12 pt-24 md:pt-32">
-            <div className="max-w-6xl mx-auto space-y-10">
+        <div className="min-h-screen bg-[#001c10] w-full p-4 md:p-8 lg:p-12 pt-24 md:pt-32 relative overflow-hidden">
+            {/* Background Decor */}
+            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+            <div className="max-w-6xl mx-auto space-y-10 relative z-10">
 
                 {/* Header Section */}
                 <motion.div {...fadeInUp} className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-                    <div className="space-y-1">
-                        <h1 className="text-4xl font-extrabold tracking-tight text-slate-900">
-                            Hello, {firstName} <span className="animate-wave inline-block">👋</span>
+                    <div className="space-y-2">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-widest">
+                            <ShieldCheck className="w-3 h-3" /> Secure Banking Session Active
+                        </div>
+                        <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter">
+                            Hello, <span className="text-slate-500 italic">{firstName}</span> <span className="animate-wave inline-block">👋</span>
                         </h1>
-                        <p className="text-slate-500 text-lg font-medium">Here's a summary of your financial status today.</p>
+                        <p className="text-slate-400 font-medium">Your financial ecosystem at a glance.</p>
                     </div>
                     <div className="flex items-center gap-4">
                         <DropdownMenu>
                             <DropdownMenuTrigger asChild>
-                                <Button variant="outline" size="icon" className="h-12 w-12 rounded-2xl border-none shadow-lg shadow-slate-200 bg-white hover:bg-slate-50 relative">
-                                    <Bell className="h-5 w-5 text-slate-600" />
+                                <Button variant="ghost" size="icon" className="h-12 w-12 rounded-2xl border border-white/10 bg-white/5 hover:bg-white/10 relative text-white transition-all">
+                                    <Bell className="h-5 w-5" />
                                     {unreadCount > 0 && (
-                                        <span className="absolute top-3 right-3 h-2.5 w-2.5 bg-red-500 border-2 border-white rounded-full"></span>
+                                        <span className="absolute top-3 right-3 h-2.5 w-2.5 bg-emerald-500 border-2 border-[#001c10] rounded-full"></span>
                                     )}
                                 </Button>
                             </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="w-80 p-2 rounded-2xl shadow-2xl border-none bg-white/95 backdrop-blur-md">
-                                <DropdownMenuLabel className="flex items-center justify-between p-3">
-                                    <span className="font-black text-slate-900 uppercase tracking-widest text-xs">Recent Alerts</span>
-                                    {unreadCount > 0 && <span className="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded-full">{unreadCount} New</span>}
+                            <DropdownMenuContent align="end" className="w-80 p-2 rounded-2xl shadow-2xl border border-white/10 bg-[#002a18]/95 backdrop-blur-md text-white">
+                                <DropdownMenuLabel className="flex items-center justify-between p-3 border-b border-white/5">
+                                    <span className="font-black text-slate-400 uppercase tracking-widest text-[10px]">Recent Alerts</span>
+                                    {unreadCount > 0 && <span className="bg-emerald-500 text-[#001c10] text-[10px] px-2 py-0.5 rounded-full font-bold">{unreadCount} New</span>}
                                 </DropdownMenuLabel>
-                                <DropdownMenuSeparator className="bg-slate-100" />
                                 <div className="max-h-64 overflow-y-auto">
                                     {notifications.length === 0 ? (
-                                        <div className="py-8 text-center text-slate-400 text-sm font-medium">
+                                        <div className="py-8 text-center text-slate-500 text-sm font-medium">
                                             No recent activity.
                                         </div>
                                     ) : (
                                         notifications.slice(0, 5).map((n: any) => (
-                                            <DropdownMenuItem key={n._id} asChild className="p-0 focus:bg-transparent">
-                                                <Link href={n.redirect || "/dashboard/notifications"} className="p-3 flex items-start gap-3 rounded-xl hover:bg-slate-50 transition-colors group">
+                                            <DropdownMenuItem key={n._id} asChild className="p-0 focus:bg-white/5">
+                                                <Link href={n.redirect || "/dashboard/notifications"} className="p-3 flex items-start gap-3 rounded-xl transition-colors group">
                                                     <div className={cn(
                                                         "h-10 w-10 rounded-xl flex items-center justify-center shrink-0 shadow-inner",
-                                                        n.message.toLowerCase().includes("debited") ? "bg-red-50 text-red-500" : "bg-green-50 text-green-500"
+                                                        n.message.toLowerCase().includes("debited") ? "bg-red-500/10 text-red-400" : "bg-emerald-500/10 text-emerald-400"
                                                     )}>
                                                         {n.viewed ? <CheckCircle2 className="h-5 w-5 opacity-40" /> : <Clock className="h-5 w-5" />}
                                                     </div>
                                                     <div className="space-y-1 overflow-hidden">
-                                                        <p className="text-xs font-bold text-slate-800 line-clamp-2 leading-relaxed">
+                                                        <p className="text-xs font-bold text-slate-200 line-clamp-2 leading-relaxed">
                                                             {n.message}
                                                         </p>
-                                                        <p className="text-[10px] text-slate-400 font-medium">
+                                                        <p className="text-[10px] text-slate-500 font-medium">
                                                             {new Date(n.period).toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' })}
                                                         </p>
                                                     </div>
@@ -128,11 +134,11 @@ export default function DashboardClient({
                                         ))
                                     )}
                                 </div>
-                                <DropdownMenuSeparator className="bg-slate-100" />
+                                <DropdownMenuSeparator className="bg-white/5" />
                                 <DropdownMenuItem asChild className="focus:bg-transparent p-0">
                                     <Link
                                         href="/dashboard/notifications"
-                                        className="w-full py-3 text-center text-xs font-black text-green-600 uppercase tracking-widest hover:bg-green-50 rounded-xl transition-colors"
+                                        className="w-full py-3 text-center text-xs font-black text-emerald-400 uppercase tracking-widest hover:bg-emerald-500/10 rounded-xl transition-colors"
                                     >
                                         View All Activity
                                     </Link>
@@ -141,7 +147,7 @@ export default function DashboardClient({
                         </DropdownMenu>
 
                         <Link href="/dashboard/settings" className="group">
-                            <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-green-200 group-hover:scale-105 transition-transform">
+                            <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center text-[#001c10] text-xl font-bold shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform">
                                 {firstName?.[0]}
                             </div>
                         </Link>
@@ -152,39 +158,52 @@ export default function DashboardClient({
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Main Balance card */}
                     <motion.div {...fadeInUp} className="lg:col-span-2">
-                        <Card className="h-full border-none shadow-2xl shadow-green-100/50 bg-gradient-to-br from-slate-900 via-slate-800 to-green-900 text-white overflow-hidden relative group">
-                            <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <Wallet className="h-40 w-40" />
+                        <Card className="h-full border-white/10 shadow-3xl bg-gradient-to-br from-[#003d24] via-[#002a18] to-[#011a0f] text-white overflow-hidden relative group rounded-[3rem]">
+                            <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
+                                <Wallet className="h-48 w-48" />
                             </div>
-                            <CardHeader className="relative z-10">
-                                <div className="flex justify-between items-center">
-                                    <CardTitle className="text-slate-300 font-medium flex items-center gap-2">
-                                        <ShieldCheck className="h-4 w-4 text-green-400" />
-                                        Available Balance
-                                    </CardTitle>
-                                    <Button variant="ghost" size="icon" className="text-white/50 hover:text-white hover:bg-white/10 rounded-full">
+                            <CardHeader className="relative z-10 p-10">
+                                <div className="flex justify-between items-center mb-6">
+                                    <div className="flex items-center gap-3">
+                                        <div className="h-10 w-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-emerald-400">
+                                            <ShieldCheck className="h-5 w-5" />
+                                        </div>
+                                        <div>
+                                            <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Available Balance</p>
+                                            <p className="text-xs text-emerald-500 font-bold">Secure Node Active</p>
+                                        </div>
+                                    </div>
+                                    <Button variant="ghost" size="icon" className="text-white/20 hover:text-white hover:bg-white/5 rounded-full">
                                         <Eye className="h-5 w-5" />
                                     </Button>
                                 </div>
-                                <div className="mt-4">
-                                    <h2 className="text-5xl md:text-6xl font-black tracking-tighter">
+                                <div>
+                                    <h2 className="text-6xl md:text-7xl font-black tracking-tighter mb-4">
                                         {formatCurrency(balance, currency)}
                                     </h2>
-                                    <p className="text-white/40 mt-2 font-mono tracking-widest uppercase text-xs">Account: {bankNumber}</p>
+                                    <div className="flex items-center gap-4">
+                                        <div className="px-3 py-1.5 rounded-lg bg-black/20 border border-white/5 flex items-center gap-2">
+                                            <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+                                            <span className="text-[10px] font-mono tracking-widest text-slate-400 uppercase">AC: {bankNumber}</span>
+                                        </div>
+                                        <div className="px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-2">
+                                            <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Global Status: Verified</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </CardHeader>
-                            <CardContent className="mt-6 relative z-10">
-                                <div className="flex flex-wrap gap-4">
-                                    <Button asChild className="bg-green-500 hover:bg-green-400 text-slate-900 font-bold px-6 h-12 rounded-xl shadow-lg shadow-green-500/20 transition-all hover:scale-105">
+                            <CardContent className="px-10 pb-10 relative z-10">
+                                <div className="flex flex-wrap gap-4 pt-6 border-t border-white/5">
+                                    <Button asChild className="bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black px-8 h-14 rounded-2xl shadow-xl shadow-emerald-500/20 transition-all hover:scale-105 active:scale-95 text-base">
                                         <Link href="/dashboard/transfer" className="flex items-center gap-2">
-                                            <ArrowUpRight className="h-4 w-4" />
-                                            Send Money
+                                            <ArrowUpRight className="h-5 w-5" />
+                                            Execute Transfer
                                         </Link>
                                     </Button>
-                                    <Button asChild variant="outline" className="border-white/20 hover:bg-white/10 hover:text-white font-bold px-6 h-12 rounded-xl backdrop-blur-sm transition-all">
-                                        <Link href="/dashboard/transactions" className="flex items-center gap-2 text-slate-800">
-                                            <History className="h-4 w-4" />
-                                            History
+                                    <Button asChild variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10 text-white font-black px-8 h-14 rounded-2xl backdrop-blur-sm transition-all text-base">
+                                        <Link href="/dashboard/transactions" className="flex items-center gap-2">
+                                            <History className="h-5 w-5" />
+                                            Audit Logs
                                         </Link>
                                     </Button>
                                 </div>
@@ -194,29 +213,31 @@ export default function DashboardClient({
 
                     {/* Quick Status Cards */}
                     <motion.div {...fadeInUp} transition={{ delay: 0.1 }} className="grid grid-cols-1 gap-6">
-                        <Card className="border-none shadow-xl shadow-slate-200/50 bg-white/80 backdrop-blur-md p-6 flex items-center justify-between group hover:bg-green-600 transition-colors duration-500">
-                            <div className="space-y-1">
-                                <p className="text-slate-500 text-sm font-bold uppercase tracking-wider group-hover:text-green-100">Verification</p>
-                                <h3 className="text-xl font-bold text-slate-900 group-hover:text-white">{user.bankAccount?.verified ? "Verified" : "Pending"}</h3>
+                        <Card className="border-white/5 bg-white/[0.03] hover:bg-white/[0.05] p-8 flex items-center justify-between group transition-all duration-500 rounded-[2.5rem]">
+                            <div className="space-y-2">
+                                <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest">Identity Status</p>
+                                <h3 className="text-2xl font-black text-white group-hover:text-emerald-400 transition-colors">{user.bankAccount?.verified ? "Verified" : "Pending"}</h3>
+                                <p className="text-xs text-slate-600 font-medium">Compliance vetting active</p>
                             </div>
                             <div className={cn(
-                                "h-12 w-12 rounded-2xl flex items-center justify-center transition-colors shadow-inner",
-                                user.bankAccount?.verified ? "bg-green-100 text-green-600 group-hover:bg-green-500 group-hover:text-white" : "bg-yellow-100 text-yellow-600 group-hover:bg-yellow-500 group-hover:text-white"
+                                "h-16 w-16 rounded-[1.5rem] flex items-center justify-center transition-all shadow-lg",
+                                user.bankAccount?.verified ? "bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-[#001c10]" : "bg-yellow-500/10 text-yellow-500 group-hover:bg-yellow-500 group-hover:text-[#001c10]"
                             )}>
-                                <ShieldCheck className="h-6 w-6" />
+                                <ShieldCheck className="h-8 w-8" />
                             </div>
                         </Card>
 
-                        <Card className="border-none shadow-xl shadow-slate-200/50 bg-white/80 backdrop-blur-md p-6 flex items-center justify-between group hover:bg-green-600 transition-colors duration-500">
-                            <div className="space-y-1">
-                                <p className="text-slate-500 text-sm font-bold uppercase tracking-wider group-hover:text-green-100">Transfers</p>
-                                <h3 className="text-xl font-bold text-slate-900 group-hover:text-white">{user.bankAccount?.canTransfer ? "Enabled" : "Restricted"}</h3>
+                        <Card className="border-white/5 bg-white/[0.03] hover:bg-white/[0.05] p-8 flex items-center justify-between group transition-all duration-500 rounded-[2.5rem]">
+                            <div className="space-y-2">
+                                <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest">Transfer Access</p>
+                                <h3 className="text-2xl font-black text-white group-hover:text-emerald-400 transition-colors">{user.bankAccount?.canTransfer ? "Enabled" : "Restricted"}</h3>
+                                <p className="text-xs text-slate-600 font-medium">Gateway communication live</p>
                             </div>
                             <div className={cn(
-                                "h-12 w-12 rounded-2xl flex items-center justify-center transition-colors shadow-inner",
-                                user.bankAccount?.canTransfer ? "bg-green-100 text-green-600 group-hover:bg-green-500 group-hover:text-white" : "bg-red-100 text-red-600 group-hover:bg-red-500 group-hover:text-white"
+                                "h-16 w-16 rounded-[1.5rem] flex items-center justify-center transition-all shadow-lg",
+                                user.bankAccount?.canTransfer ? "bg-emerald-500/10 text-emerald-500 group-hover:bg-emerald-500 group-hover:text-[#001c10]" : "bg-red-500/10 text-red-500 group-hover:bg-red-500 group-hover:text-[#001c10]"
                             )}>
-                                <ArrowUpRight className="h-6 w-6" />
+                                <ArrowUpRight className="h-8 w-8" />
                             </div>
                         </Card>
                     </motion.div>
@@ -226,20 +247,20 @@ export default function DashboardClient({
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
 
                     {/* Cards Section */}
-                    <motion.div {...fadeInUp} transition={{ delay: 0.2 }} className="lg:col-span-8 space-y-6">
+                    <motion.div {...fadeInUp} transition={{ delay: 0.2 }} className="lg:col-span-8 space-y-8">
                         <div className="flex items-center justify-between">
-                            <h2 className="text-2xl font-black text-slate-900 flex items-center gap-3">
-                                <CreditCard className="h-6 w-6 text-green-600" />
-                                Digital Cards
+                            <h2 className="text-2xl font-black text-white flex items-center gap-3">
+                                <CreditCard className="h-6 w-6 text-emerald-500" />
+                                Asset <span className="text-slate-500 italic">Portfolio</span>
                             </h2>
-                            <Button variant="ghost" asChild className="text-green-600 font-bold hover:bg-green-50 rounded-xl">
+                            <Button variant="ghost" asChild className="text-emerald-500 font-black hover:bg-emerald-500/10 rounded-xl text-xs uppercase tracking-widest">
                                 <Link href="/dashboard/card" className="flex items-center gap-1">
-                                    View All <ChevronRight className="h-4 w-4" />
+                                    All Assets <ChevronRight className="h-4 w-4" />
                                 </Link>
                             </Button>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                             {activeCards.length > 0 ? (
                                 activeCards.slice(0, 2).map((card: any) => (
                                     <div key={card._id} className="hover:scale-[1.02] transition-transform duration-300">
@@ -247,16 +268,16 @@ export default function DashboardClient({
                                     </div>
                                 ))
                             ) : (
-                                <Card className="md:col-span-2 border-2 border-dashed border-slate-200 bg-slate-50/50 rounded-[2rem] p-10 flex flex-col items-center justify-center text-center space-y-4">
-                                    <div className="h-16 w-16 bg-white rounded-2xl flex items-center justify-center shadow-lg text-slate-300">
-                                        <Plus className="h-8 w-8" />
+                                <Card className="md:col-span-2 border-2 border-dashed border-white/5 bg-white/[0.02] rounded-[3rem] p-12 flex flex-col items-center justify-center text-center space-y-6">
+                                    <div className="h-20 w-20 bg-emerald-500/10 rounded-[2rem] flex items-center justify-center text-emerald-500">
+                                        <Plus className="h-10 w-10" />
                                     </div>
-                                    <div>
-                                        <h3 className="text-lg font-bold text-slate-900">Apply for your first card</h3>
-                                        <p className="text-slate-500 max-w-sm">Get access to virtual and physical cards for international payments and rewards.</p>
+                                    <div className="space-y-2">
+                                        <h3 className="text-xl font-black text-white">Initialize Virtual Asset</h3>
+                                        <p className="text-slate-500 max-w-sm font-medium">Unlock global liquidity and international settlement capabilities.</p>
                                     </div>
-                                    <Button asChild className="bg-slate-900 hover:bg-black text-white px-8 rounded-xl h-12 shadow-xl shadow-slate-200">
-                                        <Link href="/dashboard/card/apply">Register New Card</Link>
+                                    <Button asChild className="bg-white text-[#001c10] font-black px-10 h-14 rounded-2xl shadow-xl transition-all hover:scale-105 active:scale-95">
+                                        <Link href="/dashboard/card/apply">Register New Asset</Link>
                                     </Button>
                                 </Card>
                             )}
@@ -264,22 +285,25 @@ export default function DashboardClient({
                     </motion.div>
 
                     {/* Quick Actions Sidebar */}
-                    <motion.div {...fadeInUp} transition={{ delay: 0.3 }} className="lg:col-span-4 space-y-6">
-                        <h2 className="text-2xl font-black text-slate-900">Shortcuts</h2>
+                    <motion.div {...fadeInUp} transition={{ delay: 0.3 }} className="lg:col-span-4 space-y-8">
+                        <h2 className="text-2xl font-black text-white">Direct <span className="text-slate-500 italic">Protocols</span></h2>
                         <div className="grid grid-cols-1 gap-4">
                             {[
-                                { href: "/dashboard/transfer", label: "Send Money", icon: ArrowUpRight, color: "bg-green-500" },
-                                { href: "/dashboard/transactions", label: "Statement", icon: History, color: "bg-blue-500" },
-                                { href: "/dashboard/loans", label: "Lending", icon: Landmark, color: "bg-emerald-500" },
-                                { href: "/dashboard/beneficiaries", label: "Payees", icon: Users, color: "bg-purple-500" },
+                                { href: "/dashboard/transfer", label: "Global Payout", sub: "Cross-border settlement", icon: ArrowUpRight, color: "text-emerald-400", bg: "bg-emerald-500/10" },
+                                { href: "/dashboard/transactions", label: "Transaction Mesh", sub: "Historical data logs", icon: History, color: "text-blue-400", bg: "bg-blue-500/10" },
+                                { href: "/dashboard/loans", label: "Credit Protocol", sub: "Liquidity provisioning", icon: Landmark, color: "text-purple-400", bg: "bg-purple-500/10" },
+                                { href: "/dashboard/beneficiaries", label: "Auth Payees", sub: "Trusted node list", icon: Users, color: "text-orange-400", bg: "bg-orange-500/10" },
                             ].map((action, i) => (
                                 <Link key={i} href={action.href} className="group">
-                                    <Card className="border-none shadow-lg shadow-slate-100 bg-white/80 backdrop-blur-md p-4 flex items-center gap-4 transition-all group-hover:shadow-xl group-hover:bg-white group-hover:-translate-y-1 rounded-2xl">
-                                        <div className={cn("h-10 w-10 rounded-xl flex items-center justify-center text-white", action.color)}>
-                                            <action.icon className="h-5 w-5" />
+                                    <Card className="bg-white/[0.03] border-white/5 hover:bg-white/[0.06] p-5 flex items-center gap-5 transition-all group-hover:-translate-y-1 rounded-2xl">
+                                        <div className={cn("h-12 w-12 rounded-xl flex items-center justify-center shadow-lg", action.bg, action.color)}>
+                                            <action.icon className="h-6 w-6" />
                                         </div>
-                                        <span className="font-bold text-slate-700">{action.label}</span>
-                                        <ArrowRight className="h-4 w-4 ml-auto text-slate-300 group-hover:text-green-600 group-hover:translate-x-1 transition-all" />
+                                        <div>
+                                            <p className="font-bold text-white group-hover:text-emerald-400 transition-colors uppercase tracking-tight text-sm">{action.label}</p>
+                                            <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">{action.sub}</p>
+                                        </div>
+                                        <ArrowRight className="h-4 w-4 ml-auto text-slate-700 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all" />
                                     </Card>
                                 </Link>
                             ))}
@@ -292,71 +316,75 @@ export default function DashboardClient({
                 </motion.div>
 
                 {/* Recent Transactions Section */}
-                <motion.div {...fadeInUp} transition={{ delay: 0.4 }} className="space-y-6">
+                <motion.div {...fadeInUp} transition={{ delay: 0.4 }} className="space-y-8">
                     <div className="flex items-center justify-between">
-                        <h2 className="text-2xl font-black text-slate-900 flex items-center gap-3">
-                            <History className="h-6 w-6 text-green-600" />
-                            Transactions
+                        <h2 className="text-2xl font-black text-white flex items-center gap-3">
+                            <History className="h-6 w-6 text-emerald-500" />
+                            Activity <span className="text-slate-500 italic">Logs</span>
                         </h2>
-                        <Button variant="ghost" asChild className="text-green-600 font-bold hover:bg-green-50 rounded-xl">
+                        <Button variant="ghost" asChild className="text-emerald-500 font-black hover:bg-emerald-500/10 rounded-xl text-xs uppercase tracking-widest">
                             <Link href="/dashboard/transactions" className="flex items-center gap-1">
-                                History <ChevronRight className="h-4 w-4" />
+                                Full History <ChevronRight className="h-4 w-4" />
                             </Link>
                         </Button>
                     </div>
 
-                    <Card className="border-none shadow-2xl shadow-slate-200/50 bg-white/90 backdrop-blur-md overflow-hidden rounded-[2rem]">
+                    <Card className="bg-white/[0.03] border-white/5 overflow-hidden rounded-[3rem]">
                         <CardContent className="p-0">
                             {recentTransfers.length > 0 ? (
-                                <div className="divide-y divide-slate-100">
+                                <div className="divide-y divide-white/5">
                                     {recentTransfers.map((transfer: any) => (
                                         <Link
                                             key={transfer._id}
                                             href={`/dashboard/receipt/${transfer.txRef}`}
-                                            className="p-6 flex items-center justify-between hover:bg-slate-50/80 transition-all group border-l-4 border-transparent hover:border-green-500"
+                                            className="p-8 flex items-center justify-between hover:bg-white/[0.04] transition-all group relative"
                                         >
-                                            <div className="flex items-center gap-5">
+                                            <div className="flex items-center gap-6">
                                                 <div className={cn(
-                                                    "h-14 w-14 rounded-2xl flex items-center justify-center shadow-inner transition-transform group-hover:scale-110 duration-300",
-                                                    transfer.txType === "credit" ? "bg-green-100 text-green-600" : "bg-red-100 text-red-600"
+                                                    "h-16 w-16 rounded-2xl flex items-center justify-center transition-all group-hover:scale-110 duration-500 shadow-xl",
+                                                    transfer.txType === "credit" ? "bg-emerald-500/10 text-emerald-500" : "bg-red-500/10 text-red-500"
                                                 )}>
-                                                    {transfer.txType === "credit" ? <ArrowDownLeft className="h-6 w-6" /> : <ArrowUpRight className="h-6 w-6" />}
+                                                    {transfer.txType === "credit" ? <ArrowDownLeft className="h-8 w-8" /> : <ArrowUpRight className="h-8 w-8" />}
                                                 </div>
                                                 <div>
-                                                    <p className="text-lg font-extrabold text-slate-900 group-hover:text-green-700 transition-colors">
-                                                        {transfer.txType === "credit" ? "Deposit Ref" : "Payment to"}
+                                                    <p className="text-xl font-black text-white group-hover:text-emerald-400 transition-colors">
+                                                        {transfer.txType === "credit" ? "Incoming Node" : "Node Egress"}
                                                     </p>
-                                                    <div className="flex items-center gap-2 text-slate-500 font-medium">
-                                                        <span className="text-xs uppercase tracking-tighter bg-slate-100 px-2 py-0.5 rounded-md font-bold">{transfer.txRef}</span>
-                                                        <span className="text-sm">• {new Date(transfer.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                                                    <div className="flex items-center gap-3 mt-1">
+                                                        <span className="text-[10px] font-black uppercase tracking-widest text-[#001c10] bg-emerald-500 px-2 py-0.5 rounded shadow-sm">{transfer.txRef}</span>
+                                                        <span className="text-xs text-slate-500 font-medium italic">{new Date(transfer.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="text-right">
                                                 <p className={cn(
-                                                    "text-xl font-black",
-                                                    transfer.txType === "credit" ? "text-green-600" : "text-slate-900"
+                                                    "text-2xl font-black tracking-tight",
+                                                    transfer.txType === "credit" ? "text-emerald-400" : "text-white"
                                                 )}>
                                                     {transfer.txType === "credit" ? "+" : "−"}
                                                     {formatCurrency(transfer.amount, transfer.currency || currency)}
                                                 </p>
-                                                <div className="flex items-center justify-end gap-1.5 mt-1">
+                                                <div className="flex items-center justify-end gap-2 mt-1">
+                                                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">Signal:</p>
                                                     <div className={cn(
-                                                        "h-1.5 w-1.5 rounded-full shadow-sm",
-                                                        transfer.status === "success" ? "bg-green-500" : "bg-yellow-500"
+                                                        "h-2 w-2 rounded-full",
+                                                        transfer.status === "success" ? "bg-emerald-500" : "bg-yellow-500"
                                                     )}></div>
-                                                    <span className="text-[10px] font-black uppercase tracking-tighter text-slate-400">{transfer.status}</span>
+                                                    <span className={cn(
+                                                        "text-[10px] font-black uppercase tracking-tighter",
+                                                        transfer.status === "success" ? "text-emerald-500" : "text-yellow-500"
+                                                    )}>{transfer.status}</span>
                                                 </div>
                                             </div>
                                         </Link>
                                     ))}
                                 </div>
                             ) : (
-                                <div className="py-20 text-center space-y-3">
-                                    <div className="h-20 w-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto text-slate-300">
-                                        <History className="h-10 w-10" />
+                                <div className="py-24 text-center space-y-4">
+                                    <div className="h-24 w-24 bg-white/5 rounded-full flex items-center justify-center mx-auto text-slate-700">
+                                        <History className="h-12 w-12" />
                                     </div>
-                                    <p className="text-slate-400 font-bold">No recent transactions found.</p>
+                                    <p className="text-slate-500 font-black uppercase tracking-widest text-sm italic">No network activity detected.</p>
                                 </div>
                             )}
                         </CardContent>

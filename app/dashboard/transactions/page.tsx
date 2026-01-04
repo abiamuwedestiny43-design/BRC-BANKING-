@@ -105,14 +105,20 @@ export default async function TransactionsPage({
   )
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] w-full p-4 md:p-8 lg:p-12 pt-24 md:pt-32">
-      <TransactionsList
-        initialTransactions={transactions}
-        total={total}
-        currentPage={page}
-        totalPages={totalPages}
-        currentFilters={{ status, type, search }}
-      />
+    <div className="min-h-screen bg-[#001c10] w-full p-4 md:p-8 lg:p-12 pt-24 md:pt-32 relative overflow-hidden">
+      {/* Background Decor */}
+      <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+      <div className="relative z-10">
+        <TransactionsList
+          initialTransactions={transactions}
+          total={total}
+          currentPage={page}
+          totalPages={totalPages}
+          currentFilters={{ status, type, search }}
+        />
+      </div>
     </div>
   )
 }

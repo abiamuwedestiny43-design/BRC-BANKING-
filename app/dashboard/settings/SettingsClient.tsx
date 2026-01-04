@@ -167,64 +167,84 @@ export default function SettingsClient({ user }: SettingsPageProps) {
     }
 
     return (
-        <div className="min-h-screen bg-[#f8fafc] w-full p-4 md:p-8 lg:p-12 pt-24 md:pt-32">
-            <div className="max-w-6xl mx-auto space-y-8">
+        <div className="min-h-screen bg-[#001c10] w-full p-4 md:p-8 lg:p-12 pt-24 md:pt-32 relative overflow-hidden">
+            {/* Background Decor */}
+            <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-[30%] h-[30%] bg-emerald-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+            <div className="max-w-6xl mx-auto space-y-10 relative z-10">
 
                 {/* Header Section */}
-                <motion.div {...fadeInUp} className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                <motion.div {...fadeInUp} className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-6 border-b border-white/5">
                     <div className="space-y-2">
-                        <h1 className="text-4xl font-extrabold tracking-tight text-slate-900">Settings</h1>
-                        <p className="text-slate-500 text-lg">Manage your account preferences and security.</p>
-                    </div>
-                    <div className="flex items-center gap-3">
-                        <div className="hidden md:block text-right mr-2">
-                            <p className="text-sm font-semibold text-slate-900">{profileData.firstname} {profileData.lastname}</p>
-                            <p className="text-xs text-slate-500 uppercase tracking-wider font-medium">Personal Account</p>
+                        <div className="flex items-center gap-2 text-emerald-500 font-black uppercase tracking-widest text-[10px] mb-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 w-fit rounded-full">
+                            <Settings className="h-3 w-3" />
+                            System Configuration
                         </div>
-                        <div className="h-14 w-14 rounded-2xl bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-green-200">
-                            {profileData.firstname?.[0]}{profileData.lastname?.[0]}
+                        <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter lowercase">
+                            User <span className="text-slate-500 italic">Parameters</span>
+                        </h1>
+                        <p className="text-slate-400 font-medium">Calibrate your identity profile and security protocols.</p>
+                    </div>
+                    <div className="flex items-center gap-4">
+                        <div className="hidden md:block text-right">
+                            <p className="text-sm font-black text-white lowercase tracking-tight">{profileData.firstname} {profileData.lastname}</p>
+                            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] font-black">Authorized Node</p>
+                        </div>
+                        <div className="h-16 w-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-emerald-500 text-2xl font-black shadow-2xl relative group cursor-pointer overflow-hidden">
+                            {user?.profileImage ? (
+                                <img src={user.profileImage} alt="Profile" className="h-full w-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+                            ) : (
+                                <span className="lowercase">{profileData.firstname?.[0]}{profileData.lastname?.[0]}</span>
+                            )}
+                            <div className="absolute inset-0 bg-emerald-500/20 opacity-0 group-hover:opacity-100 transition-opacity blur-xl"></div>
                         </div>
                     </div>
                 </motion.div>
 
                 {message && (
-                    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}>
+                    <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }}>
                         <Alert className={cn(
-                            "border-none shadow-md backdrop-blur-md",
-                            message.type === "success" ? "bg-green-500/10 text-green-700" : "bg-red-500/10 text-red-700"
+                            "border-none shadow-2xl backdrop-blur-md rounded-2xl p-6",
+                            message.type === "success" ? "bg-emerald-500/10 border border-emerald-500/20" : "bg-red-500/10 border border-red-500/20"
                         )}>
-                            {message.type === "success" ? <CheckCircle className="h-5 w-5" /> : <AlertCircle className="h-5 w-5" />}
-                            <AlertDescription className="font-medium ml-2">{message.text}</AlertDescription>
+                            {message.type === "success" ? <CheckCircle className="h-6 w-6 text-emerald-500" /> : <AlertCircle className="h-6 w-6 text-red-500" />}
+                            <AlertDescription className={cn(
+                                "font-black lowercase text-lg ml-3",
+                                message.type === "success" ? "text-emerald-400" : "text-red-400"
+                            )}>
+                                {message.text}
+                            </AlertDescription>
                         </Alert>
                     </motion.div>
                 )}
 
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
 
                     {/* Navigation Sidebar */}
                     <motion.div {...fadeInUp} className="lg:col-span-3">
-                        <Card className="border-none shadow-xl shadow-slate-200/50 bg-white/80 backdrop-blur-md sticky top-32">
-                            <CardContent className="p-2">
-                                <nav className="flex lg:flex-col gap-1 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0">
+                        <Card className="border border-white/5 shadow-2xl bg-white/[0.03] backdrop-blur-md sticky top-32 rounded-[2.5rem] overflow-hidden">
+                            <CardContent className="p-3">
+                                <nav className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 scrollbar-hide">
                                     {[
-                                        { id: "profile", label: "Edit Profile", icon: User },
-                                        { id: "password", label: "Password", icon: Lock },
+                                        { id: "profile", label: "Identity Core", icon: User },
+                                        { id: "password", label: "Auth Keys", icon: Lock },
                                         { id: "preferences", label: "Preferences", icon: Settings },
-                                        { id: "notifications", label: "Notifications", icon: Bell },
-                                        { id: "billing", label: "Plans & Billing", icon: CreditCard },
+                                        { id: "notifications", label: "Relays", icon: Bell },
+                                        { id: "billing", label: "Allocation", icon: CreditCard },
                                     ].map((item) => (
                                         <button
                                             key={item.id}
                                             onClick={() => setActiveTab(item.id)}
                                             className={cn(
-                                                "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 whitespace-nowrap",
+                                                "flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-500 whitespace-nowrap group",
                                                 activeTab === item.id
-                                                    ? "bg-green-600 text-white shadow-lg shadow-green-200"
-                                                    : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                                                    ? "bg-emerald-500 text-[#001c10] shadow-xl shadow-emerald-500/20 font-black"
+                                                    : "text-slate-500 hover:bg-white/5 hover:text-white font-bold"
                                             )}
                                         >
-                                            <item.icon className="h-4 w-4" />
-                                            <span className="text-sm font-semibold">{item.label}</span>
+                                            <item.icon className={cn("h-4 w-4 transition-transform group-hover:scale-110", activeTab === item.id ? "text-[#001c10]" : "text-slate-600")} />
+                                            <span className="text-sm uppercase tracking-tighter">{item.label}</span>
                                         </button>
                                     ))}
                                 </nav>
@@ -233,27 +253,29 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                     </motion.div>
 
                     {/* Main Content Area */}
-                    <motion.div {...fadeInUp} transition={{ delay: 0.1 }} className="lg:col-span-9 space-y-8">
+                    <motion.div {...fadeInUp} transition={{ delay: 0.1 }} className="lg:col-span-9 space-y-10">
 
                         <AnimatePresence mode="wait">
                             {activeTab === "profile" && (
                                 <motion.div
                                     key="profile"
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: -20 }}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -20 }}
+                                    className="space-y-8"
                                 >
-                                    <Card className="border-none shadow-2xl shadow-slate-200/50 overflow-hidden bg-white/90 backdrop-blur-md">
-                                        <div className="h-32 bg-gradient-to-r from-green-600 via-green-500 to-emerald-600 relative">
-                                            <div className="absolute -bottom-12 left-8 p-1 rounded-3xl bg-white shadow-xl">
-                                                <div className="h-24 w-24 rounded-2xl bg-slate-100 flex items-center justify-center relative overflow-hidden group cursor-pointer">
+                                    <Card className="border border-white/5 shadow-2xl overflow-hidden bg-white/[0.03] backdrop-blur-md rounded-[3rem]">
+                                        <div className="h-40 bg-gradient-to-r from-emerald-900 via-emerald-800 to-black relative overflow-hidden group">
+                                            <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+                                            <div className="absolute -bottom-16 left-12 p-1.5 rounded-[2.5rem] bg-[#001c10] border border-white/10 shadow-3xl">
+                                                <div className="h-32 w-32 rounded-[2rem] bg-white/5 flex items-center justify-center relative overflow-hidden group/avatar cursor-pointer">
                                                     {user?.profileImage ? (
-                                                        <img src={user.profileImage} alt="Profile" className="h-full w-full object-cover" />
+                                                        <img src={user.profileImage} alt="Profile" className="h-full w-full object-cover group-hover/avatar:scale-110 transition-transform duration-700" />
                                                     ) : (
-                                                        <User className="h-10 w-10 text-slate-300" />
+                                                        <User className="h-12 w-12 text-slate-700" />
                                                     )}
-                                                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                                                        <Camera className="text-white h-6 w-6" />
+                                                    <div className="absolute inset-0 bg-black/60 opacity-0 group-hover/avatar:opacity-100 transition-opacity flex items-center justify-center backdrop-blur-sm">
+                                                        <Camera className="text-emerald-500 h-8 w-8 animate-pulse" />
                                                     </div>
                                                     <input
                                                         type="file"
@@ -266,7 +288,7 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                                                                 formData.append("file", file)
                                                                 const res = await fetch("/api/user/profile-image", { method: "POST", body: formData })
                                                                 if (res.ok) {
-                                                                    setMessage({ type: "success", text: "Profile picture updated!" })
+                                                                    setMessage({ type: "success", text: "Profile image data synchronized." })
                                                                     router.refresh()
                                                                 }
                                                             }
@@ -274,127 +296,58 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                                                     />
                                                 </div>
                                             </div>
+                                            {/* Decorative Label */}
+                                            <div className="absolute top-8 right-8 text-right hidden md:block">
+                                                <p className="text-[10px] font-black text-emerald-500/50 uppercase tracking-[0.4em] leading-none mb-1">Authorization</p>
+                                                <p className="text-white/20 font-black text-2xl tracking-tighter opacity-30 italic leading-none lowercase">node_active</p>
+                                            </div>
                                         </div>
 
-                                        <CardHeader className="pt-16 pb-0">
+                                        <CardHeader className="pt-24 px-10">
                                             <div className="flex justify-between items-center">
-                                                <div>
-                                                    <CardTitle className="text-2xl font-bold">Personal Profile</CardTitle>
-                                                    <CardDescription>Keep your information updated to stay secure.</CardDescription>
+                                                <div className="space-y-1">
+                                                    <CardTitle className="text-3xl font-black text-white lowercase tracking-tighter">Identity <span className="text-slate-500 italic">Parameters</span></CardTitle>
+                                                    <CardDescription className="text-slate-500 font-medium">Synchronize your personal attributes with the master ledger.</CardDescription>
                                                 </div>
                                             </div>
                                         </CardHeader>
 
-                                        <CardContent className="pt-8">
-                                            <form onSubmit={handleProfileUpdate} className="space-y-8">
+                                        <CardContent className="p-10 pt-6">
+                                            <form onSubmit={handleProfileUpdate} className="space-y-10">
 
-                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
-                                                    <div className="space-y-2">
-                                                        <Label className="text-sm font-bold text-slate-700">First Name</Label>
-                                                        <div className="relative group">
-                                                            <User className="absolute left-3 top-3 h-4 w-4 text-slate-400 group-focus-within:text-green-600 transition-colors" />
-                                                            <Input
-                                                                value={profileData.firstname}
-                                                                onChange={(e) => setProfileData({ ...profileData, firstname: e.target.value })}
-                                                                className="pl-10 h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-green-400 transition-all rounded-xl"
-                                                            />
+                                                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-8">
+                                                    {[
+                                                        { label: "Given Name", key: "firstname", icon: User },
+                                                        { label: "Family Name", key: "lastname", icon: User },
+                                                        { label: "Relay Address", key: "email", icon: Mail, type: "email" },
+                                                        { label: "Comm Frequency", key: "phone", icon: Phone },
+                                                        { label: "Launch Date", key: "birthdate", icon: Calendar, type: "date" },
+                                                        { label: "Physical Vector", key: "location", icon: MapPin },
+                                                        { label: "Sector Name", key: "city", icon: Globe },
+                                                        { label: "Archive Code", key: "zipcode", icon: MapPin },
+                                                    ].map((field) => (
+                                                        <div key={field.key} className="space-y-3">
+                                                            <Label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">{field.label}</Label>
+                                                            <div className="relative group">
+                                                                <field.icon className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-600 group-focus-within:text-emerald-500 transition-colors" />
+                                                                <Input
+                                                                    type={field.type || "text"}
+                                                                    value={(profileData as any)[field.key]}
+                                                                    onChange={(e) => setProfileData({ ...profileData, [field.key]: e.target.value })}
+                                                                    className="pl-12 h-14 bg-white/[0.02] border-white/5 focus:bg-white/[0.04] focus:border-emerald-500/50 focus:ring- emerald-500/20 text-white font-bold transition-all rounded-2xl shadow-inner lowercase"
+                                                                />
+                                                            </div>
                                                         </div>
-                                                    </div>
-
-                                                    <div className="space-y-2">
-                                                        <Label className="text-sm font-bold text-slate-700">Last Name</Label>
-                                                        <div className="relative group">
-                                                            <User className="absolute left-3 top-3 h-4 w-4 text-slate-400 group-focus-within:text-green-600 transition-colors" />
-                                                            <Input
-                                                                value={profileData.lastname}
-                                                                onChange={(e) => setProfileData({ ...profileData, lastname: e.target.value })}
-                                                                className="pl-10 h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-green-400 transition-all rounded-xl"
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="space-y-2">
-                                                        <Label className="text-sm font-bold text-slate-700">Email Address</Label>
-                                                        <div className="relative group">
-                                                            <Mail className="absolute left-3 top-3 h-4 w-4 text-slate-400 group-focus-within:text-green-600 transition-colors" />
-                                                            <Input
-                                                                type="email"
-                                                                value={profileData.email}
-                                                                onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
-                                                                className="pl-10 h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-green-400 transition-all rounded-xl"
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="space-y-2">
-                                                        <Label className="text-sm font-bold text-slate-700">Phone Number</Label>
-                                                        <div className="relative group">
-                                                            <Phone className="absolute left-3 top-3 h-4 w-4 text-slate-400 group-focus-within:text-green-600 transition-colors" />
-                                                            <Input
-                                                                value={profileData.phone}
-                                                                onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
-                                                                className="pl-10 h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-green-400 transition-all rounded-xl"
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="space-y-2">
-                                                        <Label className="text-sm font-bold text-slate-700">Birth Date</Label>
-                                                        <div className="relative group">
-                                                            <Calendar className="absolute left-3 top-3 h-4 w-4 text-slate-400 group-focus-within:text-green-600 transition-colors" />
-                                                            <Input
-                                                                type="date"
-                                                                value={profileData.birthdate}
-                                                                onChange={(e) => setProfileData({ ...profileData, birthdate: e.target.value })}
-                                                                className="pl-10 h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-green-400 transition-all rounded-xl"
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="space-y-2">
-                                                        <Label className="text-sm font-bold text-slate-700">Location / Address</Label>
-                                                        <div className="relative group">
-                                                            <MapPin className="absolute left-3 top-3 h-4 w-4 text-slate-400 group-focus-within:text-green-600 transition-colors" />
-                                                            <Input
-                                                                value={profileData.location}
-                                                                onChange={(e) => setProfileData({ ...profileData, location: e.target.value })}
-                                                                className="pl-10 h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-green-400 transition-all rounded-xl"
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="space-y-2">
-                                                        <Label className="text-sm font-bold text-slate-700">City</Label>
-                                                        <div className="relative group">
-                                                            <Globe className="absolute left-3 top-3 h-4 w-4 text-slate-400 group-focus-within:text-green-600 transition-colors" />
-                                                            <Input
-                                                                value={profileData.city}
-                                                                onChange={(e) => setProfileData({ ...profileData, city: e.target.value })}
-                                                                className="pl-10 h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-green-400 transition-all rounded-xl"
-                                                            />
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="space-y-2">
-                                                        <Label className="text-sm font-bold text-slate-700">Zip Code</Label>
-                                                        <div className="relative group">
-                                                            <MapPin className="absolute left-3 top-3 h-4 w-4 text-slate-400 group-focus-within:text-green-600 transition-colors" />
-                                                            <Input
-                                                                value={profileData.zipcode}
-                                                                onChange={(e) => setProfileData({ ...profileData, zipcode: e.target.value })}
-                                                                className="pl-10 h-11 bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-green-400 transition-all rounded-xl"
-                                                            />
-                                                        </div>
-                                                    </div>
+                                                    ))}
                                                 </div>
 
-                                                <div className="flex justify-end pt-4">
+                                                <div className="flex justify-end pt-6">
                                                     <Button
                                                         type="submit"
                                                         disabled={isLoading}
-                                                        className="bg-green-600 hover:bg-green-700 text-white font-bold px-8 h-12 rounded-xl shadow-lg shadow-green-100 transition-all hover:scale-105 active:scale-95"
+                                                        className="bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black px-12 h-14 rounded-2xl shadow-xl shadow-emerald-500/20 transition-all hover:-translate-y-1 active:scale-95 text-lg uppercase tracking-tight"
                                                     >
-                                                        {isLoading ? "Saving..." : "Save Changes"}
+                                                        {isLoading ? "Syncing..." : "Commit Changes"}
                                                     </Button>
                                                 </div>
                                             </form>
@@ -406,114 +359,117 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                             {activeTab === "password" && (
                                 <motion.div
                                     key="password"
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: -20 }}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -20 }}
                                 >
-                                    <Card className="border-none shadow-2xl shadow-slate-200/50 overflow-hidden bg-white/90 backdrop-blur-md">
-                                        <CardHeader className="bg-gradient-to-br from-slate-800 to-slate-900 text-white p-8">
-                                            <div className="flex items-center gap-4">
-                                                <div className="p-3 bg-white/10 rounded-2xl">
-                                                    <Lock className="h-6 w-6 text-green-400" />
+                                    <Card className="border border-white/5 shadow-2xl overflow-hidden bg-white/[0.03] backdrop-blur-md rounded-[3rem]">
+                                        <CardHeader className="bg-gradient-to-br from-emerald-950/50 to-black p-12 border-b border-white/5 relative overflow-hidden">
+                                            <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full -mr-32 -mt-32 blur-3xl pointer-events-none"></div>
+                                            <div className="flex items-center gap-6 relative z-10">
+                                                <div className="p-5 bg-white/5 border border-white/10 rounded-3xl shadow-2xl flex items-center justify-center text-emerald-500">
+                                                    <Lock className="h-8 w-8" />
                                                 </div>
-                                                <div>
-                                                    <CardTitle className="text-2xl font-bold">Security Settings</CardTitle>
-                                                    <CardDescription className="text-slate-400">Manage your password and authentication.</CardDescription>
+                                                <div className="space-y-1">
+                                                    <CardTitle className="text-3xl font-black text-white lowercase tracking-tighter">Auth <span className="text-slate-500 italic">Sequences</span></CardTitle>
+                                                    <CardDescription className="text-slate-500 font-medium">Update your encryption keys to maintain protocol integrity.</CardDescription>
                                                 </div>
                                             </div>
                                         </CardHeader>
-                                        <CardContent className="p-8">
-                                            <form onSubmit={handlePasswordChange} className="max-w-md space-y-6">
-                                                <div className="space-y-2">
-                                                    <Label className="text-sm font-bold text-slate-700">Current Password</Label>
+                                        <CardContent className="p-12">
+                                            <form onSubmit={handlePasswordChange} className="max-w-md space-y-8">
+                                                <div className="space-y-3">
+                                                    <Label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Current Key</Label>
                                                     <Input
                                                         type="password"
                                                         value={passwordData.currentPassword}
                                                         onChange={(e) => setPasswordData({ ...passwordData, currentPassword: e.target.value })}
-                                                        className="h-11 bg-slate-100/50 border-slate-200 rounded-xl"
+                                                        className="h-14 bg-white/[0.02] border-white/5 rounded-2xl text-white font-bold focus:border-emerald-500/50 transition-all"
                                                     />
                                                 </div>
-                                                <div className="space-y-2">
-                                                    <Label className="text-sm font-bold text-slate-700">New Password</Label>
+                                                <div className="space-y-3">
+                                                    <Label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">New Sequence</Label>
                                                     <Input
                                                         type="password"
                                                         value={passwordData.newPassword}
                                                         onChange={(e) => setPasswordData({ ...passwordData, newPassword: e.target.value })}
-                                                        className="h-11 bg-slate-100/50 border-slate-200 rounded-xl"
+                                                        className="h-14 bg-white/[0.02] border-white/5 rounded-2xl text-white font-bold focus:border-emerald-500/50 transition-all"
                                                     />
-                                                    <p className="text-xs text-slate-500">Minimum 8 characters with numbers and symbols.</p>
+                                                    <p className="text-[10px] text-slate-600 font-black uppercase tracking-tight ml-1">Complexity: Min 12 iterations, mixed characters required.</p>
                                                 </div>
-                                                <div className="space-y-2">
-                                                    <Label className="text-sm font-bold text-slate-700">Confirm New Password</Label>
+                                                <div className="space-y-3">
+                                                    <Label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Confirm Sequence</Label>
                                                     <Input
                                                         type="password"
                                                         value={passwordData.confirmPassword}
                                                         onChange={(e) => setPasswordData({ ...passwordData, confirmPassword: e.target.value })}
-                                                        className="h-11 bg-slate-100/50 border-slate-200 rounded-xl"
+                                                        className="h-14 bg-white/[0.02] border-white/5 rounded-2xl text-white font-bold focus:border-emerald-500/50 transition-all"
                                                     />
                                                 </div>
                                                 <Button
                                                     type="submit"
                                                     disabled={isLoading}
-                                                    className="w-full bg-slate-900 hover:bg-black text-white font-bold h-12 rounded-xl shadow-lg transition-all"
+                                                    className="w-full bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black h-16 rounded-2xl shadow-xl shadow-emerald-500/20 text-lg uppercase tracking-tight transition-all hover:scale-[1.02]"
                                                 >
-                                                    {isLoading ? "Updating..." : "Change Password"}
+                                                    {isLoading ? "Recalibrating..." : "Execute Rotation"}
                                                 </Button>
                                             </form>
                                         </CardContent>
                                     </Card>
                                 </motion.div>
                             )}
+
                             {activeTab === "notifications" && (
                                 <motion.div
                                     key="notifications"
-                                    initial={{ opacity: 0, x: 20 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: -20 }}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -20 }}
                                 >
-                                    <Card className="border-none shadow-2xl shadow-slate-200/50 overflow-hidden bg-white/90 backdrop-blur-md">
-                                        <CardHeader className="bg-gradient-to-br from-green-600 to-green-700 text-white p-8">
-                                            <div className="flex items-center gap-4">
-                                                <div className="p-3 bg-white/10 rounded-2xl">
-                                                    <Bell className="h-6 w-6 text-white" />
+                                    <Card className="border border-white/5 shadow-2xl overflow-hidden bg-white/[0.03] backdrop-blur-md rounded-[3rem]">
+                                        <CardHeader className="bg-gradient-to-br from-emerald-950/50 to-black p-12 border-b border-white/5 relative overflow-hidden">
+                                            <div className="absolute bottom-0 right-0 w-64 h-64 bg-emerald-500/5 rounded-full -mr-32 -mb-32 blur-3xl pointer-events-none"></div>
+                                            <div className="flex items-center gap-6 relative z-10">
+                                                <div className="p-5 bg-white/5 border border-white/10 rounded-3xl shadow-2xl flex items-center justify-center text-emerald-500">
+                                                    <Bell className="h-8 w-8" />
                                                 </div>
-                                                <div>
-                                                    <CardTitle className="text-2xl font-bold">Notification Preferences</CardTitle>
-                                                    <CardDescription className="text-green-100">Choose how you want to be notified.</CardDescription>
+                                                <div className="space-y-1">
+                                                    <CardTitle className="text-3xl font-black text-white lowercase tracking-tighter">Event <span className="text-slate-500 italic">Relays</span></CardTitle>
+                                                    <CardDescription className="text-slate-500 font-medium">Configure downstream synchronization for system events.</CardDescription>
                                                 </div>
                                             </div>
                                         </CardHeader>
-                                        <CardContent className="p-8 space-y-6">
+                                        <CardContent className="p-12 space-y-6">
                                             {[
-                                                { title: "Email Alerts", desc: "Receive email for every transaction.", icon: Mail, enabled: true },
-                                                { title: "Security Alerts", desc: "Get notified about suspicious logins.", icon: ShieldAlert, enabled: true },
-                                                { title: "Marketing", desc: "Receive updates about new features.", icon: Settings, enabled: false },
-                                                { title: "SMS Notifications", desc: "Get text messages for transfers.", icon: Phone, enabled: true },
+                                                { title: "Relay Alpha", desc: "Execute email push for every transaction event.", icon: Mail, enabled: true },
+                                                { title: "Sentinel Watch", desc: "Interrupt for unauthorized access attempts.", icon: ShieldAlert, enabled: true },
+                                                { title: "Broadcast", desc: "Receive transmissions regarding system updates.", icon: Settings, enabled: false },
+                                                { title: "Quantum SMS", desc: "High-velocity mobile alerts for transfers.", icon: Phone, enabled: true },
                                             ].map((item, i) => (
-                                                <div key={i} className="flex items-center justify-between p-4 rounded-2xl bg-slate-50 border border-slate-100 group hover:bg-white hover:shadow-md transition-all">
-                                                    <div className="flex items-center gap-4">
-                                                        <div className="h-10 w-10 rounded-xl bg-white flex items-center justify-center text-slate-400 group-hover:text-green-600 shadow-sm transition-colors">
+                                                <div key={i} className="flex items-center justify-between p-6 rounded-[2rem] bg-white/[0.02] border border-white/5 group hover:bg-emerald-500/5 hover:border-emerald-500/20 transition-all duration-500">
+                                                    <div className="flex items-center gap-5">
+                                                        <div className="h-12 w-12 rounded-2xl bg-white/5 flex items-center justify-center text-slate-600 group-hover:text-emerald-500 border border-white/5 shadow-inner transition-colors">
                                                             <item.icon className="h-5 w-5" />
                                                         </div>
-                                                        <div>
-                                                            <p className="font-bold text-slate-900">{item.title}</p>
-                                                            <p className="text-xs text-slate-500 font-medium">{item.desc}</p>
+                                                        <div className="space-y-0.5">
+                                                            <p className="font-black text-white text-lg tracking-tight lowercase">{item.title}</p>
+                                                            <p className="text-[10px] text-slate-500 font-black uppercase tracking-widest">{item.desc}</p>
                                                         </div>
                                                     </div>
                                                     <div className={cn(
-                                                        "h-6 w-11 rounded-full relative cursor-pointer transition-colors",
-                                                        item.enabled ? "bg-green-600" : "bg-slate-200"
+                                                        "h-8 w-14 rounded-full relative cursor-pointer transition-all duration-500 p-1 flex items-center",
+                                                        item.enabled ? "bg-emerald-500 shadow-[0_0_15px_rgba(16,185,129,0.3)]" : "bg-white/10"
                                                     )}>
                                                         <div className={cn(
-                                                            "h-4 w-4 bg-white rounded-full absolute top-1 transition-all",
-                                                            item.enabled ? "left-6" : "left-1"
+                                                            "h-6 w-6 rounded-full transition-all duration-500 shadow-xl flex items-center justify-center",
+                                                            item.enabled ? "translate-x-6 bg-[#001c10]" : "translate-x-0 bg-slate-500"
                                                         )} />
                                                     </div>
                                                 </div>
                                             ))}
-                                            <div className="pt-4">
-                                                <Button className="w-full bg-slate-900 hover:bg-black text-white font-bold h-12 rounded-xl">
-                                                    Update Preferences
+                                            <div className="pt-8">
+                                                <Button className="w-full bg-white/5 hover:bg-white/10 text-white font-black h-16 rounded-2xl border border-white/10 transition-all uppercase tracking-widest text-xs">
+                                                    Save Configuration
                                                 </Button>
                                             </div>
                                         </CardContent>
@@ -523,57 +479,75 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                         </AnimatePresence>
 
                         {/* Account Security Cards */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <Card className="border-none shadow-xl shadow-slate-200/50 bg-white/80 backdrop-blur-md overflow-hidden">
-                                <CardHeader className="pb-4">
-                                    <CardTitle className="text-lg font-bold flex items-center gap-2">
-                                        <ShieldCheck className="h-5 w-5 text-green-600" />
-                                        Verification Status
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <Card className="border border-white/5 shadow-2xl bg-white/[0.03] backdrop-blur-md overflow-hidden rounded-[2.5rem] group hover:bg-white/[0.05] transition-all">
+                                <CardHeader className="pb-4 px-8 pt-8">
+                                    <CardTitle className="text-sm font-black uppercase tracking-widest flex items-center gap-3 text-slate-500 group-hover:text-emerald-500 transition-colors">
+                                        <div className="h-8 w-8 bg-emerald-500/10 rounded-xl flex items-center justify-center border border-emerald-500/20 group-hover:scale-110 transition-transform">
+                                            <ShieldCheck className="h-4 w-4" />
+                                        </div>
+                                        Validation Node
                                     </CardTitle>
                                 </CardHeader>
-                                <CardContent>
-                                    <div className="p-4 rounded-2xl bg-slate-50 flex items-center justify-between border border-slate-100">
-                                        <div className="flex items-center gap-3">
-                                            {user?.bankAccount?.verified ? (
-                                                <div className="p-2 bg-green-100 rounded-full"><CheckCircle className="h-4 w-4 text-green-600" /></div>
-                                            ) : (
-                                                <div className="p-2 bg-yellow-100 rounded-full"><AlertCircle className="h-4 w-4 text-yellow-600" /></div>
-                                            )}
-                                            <span className="font-semibold text-slate-700">Identity Verified</span>
+                                <CardContent className="px-8 pb-8">
+                                    <div className="p-6 rounded-3xl bg-black/40 flex items-center justify-between border border-white/5 relative overflow-hidden">
+                                        <div className="relative z-10 flex items-center gap-4">
+                                            <div className={cn(
+                                                "p-3 rounded-2xl flex items-center justify-center shadow-2xl",
+                                                user?.bankAccount?.verified ? "bg-emerald-500/20 text-emerald-500" : "bg-yellow-500/20 text-yellow-500"
+                                            )}>
+                                                {user?.bankAccount?.verified ? <CheckCircle className="h-5 w-5" /> : <AlertCircle className="h-5 w-5" />}
+                                            </div>
+                                            <span className="font-black text-white text-lg lowercase tracking-tighter">Identity State</span>
                                         </div>
                                         <span className={cn(
-                                            "px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider",
-                                            user?.bankAccount?.verified ? "bg-green-600 text-white" : "bg-yellow-500 text-white"
+                                            "relative z-10 px-5 py-2 rounded-2xl text-[10px] font-black uppercase tracking-widest border shadow-xl backdrop-blur-md",
+                                            user?.bankAccount?.verified
+                                                ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
+                                                : "bg-yellow-500/20 text-yellow-400 border-yellow-500/30"
                                         )}>
-                                            {user?.bankAccount?.verified ? "Success" : "Pending"}
+                                            {user?.bankAccount?.verified ? "Synchronized" : "Pending"}
                                         </span>
+                                        {/* Background Trace */}
+                                        <div className="absolute right-0 bottom-0 opacity-10 pointer-events-none transform translate-x-10 translate-y-10">
+                                            <ShieldCheck className="h-24 w-24 text-emerald-500" />
+                                        </div>
                                     </div>
                                 </CardContent>
                             </Card>
 
-                            <Card className="border-none shadow-xl shadow-slate-200/50 bg-white/80 backdrop-blur-md overflow-hidden">
-                                <CardHeader className="pb-4">
-                                    <CardTitle className="text-lg font-bold flex items-center gap-2">
-                                        <ShieldAlert className="h-5 w-5 text-green-600" />
-                                        Withdrawal Access
+                            <Card className="border border-white/5 shadow-2xl bg-white/[0.03] backdrop-blur-md overflow-hidden rounded-[2.5rem] group hover:bg-white/[0.05] transition-all">
+                                <CardHeader className="pb-4 px-8 pt-8">
+                                    <CardTitle className="text-sm font-black uppercase tracking-widest flex items-center gap-3 text-slate-500 group-hover:text-emerald-500 transition-colors">
+                                        <div className="h-8 w-8 bg-emerald-500/10 rounded-xl flex items-center justify-center border border-emerald-500/20 group-hover:scale-110 transition-transform">
+                                            <ShieldAlert className="h-4 w-4" />
+                                        </div>
+                                        Egress Control
                                     </CardTitle>
                                 </CardHeader>
-                                <CardContent>
-                                    <div className="p-4 rounded-2xl bg-slate-50 flex items-center justify-between border border-slate-100">
-                                        <div className="flex items-center gap-3">
-                                            {user?.bankAccount?.canTransfer ? (
-                                                <div className="p-2 bg-green-100 rounded-full"><CheckCircle className="h-4 w-4 text-green-600" /></div>
-                                            ) : (
-                                                <div className="p-2 bg-red-100 rounded-full"><ShieldAlert className="h-4 w-4 text-red-600" /></div>
-                                            )}
-                                            <span className="font-semibold text-slate-700">Transfer Status</span>
+                                <CardContent className="px-8 pb-8">
+                                    <div className="p-6 rounded-3xl bg-black/40 flex items-center justify-between border border-white/5 relative overflow-hidden">
+                                        <div className="relative z-10 flex items-center gap-4">
+                                            <div className={cn(
+                                                "p-3 rounded-2xl flex items-center justify-center shadow-2xl",
+                                                user?.bankAccount?.canTransfer ? "bg-emerald-500/20 text-emerald-500" : "bg-red-500/20 text-red-500"
+                                            )}>
+                                                {user?.bankAccount?.canTransfer ? <CheckCircle className="h-5 w-5" /> : <ShieldAlert className="h-5 w-5" />}
+                                            </div>
+                                            <span className="font-black text-white text-lg lowercase tracking-tighter">Flux Status</span>
                                         </div>
                                         <span className={cn(
-                                            "px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider",
-                                            user?.bankAccount?.canTransfer ? "bg-green-600 text-white" : "bg-red-500 text-white"
+                                            "relative z-10 px-5 py-2 rounded-2xl text-[10px] font-black uppercase tracking-widest border shadow-xl backdrop-blur-md",
+                                            user?.bankAccount?.canTransfer
+                                                ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
+                                                : "bg-red-500/20 text-red-400 border-red-500/30"
                                         )}>
-                                            {user?.bankAccount?.canTransfer ? "Enabled" : "Restricted"}
+                                            {user?.bankAccount?.canTransfer ? "Authorized" : "Restricted"}
                                         </span>
+                                        {/* Background Trace */}
+                                        <div className="absolute right-0 bottom-0 opacity-10 pointer-events-none transform translate-x-10 translate-y-10">
+                                            <ShieldAlert className="h-24 w-24 text-red-500" />
+                                        </div>
                                     </div>
                                 </CardContent>
                             </Card>
