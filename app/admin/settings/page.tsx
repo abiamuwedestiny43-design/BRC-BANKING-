@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Separator } from "@/components/ui/separator"
 import { Input } from "@/components/ui/input"
+import { Settings, ShieldCheck, Zap, Globe, Lock, Cpu, Database } from "lucide-react"
 
 export default function AdminSettingsPage() {
   const [loading, setLoading] = useState(true)
@@ -21,27 +22,27 @@ export default function AdminSettingsPage() {
 
   useEffect(() => {
     let mounted = true
-    ;(async () => {
-      try {
-        const [localRes, globalRes] = await Promise.all([
-          fetch("/api/admin/settings/local-transfer"),
-          fetch("/api/admin/settings/global-transfer"),
-        ])
-        const localData = await localRes.json()
-        const globalData = await globalRes.json()
+      ; (async () => {
+        try {
+          const [localRes, globalRes] = await Promise.all([
+            fetch("/api/admin/settings/local-transfer"),
+            fetch("/api/admin/settings/global-transfer"),
+          ])
+          const localData = await localRes.json()
+          const globalData = await globalRes.json()
 
-        if (!mounted) return
-        if (!localRes.ok) setError(localData?.message || "Failed to load settings")
-        else setLocalEnabled(Boolean(localData.enabled))
+          if (!mounted) return
+          if (!localRes.ok) setError(localData?.message || "Failed to load settings")
+          else setLocalEnabled(Boolean(localData.enabled))
 
-        if (!globalRes.ok) setError((prev) => prev || globalData?.message || "Failed to load settings")
-        else setGlobalEnabled(Boolean(globalData.enabled))
-      } catch {
-        setError("Failed to load settings")
-      } finally {
-        if (mounted) setLoading(false)
-      }
-    })()
+          if (!globalRes.ok) setError((prev) => prev || globalData?.message || "Failed to load settings")
+          else setGlobalEnabled(Boolean(globalData.enabled))
+        } catch {
+          setError("Failed to load settings")
+        } finally {
+          if (mounted) setLoading(false)
+        }
+      })()
     return () => {
       mounted = false
     }
@@ -103,120 +104,177 @@ export default function AdminSettingsPage() {
     }
   }
 
+  if (loading) {
+    return (
+      <div className="p-10 text-emerald-500 font-black animate-pulse flex items-center gap-3 uppercase tracking-widest">
+        <Cpu className="w-5 h-5 animate-spin" />
+        Accessing System Variables...
+      </div>
+    )
+  }
+
   return (
-    <div className="min-h-screen p-6 pt-[60px] md:p-10">
-      <div className="max-w-3xl mx-auto space-y-6">
-        <h1 className="text-3xl font-bold">Admin Settings</h1>
-        <p className="text-muted-foreground">Manage global system options for transfers and security.</p>
+    <div className="p-4 md:p-10 space-y-10 relative max-w-5xl">
+      {/* Background Decor */}
+      <div className="absolute top-0 right-0 w-[40%] h-[40%] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none"></div>
 
-        {error && (
-          <Alert variant="destructive">
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
-        )}
+      {/* Header */}
+      <div className="space-y-2 relative z-10">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-widest">
+          <Settings className="w-3 h-3" /> System Architecture
+        </div>
+        <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter">
+          Global <span className="text-slate-500 italic">Settings</span>
+        </h1>
+        <p className="text-slate-400 font-medium max-w-md">Fine-tuning of core infrastructure and security parameters.</p>
+      </div>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Transfers</CardTitle>
-            <CardDescription>Configure global transfer behaviors.</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <Label className="text-base">Enable Global Transfers</Label>
-                <p className="text-sm text-muted-foreground">
-                  When disabled, no user can initiate any transfer (local or international).
-                </p>
+      {error && (
+        <Alert className="bg-red-500/10 border-red-500/20 text-red-400 rounded-2xl relative z-10">
+          <AlertDescription className="font-bold flex items-center gap-2">
+            <Lock className="w-4 h-4" /> {error}
+          </AlertDescription>
+        </Alert>
+      )}
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 relative z-10">
+        <div className="lg:col-span-2 space-y-8">
+          <Card className="bg-white/[0.03] border-white/5 rounded-[3rem] overflow-hidden">
+            <CardHeader className="p-8 border-b border-white/5 bg-white/[0.01]">
+              <CardTitle className="text-2xl font-black text-white italic tracking-tight">Transfer Protocols</CardTitle>
+              <CardDescription className="text-slate-500 font-medium">Control the global flow of assets across the NOVA framework.</CardDescription>
+            </CardHeader>
+            <CardContent className="p-8 space-y-12">
+              {/* Global Transfers */}
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 p-6 rounded-[2rem] bg-white/5 border border-white/5 group hover:bg-emerald-500/5 hover:border-emerald-500/20 transition-all">
+                <div className="space-y-1">
+                  <Label className="text-lg font-black text-white flex items-center gap-2 italic">
+                    <Globe className="w-4 h-4 text-emerald-500" /> UNIFIED TRANSFERS
+                  </Label>
+                  <p className="text-sm text-slate-500 max-w-sm">Disable ALL asset migrations (Local & International) cluster-wide.</p>
+                </div>
+                <div className="flex items-center gap-6">
+                  <Switch
+                    checked={globalEnabled}
+                    onCheckedChange={setGlobalEnabled}
+                    className="data-[state=checked]:bg-emerald-500"
+                    disabled={saving}
+                  />
+                  <Button
+                    onClick={handleSaveGlobal}
+                    disabled={saving}
+                    className="bg-white/5 hover:bg-white/10 text-white font-bold px-6 rounded-xl border border-white/10 h-10 text-xs"
+                  >
+                    {saving ? "..." : "SYNC"}
+                  </Button>
+                </div>
               </div>
-              <Switch
-                checked={globalEnabled}
-                onCheckedChange={setGlobalEnabled}
-                disabled={loading || saving}
-                aria-label="Enable Global Transfers"
+
+              {/* Local Transfers */}
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 p-6 rounded-[2rem] bg-white/5 border border-white/5 group hover:bg-blue-500/5 hover:border-blue-500/20 transition-all">
+                <div className="space-y-1">
+                  <Label className="text-lg font-black text-white flex items-center gap-2 italic">
+                    <Database className="w-4 h-4 text-blue-500" /> INTRASYSTEM ASSETS
+                  </Label>
+                  <p className="text-sm text-slate-500 max-w-sm">Restrict migrations within the internal NOVA BANK node network.</p>
+                </div>
+                <div className="flex items-center gap-6">
+                  <Switch
+                    checked={localEnabled}
+                    onCheckedChange={setLocalEnabled}
+                    className="data-[state=checked]:bg-blue-500"
+                    disabled={saving}
+                  />
+                  <Button
+                    onClick={handleSaveLocal}
+                    disabled={saving}
+                    className="bg-white/5 hover:bg-white/10 text-white font-bold px-6 rounded-xl border border-white/10 h-10 text-xs"
+                  >
+                    {saving ? "..." : "SYNC"}
+                  </Button>
+                </div>
+              </div>
+
+              <Separator className="bg-white/5" />
+
+              {/* Bulk Override */}
+              <div className="space-y-6">
+                <div className="space-y-1">
+                  <Label className="text-lg font-black text-white italic">BULK PERMISSION OVERRIDE</Label>
+                  <p className="text-sm text-slate-500">Atomic permission updates for the entire user registry.</p>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <Button
+                    onClick={() => bulkSetUsersTransfer(true)}
+                    disabled={bulkBusy}
+                    className="h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 font-black hover:bg-emerald-500 hover:text-[#001c10] transition-all uppercase tracking-widest text-[10px]"
+                  >
+                    Initialize Global Uplink
+                  </Button>
+                  <Button
+                    onClick={() => bulkSetUsersTransfer(false)}
+                    disabled={bulkBusy}
+                    className="h-14 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-500 font-black hover:bg-red-500 hover:text-white transition-all uppercase tracking-widest text-[10px]"
+                  >
+                    Atomic Protocol Revoke
+                  </Button>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Side Panel */}
+        <div className="space-y-8">
+          <Card className="bg-white/[0.03] border-white/5 rounded-[2.5rem] p-8">
+            <h3 className="text-xl font-black text-white mb-6 flex items-center gap-3">
+              <ShieldCheck className="w-5 h-5 text-emerald-500" /> Point-to-Point
+            </h3>
+            <p className="text-xs text-slate-500 mb-8 leading-relaxed italic">Precise identity permission targeting by cryptographic ID.</p>
+            <div className="space-y-4">
+              <Input
+                placeholder="MongoNode_ID"
+                value={singleUserId}
+                onChange={(e) => setSingleUserId(e.target.value)}
+                className="bg-white/5 border-white/10 rounded-xl h-12 text-white font-mono text-xs focus:border-emerald-500 transition-all"
               />
-            </div>
-            <div className="flex justify-end">
-              <Button onClick={handleSaveGlobal} disabled={loading || saving}>
-                {saving ? "Saving..." : "Save Global"}
+              <Button
+                disabled={singleBusy || !singleUserId}
+                onClick={async () => {
+                  setSingleBusy(true)
+                  setError(null)
+                  try {
+                    const res = await fetch("/api/admin/users/toggle-transfer", {
+                      method: "POST",
+                      headers: { "Content-Type": "application/json" },
+                      body: JSON.stringify({ userId: singleUserId }),
+                    })
+                    const data = await res.json()
+                    if (!res.ok) setError(data?.message || "Protocol target mismatch.")
+                  } catch {
+                    setError("Fault in targeting system.")
+                  } finally {
+                    setSingleBusy(false)
+                  }
+                }}
+                className="w-full h-12 rounded-xl bg-white/5 hover:bg-white/10 text-white font-black uppercase tracking-widest text-[10px] border border-white/10"
+              >
+                {singleBusy ? "Tuning..." : "Toggle Node Permission"}
               </Button>
             </div>
+          </Card>
 
-            <Separator />
-
-            <div className="flex items-center justify-between">
-              <div>
-                <Label className="text-base">Enable Local Transfers</Label>
-                <p className="text-sm text-muted-foreground">When disabled, users cannot initiate local transfers.</p>
-              </div>
-              <Switch
-                checked={localEnabled}
-                onCheckedChange={setLocalEnabled}
-                disabled={loading || saving}
-                aria-label="Enable Local Transfers"
-              />
-            </div>
-            <div className="flex justify-end">
-              <Button onClick={handleSaveLocal} disabled={loading || saving}>
-                {saving ? "Saving..." : "Save Local"}
-              </Button>
-            </div>
-
-            <Separator />
-
-            <div className="space-y-3">
-              <Label className="text-base">Bulk User Transfer Permission</Label>
-              <p className="text-sm text-muted-foreground">
-                Override per-user transfer permission for all users at once.
+          <Card className="bg-gradient-to-br from-[#003d24] to-[#001c10] border-emerald-500/20 rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden">
+            <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-emerald-500/10 rounded-full blur-[100px]"></div>
+            <div className="relative z-10 space-y-4">
+              <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest leading-none">Global Master Key</p>
+              <h3 className="text-xl font-black text-white italic tracking-tight italic">System Integrity</h3>
+              <p className="text-xs text-slate-400 leading-relaxed">
+                Changes made in this module propagate instantly through our global server architecture. Proceed with highest caution.
               </p>
-              <div className="flex flex-col md:flex gap-3">
-                <Button variant="default" disabled={bulkBusy} onClick={() => bulkSetUsersTransfer(true)}>
-                  {bulkBusy ? "Working..." : "Enable transfers for all users"}
-                </Button>
-                <Button variant="secondary" disabled={bulkBusy} onClick={() => bulkSetUsersTransfer(false)}>
-                  {bulkBusy ? "Working..." : "Disable transfers for all users"}
-                </Button>
-              </div>
             </div>
-
-            <Separator />
-
-            <div className="space-y-3">
-              <Label className="text-base">Per-user Transfer Permission</Label>
-              <p className="text-sm text-muted-foreground">
-                Toggle transfer permission for a single user by their ID (find it in Admin &gt; Users).
-              </p>
-              <div className="flex flex-col md:flex-row gap-3">
-                <Input
-                  placeholder="Enter User ID (Mongo ObjectId)"
-                  value={singleUserId}
-                  onChange={(e) => setSingleUserId(e.target.value)}
-                />
-                <Button
-                  disabled={singleBusy || !singleUserId}
-                  onClick={async () => {
-                    setSingleBusy(true)
-                    setError(null)
-                    try {
-                      const res = await fetch("/api/admin/users/toggle-transfer", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ userId: singleUserId }),
-                      })
-                      const data = await res.json()
-                      if (!res.ok) setError(data?.message || "Failed to toggle")
-                    } catch {
-                      setError("Failed to toggle")
-                    } finally {
-                      setSingleBusy(false)
-                    }
-                  }}
-                >
-                  {singleBusy ? "Working..." : "Toggle for User"}
-                </Button>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+          </Card>
+        </div>
       </div>
     </div>
   )

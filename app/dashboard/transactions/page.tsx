@@ -67,7 +67,7 @@ async function getTransactionsData(userId: string, page: number = 1, limit: numb
         txType: txType,
         amount: transfer.amount,
         currency: transfer.currency,
-        createdAt: transfer.completedAt || transfer.createdAt,
+        createdAt: transfer.completedAt || transfer.txDate || transfer.createdAt || new Date(),
         status: transfer.txStatus,
         recipient: txType === 'credit' ? (transfer.senderName || transfer.accountHolder) : transfer.accountHolder,
         description: transfer.description,

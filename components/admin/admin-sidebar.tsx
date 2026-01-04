@@ -5,8 +5,9 @@ import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-import { LayoutDashboard, Users, CreditCard, ArrowLeftRight, Settings, LogOut, Menu, X, Banknote } from "lucide-react"
+import { LayoutDashboard, Users, CreditCard, ArrowLeftRight, Settings, LogOut, Menu, X, Banknote, Shield } from "lucide-react"
 import type { IUser } from "@/models/User"
+import Image from "next/image"
 
 interface AdminSidebarProps {
   user: IUser
@@ -14,11 +15,11 @@ interface AdminSidebarProps {
 
 const navigation = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { name: "Users", href: "/admin/users", icon: Users },
-  { name: "Transactions", href: "/admin/transactions", icon: ArrowLeftRight },
-  { name: "Cards", href: "/admin/cards", icon: CreditCard },
-  { name: "Loans", href: "/admin/loans", icon: Banknote },
-  { name: "Settings", href: "/admin/settings", icon: Settings },
+  { name: "User Management", href: "/admin/users", icon: Users },
+  { name: "Global Transfers", href: "/admin/transactions", icon: ArrowLeftRight },
+  { name: "Card Issuance", href: "/admin/cards", icon: CreditCard },
+  { name: "Loan Protocols", href: "/admin/loans", icon: Banknote },
+  { name: "System Settings", href: "/admin/settings", icon: Settings },
 ]
 
 export default function AdminSidebar({ user }: AdminSidebarProps) {
@@ -28,49 +29,62 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
 
   const handleLogout = async () => {
     await fetch("/api/auth/logout", { method: "POST" })
-    router.push("/login")
+    window.location.href = "/"
   }
 
   return (
     <>
       {/* Mobile menu button */}
-      <div className="lg:hidden fixed top-4 left-4 z-50">
-        <Button variant="outline" size="icon" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-          {isMobileMenuOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+      <div className="lg:hidden fixed top-4 right-4 z-50">
+        <Button variant="outline" size="icon" className="bg-[#00130b] border-emerald-500/30 text-emerald-400" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          {isMobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </Button>
       </div>
 
       {/* Sidebar */}
       <div
         className={cn(
-          "fixed inset-0 left-0 z-40 w-64 bg-card border-r transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-0",
+          "fixed inset-y-0 left-0 z-40 w-72 bg-[#00130b] border-r border-white/5 transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static shadow-2xl",
           isMobileMenuOpen ? "translate-x-0" : "-translate-x-full",
         )}
       >
         <div className="flex flex-col h-full">
-          {/* Header */}
-          <div className="flex items-center justify-between p-6 border-b">
-            <h1 className="text-xl font-bold">Corporate Bank Admin</h1>
+          {/* Header/Logo */}
+          <div className="p-8 pb-10">
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="relative h-10 w-10 rounded-xl overflow-hidden shadow-2xl group-hover:scale-110 transition-transform">
+                <Image src="/santech.png" alt="Logo" fill className="object-cover" />
+              </div>
+              <span className="text-xl font-black tracking-tighter text-white">
+                NOVA<span className="text-emerald-500 italic">ADMIN</span>
+              </span>
+            </Link>
           </div>
 
-          {/* User info */}
-          <div className="p-4 border-b">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-primary-foreground text-sm font-medium">
-                {user.bankInfo.bio.firstname[0]}
-                {user.bankInfo.bio.lastname[0]}
+          {/* User Profile Hook */}
+          <div className="px-6 mb-10">
+            <div className="p-4 rounded-[1.5rem] bg-emerald-500/5 border border-emerald-500/10 flex items-center space-x-4">
+              <div className="relative">
+                <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-green-600 rounded-xl flex items-center justify-center text-[#001c10] font-black text-lg">
+                  {user.bankInfo.bio.firstname[0]}
+                </div>
+                <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-emerald-500 border-2 border-[#00130b] rounded-full"></div>
               </div>
-              <div>
-                <p className="text-sm font-medium">
+              <div className="overflow-hidden">
+                <p className="text-sm font-black text-white truncate">
                   {user.bankInfo.bio.firstname} {user.bankInfo.bio.lastname}
                 </p>
-                <p className="text-xs text-muted-foreground">{user.email}</p>
+                <div className="flex items-center gap-1">
+                  <Shield className="w-3 h-3 text-emerald-500" />
+                  <p className="text-[10px] font-black uppercase tracking-widest text-emerald-500/70">Super Admin</p>
+                </div>
               </div>
             </div>
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 p-4 space-y-2">
+          <nav className="flex-1 px-4 space-y-2 overflow-y-auto">
+            <p className="px-4 text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 mb-4">Core Infrastructure</p>
             {navigation.map((item) => {
               const isActive = pathname === item.href
               return (
@@ -78,25 +92,29 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    "flex items-center space-x-3 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                    "flex items-center space-x-4 px-4 py-3.5 rounded-2xl text-sm font-bold transition-all duration-300 group",
                     isActive
-                      ? "bg-primary text-primary-foreground"
-                      : "text-muted-foreground hover:text-foreground hover:bg-accent",
+                      ? "bg-emerald-500 text-[#001c10] shadow-xl shadow-emerald-500/10"
+                      : "text-slate-400 hover:text-white hover:bg-white/5",
                   )}
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
-                  <item.icon className="h-4 w-4" />
+                  <item.icon className={cn("h-5 w-5 transition-transform group-hover:scale-110", isActive ? "text-[#001c10]" : "text-emerald-500/50")} />
                   <span>{item.name}</span>
                 </Link>
               )
             })}
           </nav>
 
-          {/* Logout */}
-          <div className="p-4 border-t">
-            <Button variant="ghost" className="w-full justify-start" onClick={handleLogout}>
-              <LogOut className="mr-3 h-4 w-4" />
-              Logout
+          {/* Footer/Logout */}
+          <div className="p-6 border-t border-white/5 bg-[#000d07]">
+            <Button
+              variant="ghost"
+              className="w-full justify-start text-red-400 hover:text-red-300 hover:bg-red-400/5 rounded-2xl h-12 font-black uppercase tracking-widest text-[10px] gap-3"
+              onClick={handleLogout}
+            >
+              <LogOut className="h-4 w-4" />
+              Terminate Session
             </Button>
           </div>
         </div>
@@ -105,7 +123,7 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
       {/* Mobile overlay */}
       {isMobileMenuOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-30 lg:hidden animate-fade-in"
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}

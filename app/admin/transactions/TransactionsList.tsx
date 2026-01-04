@@ -27,6 +27,12 @@ interface Transaction {
   userName?: string // Add user name for admin view
 }
 
+interface UserSummary {
+  id: string
+  name: string
+  email: string
+}
+
 interface TransactionsListProps {
   initialTransactions: Transaction[]
   total: number
@@ -38,6 +44,7 @@ interface TransactionsListProps {
     search: string
     user?: string // Add user filter for admin
   }
+  users?: UserSummary[] // Add users for filter
   isAdmin?: boolean // Add admin flag
 }
 
@@ -47,6 +54,7 @@ export default function TransactionsList({
   currentPage,
   totalPages,
   currentFilters,
+  users = [],
   isAdmin = false // Default to false for regular users
 }: TransactionsListProps) {
   const [transactions, setTransactions] = useState<Transaction[]>(initialTransactions)
@@ -163,9 +171,13 @@ export default function TransactionsList({
               <SelectTrigger>
                 <SelectValue placeholder="Filter by user" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-[#001c10] border-white/10 text-white">
                 <SelectItem value="all">All Users</SelectItem>
-                {/* User options will be populated from server */}
+                {users.map(user => (
+                  <SelectItem key={user.id} value={user.id}>
+                    {user.name} ({user.email})
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>

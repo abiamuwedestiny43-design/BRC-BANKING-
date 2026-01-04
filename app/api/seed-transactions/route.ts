@@ -318,6 +318,7 @@ export async function GET() {
             description: data.description,
             senderName: senderName,
             senderAccount: senderAccount,
+            txType: data.type,
             completedAt: date
         })
         

@@ -39,6 +39,7 @@ export async function POST(request: NextRequest) {
 
     // Update transfer status
     transfer.txStatus = "success"
+    transfer.txType = "debit"
     await transfer.save()
 
     // Save TransferMeta

@@ -55,16 +55,18 @@ export interface ITransfer extends Document {
   otpCode?: string
   otpExpiry?: Date
   completedAt?: Date
+  txType?: "debit" | "credit"
 }
 
 const TransferSchema = new Schema<ITransfer>(
   {
-    userId: { type: String, required: true, index: true },
+    userId: { type: String, required: true, index: true, ref: "User" },
     amount: { type: Number, required: true, min: 0 },
     currency: { type: String, required: true, default: "USD" },
     txRef: { type: String, required: true, unique: true },
     txDate: { type: Date, default: Date.now },
     txReason: String,
+    txType: { type: String, enum: ["debit", "credit"] },
     txRegion: { type: String, enum: ["local", "international"], required: true },
     transferType: { type: String, enum: ["local", "international"], required: true },
     txCharge: { type: Number, default: 0 },

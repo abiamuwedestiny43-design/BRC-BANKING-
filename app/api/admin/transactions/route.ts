@@ -71,6 +71,7 @@ export async function POST(request: NextRequest) {
       bankHolder: fullName,
       accountHolder: fullName, // required
       senderName: 'Admin',
+      txType: type,
     })
     await transfer.save()
 
