@@ -132,13 +132,13 @@ export default function TransactionsList({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
           {isAdmin && (
             <div className="lg:col-span-3 space-y-2">
-              <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-2">Identity Node</label>
+              <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-2">Client Identity</label>
               <Select value={filters.user || "all"} onValueChange={(value) => handleFilterChange("user", value)}>
                 <SelectTrigger className="bg-white/5 border-white/10 rounded-xl h-12 text-white focus:ring-emerald-500/20 capitalize font-medium">
-                  <SelectValue placeholder="All Origins" />
+                  <SelectValue placeholder="All Clients" />
                 </SelectTrigger>
                 <SelectContent className="bg-[#001c10] border-emerald-500/20 text-white backdrop-blur-xl">
-                  <SelectItem value="all">All Global Details</SelectItem>
+                  <SelectItem value="all">All Accounts</SelectItem>
                   {users.map(user => (
                     <SelectItem key={user.id} value={user.id} className="focus:bg-emerald-500 focus:text-black">
                       {user.name}
@@ -150,28 +150,28 @@ export default function TransactionsList({
           )}
 
           <div className="lg:col-span-2 space-y-2">
-            <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-2">Flux State</label>
+            <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-2">Status</label>
             <Select value={filters.status} onValueChange={(value) => handleFilterChange("status", value)}>
               <SelectTrigger className="bg-white/5 border-white/10 rounded-xl h-12 text-white focus:ring-emerald-500/20 capitalize font-medium">
-                <SelectValue placeholder="All States" />
+                <SelectValue placeholder="All Statuses" />
               </SelectTrigger>
               <SelectContent className="bg-[#001c10] border-emerald-500/20 text-white backdrop-blur-xl">
-                <SelectItem value="all">Global States</SelectItem>
-                <SelectItem value="pending">Pending Audit</SelectItem>
-                <SelectItem value="success">Synchronized</SelectItem>
-                <SelectItem value="failed">Aborted/Failed</SelectItem>
+                <SelectItem value="all">All Statuses</SelectItem>
+                <SelectItem value="pending">Pending</SelectItem>
+                <SelectItem value="success">Completed</SelectItem>
+                <SelectItem value="failed">Failed</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           <div className="lg:col-span-2 space-y-2">
-            <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-2">Migration Type</label>
+            <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-2">Transaction Type</label>
             <Select value={filters.type} onValueChange={(value) => handleFilterChange("type", value)}>
               <SelectTrigger className="bg-white/5 border-white/10 rounded-xl h-12 text-white focus:ring-emerald-500/20 capitalize font-medium">
                 <SelectValue placeholder="All Types" />
               </SelectTrigger>
               <SelectContent className="bg-[#001c10] border-emerald-500/20 text-white backdrop-blur-xl">
-                <SelectItem value="all">All Migrations</SelectItem>
+                <SelectItem value="all">All Transactions</SelectItem>
                 <SelectItem value="debit">Debit</SelectItem>
                 <SelectItem value="credit">Credit</SelectItem>
               </SelectContent>
@@ -179,19 +179,19 @@ export default function TransactionsList({
           </div>
 
           <div className={`${isAdmin ? "lg:col-span-5" : "lg:col-span-8"} space-y-2`}>
-            <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-2">Data Signature Search</label>
+            <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-2">Search Records</label>
             <form onSubmit={handleSearch} className="flex gap-3">
               <div className="relative flex-1">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-emerald-500/50" />
                 <Input
-                  placeholder="ID_REF, recipient, or transmission cipher..."
+                  placeholder="Reference, name, or transaction details..."
                   value={filters.search}
                   onChange={(e) => setFilters(prev => ({ ...prev, search: e.target.value }))}
                   className="pl-12 bg-white/5 border-white/10 rounded-xl h-12 text-white focus:border-emerald-500/50 transition-all font-medium"
                 />
               </div>
               <Button type="submit" className="h-12 px-6 rounded-xl bg-emerald-500 text-[#001c10] font-black hover:bg-emerald-400 shadow-xl shadow-emerald-500/20">
-                Execute
+                Search
               </Button>
             </form>
           </div>
@@ -203,7 +203,7 @@ export default function TransactionsList({
         {transactions.length === 0 ? (
           <div className="py-20 text-center space-y-4 bg-white/[0.01] border border-white/5 rounded-[3rem]">
             <Activity className="w-12 h-12 text-slate-700 mx-auto" />
-            <p className="text-slate-500 font-medium italic">No ledger entries detected matching the current filter parameters.</p>
+            <p className="text-slate-500 font-medium italic">No transactions found matching the current filters.</p>
             <Button
               variant="link"
               className="text-emerald-500 font-black uppercase tracking-widest text-[10px]"
@@ -214,7 +214,7 @@ export default function TransactionsList({
                 updateURL(clearFilters, 1)
               }}
             >
-              Reset Protocol Filters
+              Reset Filters
             </Button>
           </div>
         ) : (
@@ -249,7 +249,7 @@ export default function TransactionsList({
                           {getStatusBadge(transaction.status)}
                         </div>
                         <div className="flex flex-wrap items-center gap-3 text-xs">
-                          <span className="text-slate-500 font-mono tracking-tighter">SIG_{transaction.txRef.toUpperCase()}</span>
+                          <span className="text-slate-500 font-mono tracking-tighter">REF_{transaction.txRef.toUpperCase()}</span>
                           {transaction.recipient && (
                             <>
                               <span className="w-1 h-1 rounded-full bg-slate-700" />
@@ -295,7 +295,7 @@ export default function TransactionsList({
         {totalPages > 1 && (
           <div className="flex flex-col md:flex-row items-center justify-between mt-12 gap-6 p-8 rounded-[2.5rem] bg-white/[0.01] border border-white/5">
             <div className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">
-              Showing <span className="text-white">{(currentPage - 1) * 10 + 1}</span> — <span className="text-white">{Math.min(currentPage * 10, total)}</span> of <span className="text-white">{total}</span> Flux Events
+              Showing <span className="text-white">{(currentPage - 1) * 10 + 1}</span> — <span className="text-white">{Math.min(currentPage * 10, total)}</span> of <span className="text-white">{total}</span> Transactions
             </div>
 
             <div className="flex items-center gap-3">

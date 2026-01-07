@@ -142,20 +142,20 @@ export default async function AdminTransactionsPage({
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 relative z-10">
           <div className="space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-widest">
-              <Activity className="w-3 h-3" /> Transaction Ledger
+              <Activity className="w-3 h-3" /> Transaction History
             </div>
             <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter">
-              Global <span className="text-slate-500 italic font-medium">Flux Monitoring</span>
+              Global <span className="text-slate-500 italic font-medium">Transfers</span>
             </h1>
             <p className="text-slate-400 font-medium max-w-xl text-lg leading-relaxed">
-              Monitoring the global movement of assets across the PRIMEHARBOR BANK ecosystem. Protocol synchronization status and node audit trails.
+              Monitoring global movement of assets across the PRIMEHARBOR BANK ecosystem. Transaction status and records.
             </p>
           </div>
 
           <div className="flex gap-4">
             <Button asChild variant="ghost" className="h-14 px-8 rounded-2xl bg-white/5 hover:bg-white/10 text-white font-black border border-white/5 backdrop-blur-md uppercase tracking-widest text-[10px] gap-2">
               <Link href="/admin">
-                <ChevronLeft className="h-4 w-4" /> Command
+                <ChevronLeft className="h-4 w-4" /> Dashboard
               </Link>
             </Button>
           </div>
@@ -164,10 +164,10 @@ export default async function AdminTransactionsPage({
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 relative z-10">
           {[
-            { label: "Detected Details", value: total, icon: Database, color: "text-blue-400", bg: "bg-blue-500/5", border: "border-blue-500/10" },
-            { label: "Synchronized", value: successCount, icon: ShieldCheck, color: "text-emerald-400", bg: "bg-emerald-500/5", border: "border-emerald-500/10" },
-            { label: "Awaiting Audit", value: pendingCount, icon: Clock, color: "text-yellow-400", bg: "bg-yellow-500/5", border: "border-yellow-500/10" },
-            { label: "System Aborts", value: failedCount, icon: Lock, color: "text-red-400", bg: "bg-red-500/5", border: "border-red-500/10" },
+            { label: "Total Transactions", value: total, icon: Database, color: "text-blue-400", bg: "bg-blue-500/5", border: "border-blue-500/10" },
+            { label: "Completed", value: successCount, icon: ShieldCheck, color: "text-emerald-400", bg: "bg-emerald-500/5", border: "border-emerald-500/10" },
+            { label: "Pending Review", value: pendingCount, icon: Clock, color: "text-yellow-400", bg: "bg-yellow-500/5", border: "border-yellow-500/10" },
+            { label: "Failed", value: failedCount, icon: Lock, color: "text-red-400", bg: "bg-red-500/5", border: "border-red-500/10" },
           ].map((stat, i) => (
             <Card key={i} className={`bg-white/[0.02] ${stat.border} rounded-[2rem] p-8 group hover:bg-white/[0.04] transition-all duration-500 relative overflow-hidden`}>
               <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
@@ -191,7 +191,7 @@ export default async function AdminTransactionsPage({
             <div className="h-px bg-white/5 flex-1" />
             <div className="flex items-center gap-2">
               <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Live Ledger</span>
+              <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Live Updates</span>
             </div>
           </div>
 
@@ -220,7 +220,7 @@ export default async function AdminTransactionsPage({
             <p className="text-slate-500 font-medium">An unexpected exception occurred during data synchronization.</p>
           </div>
           <Button onClick={() => window.location.reload()} className="h-14 px-10 rounded-2xl bg-white/5 text-white font-black uppercase tracking-widest text-[10px] border border-white/10 hover:bg-white/10 transition-all">
-            Initiate System Recovery
+            Retry
           </Button>
         </div>
       </div>

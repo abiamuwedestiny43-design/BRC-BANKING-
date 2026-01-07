@@ -95,7 +95,7 @@ export default function DashboardClient({
                 <motion.div {...fadeInUp} className="flex flex-col md:flex-row md:items-center justify-between gap-6">
                     <div className="space-y-2">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-widest">
-                            <ShieldCheck className="w-3 h-3" /> Secure Banking Session Active
+                            <ShieldCheck className="w-3 h-3" /> Secure Banking Session
                         </div>
                         <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter">
                             Hello, <span className="text-slate-500 italic">{firstName}</span> <span className="animate-wave inline-block">👋</span>
@@ -185,7 +185,7 @@ export default function DashboardClient({
                                         </div>
                                         <div>
                                             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">Available Balance</p>
-                                            <p className="text-xs text-emerald-500 font-bold">Secure Node Active</p>
+                                            <p className="text-xs text-emerald-500 font-bold">Account Active</p>
                                         </div>
                                     </div>
                                     <Button variant="ghost" size="icon" className="text-white/20 hover:text-white hover:bg-white/5 rounded-full">
@@ -202,7 +202,7 @@ export default function DashboardClient({
                                             <span className="text-[10px] font-mono tracking-widest text-slate-400 uppercase">AC: {bankNumber}</span>
                                         </div>
                                         <div className="px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center gap-2">
-                                            <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Global Status: Verified</span>
+                                            <span className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Status: Verified</span>
                                         </div>
                                     </div>
                                 </div>
@@ -218,7 +218,7 @@ export default function DashboardClient({
                                     <Button asChild variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10 text-white font-black px-8 h-14 rounded-2xl backdrop-blur-sm transition-all text-base">
                                         <Link href="/dashboard/transactions" className="flex items-center gap-2">
                                             <History className="h-5 w-5" />
-                                            Audit Logs
+                                            Transactions
                                         </Link>
                                     </Button>
                                 </div>
@@ -232,7 +232,7 @@ export default function DashboardClient({
                             <div className="space-y-1">
                                 <p className="text-slate-500 text-[9px] font-black uppercase tracking-widest">Identity Status</p>
                                 <h3 className="text-xl font-black text-white group-hover:text-emerald-400 transition-colors">{user.bankAccount?.verified ? "Verified" : "Pending"}</h3>
-                                <p className="text-[10px] text-slate-600 font-medium">Compliance vetting active</p>
+                                <p className="text[10px] text-slate-600 font-medium">Account status</p>
                             </div>
                             <div className={cn(
                                 "h-12 w-12 rounded-xl flex items-center justify-center transition-all shadow-lg",
@@ -246,7 +246,7 @@ export default function DashboardClient({
                             <div className="space-y-1">
                                 <p className="text-slate-500 text-[9px] font-black uppercase tracking-widest">Transfer Access</p>
                                 <h3 className="text-xl font-black text-white group-hover:text-emerald-400 transition-colors">{user.bankAccount?.canTransfer ? "Enabled" : "Restricted"}</h3>
-                                <p className="text-[10px] text-slate-600 font-medium">Gateway communication live</p>
+                                <p className="text-[10px] text-slate-600 font-medium">Secure transfer gateway</p>
                             </div>
                             <div className={cn(
                                 "h-12 w-12 rounded-xl flex items-center justify-center transition-all shadow-lg",
@@ -270,7 +270,7 @@ export default function DashboardClient({
                             </h2>
                             <Button variant="ghost" asChild className="text-emerald-500 font-black hover:bg-emerald-500/10 rounded-xl text-xs uppercase tracking-widest">
                                 <Link href="/dashboard/card" className="flex items-center gap-1">
-                                    All Assets <ChevronRight className="h-4 w-4" />
+                                    All Cards <ChevronRight className="h-4 w-4" />
                                 </Link>
                             </Button>
                         </div>
@@ -288,11 +288,11 @@ export default function DashboardClient({
                                         <Plus className="h-10 w-10" />
                                     </div>
                                     <div className="space-y-2">
-                                        <h3 className="text-xl font-black text-white">Initialize Virtual Asset</h3>
-                                        <p className="text-slate-500 max-w-sm font-medium">Unlock global liquidity and international settlement capabilities.</p>
+                                        <h3 className="text-xl font-black text-white">Request New Card</h3>
+                                        <p className="text-slate-500 max-w-sm font-medium">Apply for virtual or physical cards for global payments.</p>
                                     </div>
                                     <Button asChild className="bg-white text-[#001c10] font-black px-10 h-14 rounded-2xl shadow-xl transition-all hover:scale-105 active:scale-95">
-                                        <Link href="/dashboard/card/apply">Register New Asset</Link>
+                                        <Link href="/dashboard/card/apply">Get Your Card</Link>
                                     </Button>
                                 </Card>
                             )}
@@ -301,13 +301,13 @@ export default function DashboardClient({
 
                     {/* Quick Actions Sidebar */}
                     <motion.div {...fadeInUp} transition={{ delay: 0.3 }} className="lg:col-span-4 space-y-8">
-                        <h2 className="text-2xl font-black text-white">Direct <span className="text-slate-500 italic">Protocols</span></h2>
+                        <h2 className="text-2xl font-black text-white">Quick <span className="text-slate-500 italic">Actions</span></h2>
                         <div className="grid grid-cols-1 gap-4">
                             {[
-                                { href: "/dashboard/transfer", label: "Global Payout", sub: "Cross-border settlement", icon: ArrowUpRight, color: "text-emerald-400", bg: "bg-emerald-500/10" },
-                                { href: "/dashboard/transactions", label: "Transaction Mesh", sub: "Historical data logs", icon: History, color: "text-blue-400", bg: "bg-blue-500/10" },
-                                { href: "/dashboard/loans", label: "Credit Protocol", sub: "Liquidity provisioning", icon: Landmark, color: "text-purple-400", bg: "bg-purple-500/10" },
-                                { href: "/dashboard/beneficiaries", label: "Auth Payees", sub: "Trusted node list", icon: Users, color: "text-orange-400", bg: "bg-orange-500/10" },
+                                { href: "/dashboard/transfer", label: "Send Money", sub: "Global transfers", icon: ArrowUpRight, color: "text-emerald-400", bg: "bg-emerald-500/10" },
+                                { href: "/dashboard/transactions", label: "Transactions", sub: "View history", icon: History, color: "text-blue-400", bg: "bg-blue-500/10" },
+                                { href: "/dashboard/loans", label: "Loans", sub: "Apply for credit", icon: Landmark, color: "text-purple-400", bg: "bg-purple-500/10" },
+                                { href: "/dashboard/beneficiaries", label: "Beneficiaries", sub: "Manage contacts", icon: Users, color: "text-orange-400", bg: "bg-orange-500/10" },
                             ].map((action, i) => (
                                 <Link key={i} href={action.href} className="group">
                                     <Card className="bg-white/[0.03] border-white/5 hover:bg-white/[0.06] p-4 flex items-center gap-4 transition-all group-hover:-translate-y-1 rounded-2xl">
@@ -398,7 +398,7 @@ export default function DashboardClient({
                                     <div className="h-24 w-24 bg-white/5 rounded-full flex items-center justify-center mx-auto text-slate-700">
                                         <History className="h-12 w-12" />
                                     </div>
-                                    <p className="text-slate-500 font-black uppercase tracking-widest text-sm italic">No network activity detected.</p>
+                                    <p className="text-slate-500 font-black uppercase tracking-widest text-sm italic">No recent transactions.</p>
                                 </div>
                             )}
                         </CardContent>

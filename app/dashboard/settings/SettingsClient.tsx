@@ -179,17 +179,17 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                     <div className="space-y-2">
                         <div className="flex items-center gap-2 text-emerald-500 font-black uppercase tracking-widest text-[10px] mb-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 w-fit rounded-full">
                             <Settings className="h-3 w-3" />
-                            System Configuration
+                            Account Settings
                         </div>
                         <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter lowercase">
-                            User <span className="text-slate-500 italic">Parameters</span>
+                            User <span className="text-slate-500 italic">Profile</span>
                         </h1>
-                        <p className="text-slate-400 font-medium">Calibrate your identity profile and security protocols.</p>
+                        <p className="text-slate-400 font-medium">Manage your personal information and security settings.</p>
                     </div>
                     <div className="flex items-center gap-4">
                         <div className="hidden md:block text-right">
                             <p className="text-sm font-black text-white lowercase tracking-tight">{profileData.firstname} {profileData.lastname}</p>
-                            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] font-black">Authorized Node</p>
+                            <p className="text-[10px] text-slate-500 uppercase tracking-[0.2em] font-black">Verified User</p>
                         </div>
                         <div className="h-16 w-16 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-emerald-500 text-2xl font-black shadow-2xl relative group cursor-pointer overflow-hidden">
                             {user?.profileImage ? (
@@ -227,11 +227,11 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                             <CardContent className="p-3">
                                 <nav className="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0 scrollbar-hide">
                                     {[
-                                        { id: "profile", label: "Identity Core", icon: User },
-                                        { id: "password", label: "Auth Keys", icon: Lock },
+                                        { id: "profile", label: "Profile", icon: User },
+                                        { id: "password", label: "Security", icon: Lock },
                                         { id: "preferences", label: "Preferences", icon: Settings },
-                                        { id: "notifications", label: "Relays", icon: Bell },
-                                        { id: "billing", label: "Allocation", icon: CreditCard },
+                                        { id: "notifications", label: "Notifications", icon: Bell },
+                                        { id: "billing", label: "Billing", icon: CreditCard },
                                     ].map((item) => (
                                         <button
                                             key={item.id}
@@ -270,8 +270,8 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                                                 <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
                                                 {/* Decorative Label */}
                                                 <div className="absolute top-8 right-8 text-right hidden md:block">
-                                                    <p className="text-[10px] font-black text-emerald-500/50 uppercase tracking-[0.4em] leading-none mb-1">Authorization</p>
-                                                    <p className="text-white/20 font-black text-2xl tracking-tighter opacity-30 italic leading-none lowercase">node_active</p>
+                                                    <p className="text-[10px] font-black text-emerald-500/50 uppercase tracking-[0.4em] leading-none mb-1">Status</p>
+                                                    <p className="text-white/20 font-black text-2xl tracking-tighter opacity-30 italic leading-none lowercase">active</p>
                                                 </div>
                                             </div>
                                             <div className="absolute -bottom-16 left-12 p-1.5 rounded-[2.5rem] bg-[#001c10] border border-white/10 shadow-3xl z-10">
@@ -308,8 +308,8 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                                         <CardHeader className="pt-24 px-10">
                                             <div className="flex justify-between items-center">
                                                 <div className="space-y-1">
-                                                    <CardTitle className="text-3xl font-black text-white lowercase tracking-tighter">Identity <span className="text-slate-500 italic">Parameters</span></CardTitle>
-                                                    <CardDescription className="text-slate-500 font-medium">Synchronize your personal attributes with the master ledger.</CardDescription>
+                                                    <CardTitle className="text-3xl font-black text-white lowercase tracking-tighter">Personal <span className="text-slate-500 italic">Information</span></CardTitle>
+                                                    <CardDescription className="text-slate-500 font-medium">Update your personal details and contact information.</CardDescription>
                                                 </div>
                                             </div>
                                         </CardHeader>
@@ -322,11 +322,11 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                                                         { label: "Given Name", key: "firstname", icon: User },
                                                         { label: "Family Name", key: "lastname", icon: User },
                                                         { label: "Relay Address", key: "email", icon: Mail, type: "email" },
-                                                        { label: "Comm Frequency", key: "phone", icon: Phone },
-                                                        { label: "Launch Date", key: "birthdate", icon: Calendar, type: "date" },
-                                                        { label: "Physical Vector", key: "location", icon: MapPin },
-                                                        { label: "Sector Name", key: "city", icon: Globe },
-                                                        { label: "Archive Code", key: "zipcode", icon: MapPin },
+                                                        { label: "Phone Number", key: "phone", icon: Phone },
+                                                        { label: "Date of Birth", key: "birthdate", icon: Calendar, type: "date" },
+                                                        { label: "Address", key: "location", icon: MapPin },
+                                                        { label: "City", key: "city", icon: Globe },
+                                                        { label: "Zip Code", key: "zipcode", icon: MapPin },
                                                     ].map((field) => (
                                                         <div key={field.key} className="space-y-3">
                                                             <Label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">{field.label}</Label>
@@ -349,7 +349,7 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                                                         disabled={isLoading}
                                                         className="bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black px-12 h-14 rounded-2xl shadow-xl shadow-emerald-500/20 transition-all hover:-translate-y-1 active:scale-95 text-lg uppercase tracking-tight"
                                                     >
-                                                        {isLoading ? "Syncing..." : "Commit Changes"}
+                                                        {isLoading ? "Saving..." : "Save Changes"}
                                                     </Button>
                                                 </div>
                                             </form>
@@ -373,8 +373,8 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                                                     <Lock className="h-8 w-8" />
                                                 </div>
                                                 <div className="space-y-1">
-                                                    <CardTitle className="text-3xl font-black text-white lowercase tracking-tighter">Auth <span className="text-slate-500 italic">Sequences</span></CardTitle>
-                                                    <CardDescription className="text-slate-500 font-medium">Update your encryption keys to maintain protocol integrity.</CardDescription>
+                                                    <CardTitle className="text-3xl font-black text-white lowercase tracking-tighter">Password <span className="text-slate-500 italic">Settings</span></CardTitle>
+                                                    <CardDescription className="text-slate-500 font-medium">Update your password to keep your account secure.</CardDescription>
                                                 </div>
                                             </div>
                                         </CardHeader>
@@ -413,7 +413,7 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                                                     disabled={isLoading}
                                                     className="w-full bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black h-16 rounded-2xl shadow-xl shadow-emerald-500/20 text-lg uppercase tracking-tight transition-all hover:scale-[1.02]"
                                                 >
-                                                    {isLoading ? "Recalibrating..." : "Execute Rotation"}
+                                                    {isLoading ? "Updating..." : "Update Password"}
                                                 </Button>
                                             </form>
                                         </CardContent>
@@ -436,17 +436,17 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                                                     <Bell className="h-8 w-8" />
                                                 </div>
                                                 <div className="space-y-1">
-                                                    <CardTitle className="text-3xl font-black text-white lowercase tracking-tighter">Event <span className="text-slate-500 italic">Relays</span></CardTitle>
-                                                    <CardDescription className="text-slate-500 font-medium">Configure downstream synchronization for system events.</CardDescription>
+                                                    <CardTitle className="text-3xl font-black text-white lowercase tracking-tighter">Notification <span className="text-slate-500 italic">Channels</span></CardTitle>
+                                                    <CardDescription className="text-slate-500 font-medium">Configure how you receive account updates.</CardDescription>
                                                 </div>
                                             </div>
                                         </CardHeader>
                                         <CardContent className="p-12 space-y-6">
                                             {[
-                                                { title: "Relay Alpha", desc: "Execute email push for every transaction event.", icon: Mail, enabled: true },
-                                                { title: "Sentinel Watch", desc: "Interrupt for unauthorized access attempts.", icon: ShieldAlert, enabled: true },
-                                                { title: "Broadcast", desc: "Receive transmissions regarding system updates.", icon: Settings, enabled: false },
-                                                { title: "Quantum SMS", desc: "High-velocity mobile alerts for transfers.", icon: Phone, enabled: true },
+                                                { title: "Email Notifications", desc: "Receive emails for every transaction.", icon: Mail, enabled: true },
+                                                { title: "Security Alerts", desc: "Alerts for unauthorized access attempts.", icon: ShieldAlert, enabled: true },
+                                                { title: "System Updates", desc: "Receive news regarding system updates.", icon: Settings, enabled: false },
+                                                { title: "SMS Alerts", desc: "Mobile alerts for transfers.", icon: Phone, enabled: true },
                                             ].map((item, i) => (
                                                 <div key={i} className="flex items-center justify-between p-6 rounded-[2rem] bg-white/[0.02] border border-white/5 group hover:bg-emerald-500/5 hover:border-emerald-500/20 transition-all duration-500">
                                                     <div className="flex items-center gap-5">
@@ -488,7 +488,7 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                                         <div className="h-8 w-8 bg-emerald-500/10 rounded-xl flex items-center justify-center border border-emerald-500/20 group-hover:scale-110 transition-transform">
                                             <ShieldCheck className="h-4 w-4" />
                                         </div>
-                                        Validation Node
+                                        Account Verification
                                     </CardTitle>
                                 </CardHeader>
                                 <CardContent className="px-8 pb-8">
@@ -500,7 +500,7 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                                             )}>
                                                 {user?.bankAccount?.verified ? <CheckCircle className="h-5 w-5" /> : <AlertCircle className="h-5 w-5" />}
                                             </div>
-                                            <span className="font-black text-white text-lg lowercase tracking-tighter">Identity State</span>
+                                            <span className="font-black text-white text-lg lowercase tracking-tighter">Verification Status</span>
                                         </div>
                                         <span className={cn(
                                             "relative z-10 px-5 py-2 rounded-2xl text-[10px] font-black uppercase tracking-widest border shadow-xl backdrop-blur-md",
@@ -508,7 +508,7 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                                                 ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
                                                 : "bg-yellow-500/20 text-yellow-400 border-yellow-500/30"
                                         )}>
-                                            {user?.bankAccount?.verified ? "Synchronized" : "Pending"}
+                                            {user?.bankAccount?.verified ? "Verified" : "Pending"}
                                         </span>
                                         {/* Background Trace */}
                                         <div className="absolute right-0 bottom-0 opacity-10 pointer-events-none transform translate-x-10 translate-y-10">
@@ -524,7 +524,7 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                                         <div className="h-8 w-8 bg-emerald-500/10 rounded-xl flex items-center justify-center border border-emerald-500/20 group-hover:scale-110 transition-transform">
                                             <ShieldAlert className="h-4 w-4" />
                                         </div>
-                                        Egress Control
+                                        Transfer Permissions
                                     </CardTitle>
                                 </CardHeader>
                                 <CardContent className="px-8 pb-8">
@@ -536,7 +536,7 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                                             )}>
                                                 {user?.bankAccount?.canTransfer ? <CheckCircle className="h-5 w-5" /> : <ShieldAlert className="h-5 w-5" />}
                                             </div>
-                                            <span className="font-black text-white text-lg lowercase tracking-tighter">Flux Status</span>
+                                            <span className="font-black text-white text-lg lowercase tracking-tighter">Transfers</span>
                                         </div>
                                         <span className={cn(
                                             "relative z-10 px-5 py-2 rounded-2xl text-[10px] font-black uppercase tracking-widest border shadow-xl backdrop-blur-md",
@@ -544,7 +544,7 @@ export default function SettingsClient({ user }: SettingsPageProps) {
                                                 ? "bg-emerald-500/20 text-emerald-400 border-emerald-500/30"
                                                 : "bg-red-500/20 text-red-400 border-red-500/30"
                                         )}>
-                                            {user?.bankAccount?.canTransfer ? "Authorized" : "Restricted"}
+                                            {user?.bankAccount?.canTransfer ? "Enabled" : "Disabled"}
                                         </span>
                                         {/* Background Trace */}
                                         <div className="absolute right-0 bottom-0 opacity-10 pointer-events-none transform translate-x-10 translate-y-10">

@@ -70,10 +70,10 @@ export default async function UserDetailsPage({ params }: { params: { id: string
           </Button>
           <div className="space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-widest">
-              <UserIcon className="w-3 h-3" /> Identity Profiling
+              <UserIcon className="w-3 h-3" /> User Profile
             </div>
             <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter">
-              Identity <span className="text-slate-500 italic">Audit</span>
+              Identity <span className="text-slate-500 italic">Details</span>
             </h1>
           </div>
         </div>
@@ -82,14 +82,14 @@ export default async function UserDetailsPage({ params }: { params: { id: string
           <Button asChild className="h-12 px-8 rounded-xl bg-white/5 hover:bg-white/10 text-white font-bold border border-white/10 transition-all">
             <Link href={`/admin/users/${params.id}/edit`}>
               <Edit className="h-4 w-4 mr-2" />
-              Modify Metadata
+              Edit Details
             </Link>
           </Button>
           <UserActions userId={params.id} />
         </div>
       </div>
 
-      <Suspense fallback={<div className="text-emerald-500 font-black animate-pulse">EXTRACTING IDENTITY DATA...</div>}>
+      <Suspense fallback={<div className="text-emerald-500 font-black animate-pulse">LOADING USER DATA...</div>}>
         <UserDetailsContent userId={params.id} />
       </Suspense>
     </div>
@@ -127,7 +127,7 @@ async function UserDetailsContent({ userId }: { userId: string }) {
                 </div>
               </div>
               <div className="text-left md:text-right">
-                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Registration Epoch</p>
+                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Date Joined</p>
                 <p className="text-white font-black">{new Date(user.registerTime).toLocaleDateString()}</p>
               </div>
             </div>
@@ -135,12 +135,12 @@ async function UserDetailsContent({ userId }: { userId: string }) {
           <CardContent className="p-10">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
               <div className="space-y-8">
-                <h3 className="text-sm font-black text-emerald-400 uppercase tracking-[0.2em] mb-4">Core Signatures</h3>
+                <h3 className="text-sm font-black text-emerald-400 uppercase tracking-[0.2em] mb-4">Account Details</h3>
                 {[
                   { label: "Email Address", value: user.email, icon: Mail },
-                  { label: "Vault Number", value: user.bankNumber, icon: CreditCard, mono: true },
-                  { label: "Access Cipher", value: user.userCode, icon: ShieldCheck, mono: true },
-                  { label: "System Currency", value: user.currency, icon: Globe },
+                  { label: "Account Number", value: user.bankNumber, icon: CreditCard, mono: true },
+                  { label: "User Code", value: user.userCode, icon: ShieldCheck, mono: true },
+                  { label: "Currency", value: user.currency, icon: Globe },
                 ].map((item, i) => (
                   <div key={i} className="group">
                     <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 flex items-center gap-2">
@@ -152,10 +152,10 @@ async function UserDetailsContent({ userId }: { userId: string }) {
               </div>
 
               <div className="space-y-8">
-                <h3 className="text-sm font-black text-blue-400 uppercase tracking-[0.2em] mb-4">Geolocation Hub</h3>
+                <h3 className="text-sm font-black text-blue-400 uppercase tracking-[0.2em] mb-4">Contact Information</h3>
                 {[
-                  { label: "Voice Channel", value: user.phone, icon: Phone },
-                  { label: "Residency Path", value: `${user.address}, ${user.city}, ${user.state} ${user.zipcode}, ${user.country}`, icon: MapPin },
+                  { label: "Phone Number", value: user.phone, icon: Phone },
+                  { label: "Address", value: `${user.address}, ${user.city}, ${user.state} ${user.zipcode}, ${user.country}`, icon: MapPin },
                 ].map((item, i) => (
                   <div key={i} className="group">
                     <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-2 flex items-center gap-2">
@@ -173,9 +173,9 @@ async function UserDetailsContent({ userId }: { userId: string }) {
         <Card className="bg-white/[0.03] border-white/5 rounded-[3rem] overflow-hidden">
           <CardHeader className="p-10 border-b border-white/5 bg-white/[0.01]">
             <CardTitle className="text-2xl font-black text-white italic tracking-tight flex items-center gap-3">
-              <Activity className="w-6 h-6 text-blue-400" /> Recent Migration Flux
+              <Activity className="w-6 h-6 text-blue-400" /> Recent Activity
             </CardTitle>
-            <CardDescription className="text-slate-500 font-medium">Monitoring the last 10 asset movements from this identity node.</CardDescription>
+            <CardDescription className="text-slate-500 font-medium">Last 10 transactions required for this user.</CardDescription>
           </CardHeader>
           <CardContent className="p-0">
             {user.transfers.length > 0 ? (
@@ -183,8 +183,8 @@ async function UserDetailsContent({ userId }: { userId: string }) {
                 <thead>
                   <tr className="bg-black/20 text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-white/5">
                     <th className="px-10 py-4">Status</th>
-                    <th className="px-10 py-4">Signature</th>
-                    <th className="px-10 py-4 text-right">Value</th>
+                    <th className="px-10 py-4">Reference</th>
+                    <th className="px-10 py-4 text-right">Amount</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/5">
@@ -197,7 +197,7 @@ async function UserDetailsContent({ userId }: { userId: string }) {
                       </td>
                       <td className="px-10 py-4">
                         <p className="text-xs font-bold text-white uppercase tracking-tight">{transfer.txReason}</p>
-                        <p className="text-[10px] font-mono text-slate-500 tracking-tighter">SIG_{transfer.txRef}</p>
+                        <p className="text-[10px] font-mono text-slate-500 tracking-tighter">REF_{transfer.txRef}</p>
                       </td>
                       <td className="px-10 py-4 text-right">
                         <p className="text-sm font-black text-white">{formatCurrency(transfer.amount, transfer.currency)}</p>
@@ -212,7 +212,7 @@ async function UserDetailsContent({ userId }: { userId: string }) {
                 <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto opacity-20">
                   <Activity className="w-8 h-8 text-slate-500" />
                 </div>
-                <p className="text-slate-500 font-medium italic">No recorded asset migrations for this identity.</p>
+                <p className="text-slate-500 font-medium italic">No recent activity found.</p>
               </div>
             )}
           </CardContent>
@@ -225,7 +225,7 @@ async function UserDetailsContent({ userId }: { userId: string }) {
           <div className="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-emerald-500/10 rounded-full blur-[100px]"></div>
           <div className="relative z-10 space-y-8">
             <div className="space-y-1">
-              <p className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.3em]">Total Liquidity</p>
+              <p className="text-[10px] font-black text-emerald-500 uppercase tracking-[0.3em]">Total Balance</p>
               <p className="text-4xl sm:text-5xl font-black text-white tracking-tighter">
                 {formatCurrency(user.balance, user.currency)}
               </p>
@@ -234,18 +234,18 @@ async function UserDetailsContent({ userId }: { userId: string }) {
             <Separator className="bg-white/5" />
 
             <div className="space-y-6">
-              <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest">Protocol Integrity</h3>
+              <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest">Account Status</h3>
               <div className="space-y-4">
                 <div className="flex items-center justify-between p-4 rounded-2xl bg-black/20 border border-white/5">
-                  <span className="text-xs font-black text-white uppercase tracking-widest">Auth_Verified</span>
+                  <span className="text-xs font-black text-white uppercase tracking-widest">Verified</span>
                   <Badge className={user.verified ? "bg-emerald-500 text-black font-black" : "bg-red-500 text-white font-black"}>
-                    {user.verified ? "TRUE" : "FALSE"}
+                    {user.verified ? "YES" : "NO"}
                   </Badge>
                 </div>
                 <div className="flex items-center justify-between p-4 rounded-2xl bg-black/20 border border-white/5">
-                  <span className="text-xs font-black text-white uppercase tracking-widest">Can_Migrate</span>
+                  <span className="text-xs font-black text-white uppercase tracking-widest">Transfer Access</span>
                   <Badge className={user.canTransfer ? "bg-blue-500 text-white font-black" : "bg-slate-700 text-slate-400 font-black"}>
-                    {user.canTransfer ? "IDENTIFIED" : "RESTRICTED"}
+                    {user.canTransfer ? "ENABLED" : "RESTRICTED"}
                   </Badge>
                 </div>
               </div>
@@ -254,7 +254,7 @@ async function UserDetailsContent({ userId }: { userId: string }) {
             <div className="pt-10 border-t border-white/5">
               <div className="flex items-center gap-3 text-emerald-500/50">
                 <Clock className="w-4 h-4" />
-                <span className="text-[10px] font-black uppercase tracking-widest">Operational Since {new Date(user.registerTime).getFullYear()}</span>
+                <span className="text-[10px] font-black uppercase tracking-widest">Customer Since {new Date(user.registerTime).getFullYear()}</span>
               </div>
             </div>
           </div>
@@ -262,9 +262,9 @@ async function UserDetailsContent({ userId }: { userId: string }) {
 
         {/* System Advisory */}
         <Card className="bg-white/[0.03] border-white/5 rounded-[2.5rem] p-8 space-y-4 relative">
-          <h3 className="text-sm font-black text-white italic tracking-tight">Security Advisory</h3>
+          <h3 className="text-sm font-black text-white italic tracking-tight">System Status</h3>
           <p className="text-xs text-slate-500 leading-relaxed italic border-l-2 border-emerald-500/30 pl-4">
-            "Subject remains within expected behavior parameters. All logins originated from verified geopolitical Details."
+            "Account status is normal. All logins originated from verified locations."
           </p>
         </Card>
       </div>

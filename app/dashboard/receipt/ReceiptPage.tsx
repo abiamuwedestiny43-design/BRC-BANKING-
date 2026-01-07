@@ -84,7 +84,7 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
       doc.setFontSize(10)
       doc.setTextColor(16, 185, 129)
       doc.setFont("helvetica", "bold")
-      doc.text("SECURE TRANSMISSION PROTOCOL", margin, 32)
+      doc.text("SECURE TRANSFER RECEIPT", margin, 32)
 
       // Receipt Type
       doc.setFontSize(9)
@@ -105,7 +105,7 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
       doc.setFontSize(9)
       doc.setTextColor(...colors.textMuted)
       doc.setFont("helvetica", "bold")
-      doc.text("TRANSMISSION STATUS:", margin + 8, y + 12)
+      doc.text("TRANSFER STATUS:", margin + 8, y + 12)
 
       doc.setTextColor(...colors.success)
       doc.setFontSize(11)
@@ -121,7 +121,7 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
       // === AMOUNT SECTION ===
       doc.setFontSize(10)
       doc.setTextColor(...colors.textMuted)
-      doc.text("Transmission Value", margin, y)
+      doc.text("Transfer Amount", margin, y)
       y += 8
 
       doc.setFontSize(32)
@@ -160,12 +160,12 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
       doc.setFontSize(12)
       doc.setTextColor(...colors.primary)
       doc.setFont("helvetica", "bold")
-      doc.text("Originator & Gateway Info", margin, y)
+      doc.text("Sender & Bank Info", margin, y)
       y += 10
 
-      y = addRow("Source Details", "PrimeHarbor Financial Ecosystem", y)
-      y = addRow("Transmission Ref", transfer.txRef, y)
-      y = addRow("Region Protocol", transfer.txRegion || "International", y)
+      y = addRow("Bank Name", "PrimeHarbor Bank", y)
+      y = addRow("Reference No", transfer.txRef, y)
+      y = addRow("Transfer Type", transfer.txRegion || "International", y)
 
       y += 10
       doc.setFontSize(12)
@@ -185,14 +185,14 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
       doc.text("Fiscal Parameters", margin, y)
       y += 10
 
-      y = addRow("Subtotal Val", formatCurrency(transfer.amount, transfer.currency), y)
-      y = addRow("Protocol Fee", formatCurrency(transfer.txCharge || 0, transfer.currency), y)
+      y = addRow("Transfer Amount", formatCurrency(transfer.amount, transfer.currency), y)
+      y = addRow("Service Fee", formatCurrency(transfer.txCharge || 0, transfer.currency), y)
 
       doc.setFillColor(...colors.primary)
       doc.roundedRect(margin, y - 2, usableWidth, 12, 1, 1, "F")
       doc.setTextColor(255, 255, 255)
       doc.setFontSize(10)
-      doc.text("TOTAL SYSTEM DEBIT", margin + 5, y + 6)
+      doc.text("TOTAL DEBIT", margin + 5, y + 6)
       doc.text(formatCurrency((transfer.amount || 0) + (transfer.txCharge || 0), transfer.currency), pageWidth - margin - 5, y + 6, { align: "right" })
 
       y += 25
@@ -204,7 +204,7 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
         doc.setTextColor(...colors.textMuted)
         doc.setFontSize(8)
         doc.setFont("helvetica", "bold")
-        doc.text("TRANSMISSION MEMO:", margin + 5, y + 7)
+        doc.text("DESCRIPTION:", margin + 5, y + 7)
         doc.setTextColor(...colors.text)
         doc.setFontSize(9)
         doc.setFont("helvetica", "italic")
@@ -220,8 +220,8 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
       doc.setFontSize(8)
       doc.setTextColor(...colors.textLight)
       doc.setFont("helvetica", "normal")
-      doc.text("PrimeHarbor Financial Core Transmission Protocol V2.4", pageWidth / 2, footerY + 8, { align: "center" })
-      doc.text("This document is an immutable record of a secure financial transmission. Issued by PrimeHarbor Global Systems.", pageWidth / 2, footerY + 12, { align: "center" })
+      doc.text("PrimeHarbor Banking System V2.4", pageWidth / 2, footerY + 8, { align: "center" })
+      doc.text("This document is an official record of a financial transfer. Issued by PrimeHarbor Bank.", pageWidth / 2, footerY + 12, { align: "center" })
       doc.text("PrimeHarbor Bank © 2026 | Secure • Authorized • Verified", pageWidth / 2, footerY + 16, { align: "center" })
 
       // Watermark
@@ -257,11 +257,11 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
           <Button variant="ghost" className="h-12 px-6 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 font-bold text-white flex items-center gap-2 transition-all group" asChild>
             <Link href="/dashboard">
               <ArrowLeft className="h-4 w-4 group-hover:-translate-x-1 transition-transform" />
-              Terminal
+              Dashboard
             </Link>
           </Button>
           <div className="px-5 py-2 bg-emerald-500/10 border border-emerald-500/20 rounded-full text-emerald-500 text-[10px] font-black uppercase tracking-widest animate-pulse">
-            Transmission Finalized
+            Transfer Completed
           </div>
         </motion.div>
 
@@ -280,9 +280,9 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
               <CardHeader className="p-12 pb-6 border-b border-white/5">
                 <div className="space-y-2">
                   <CardTitle className="text-4xl font-black text-white tracking-tighter lowercase">
-                    Transmission <span className="text-slate-500 italic">Signature</span>
+                    Transaction <span className="text-slate-500 italic">Receipt</span>
                   </CardTitle>
-                  <CardDescription className="text-slate-500 font-medium">Verified system transmission log entry.</CardDescription>
+                  <CardDescription className="text-slate-500 font-medium">Verified transaction record.</CardDescription>
                 </div>
               </CardHeader>
 
@@ -290,11 +290,11 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
                 {/* Core Specs */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div className="space-y-1 p-6 rounded-3xl bg-white/[0.02] border border-white/5">
-                    <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Signature ID</p>
+                    <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Reference ID</p>
                     <p className="font-mono font-bold text-white tracking-tight">{transfer.txRef}</p>
                   </div>
                   <div className="space-y-1 p-6 rounded-3xl bg-white/[0.02] border border-white/5">
-                    <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Ledger Timestamp</p>
+                    <p className="text-[10px] font-black text-slate-600 uppercase tracking-widest">Date</p>
                     <p className="font-bold text-white tracking-tight">{new Date(transfer.txDate).toLocaleString()}</p>
                   </div>
                 </div>
@@ -307,7 +307,7 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
                       <div className="space-y-1">
                         <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest flex items-center gap-2">
                           <div className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
-                          Debit Value
+                          Amount
                         </p>
                         <p className="text-5xl font-black text-white tracking-tighter">
                           {formatCurrency(transfer.amount, transfer.currency)}
@@ -319,13 +319,13 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
                     </div>
                     <div className="pt-8 border-t border-emerald-500/10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                       <div className="space-y-1">
-                        <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Protocol Fee</p>
+                        <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Service Fee</p>
                         <p className="text-lg font-bold text-slate-400">
                           {formatCurrency(transfer.txCharge, transfer.currency)}
                         </p>
                       </div>
                       <div className="space-y-1 text-right">
-                        <p className="text-[9px] font-black text-red-500/70 uppercase tracking-widest">Net System Debit</p>
+                        <p className="text-[9px] font-black text-red-500/70 uppercase tracking-widest">Total Debit</p>
                         <p className="text-2xl font-black text-red-400">
                           {formatCurrency((transfer.amount || 0) + (transfer.txCharge || 0), transfer.currency)}
                         </p>
@@ -340,14 +340,14 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
                     <div className="h-4 w-4 bg-slate-800 rounded-full flex items-center justify-center">
                       <div className="h-1.5 w-1.5 bg-slate-600 rounded-full"></div>
                     </div>
-                    <h3 className="text-[10px] font-black text-white uppercase tracking-[0.3em]">Neural Node Trace</h3>
+                    <h3 className="text-[10px] font-black text-white uppercase tracking-[0.3em]">Beneficiary Details</h3>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8">
                     {[
-                      { label: "Entity Node", value: transfer.bankHolder, icon: User, color: 'text-blue-500' },
-                      { label: "Identity Marker", value: transfer.bankAccount, icon: Hash, color: 'text-orange-500' },
-                      { label: "Gateway Node", value: transfer.bankName, icon: Building, color: 'text-purple-500' },
-                      { label: "Relay Protocol", value: transfer.txRegion, icon: Globe, color: 'text-emerald-500' },
+                      { label: "Account Holder", value: transfer.bankHolder, icon: User, color: 'text-blue-500' },
+                      { label: "Account Number", value: transfer.bankAccount, icon: Hash, color: 'text-orange-500' },
+                      { label: "Bank Name", value: transfer.bankName, icon: Building, color: 'text-purple-500' },
+                      { label: "Transfer Type", value: transfer.txRegion, icon: Globe, color: 'text-emerald-500' },
                     ].map((node, i) => (
                       <div key={i} className="flex items-center gap-4 group/node">
                         <div className={cn("h-10 w-10 shrink-0 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center transition-all group-hover/node:bg-white/10", node.color)}>
@@ -367,7 +367,7 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
                   <div className="p-8 rounded-[2rem] bg-black/40 border border-white/5 space-y-3">
                     <div className="flex items-center gap-2">
                       <Info className="h-3 w-3 text-emerald-500" />
-                      <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Protocol Memo</p>
+                      <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Description</p>
                     </div>
                     <p className="text-slate-400 font-medium italic lowercase leading-relaxed">
                       "{transfer.txReason}"
@@ -382,7 +382,7 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
           <motion.div {...fadeInUp} transition={{ delay: 0.2 }} className="lg:col-span-4 space-y-6">
             <div className="p-8 rounded-[2.5rem] bg-white/[0.03] backdrop-blur-md border border-white/5 shadow-2xl space-y-8">
               <div className="space-y-2">
-                <h3 className="text-xl font-black text-white lowercase tracking-tighter">Chain <span className="text-slate-500 italic">Actions</span></h3>
+                <h3 className="text-xl font-black text-white lowercase tracking-tighter">Actions</h3>
                 <p className="text-slate-500 text-xs font-medium uppercase tracking-widest">Available operations for this entry.</p>
               </div>
 
@@ -392,10 +392,10 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
                   onClick={handleDownload}
                 >
                   <Download className="mr-3 h-5 w-5" />
-                  Compile Artifact
+                  Download PDF
                 </Button>
                 <Button variant="ghost" className="w-full h-16 border border-white/10 hover:bg-white/5 text-slate-400 font-bold rounded-2xl transition-all" asChild>
-                  <Link href="/dashboard/transfer">New Transmission</Link>
+                  <Link href="/dashboard/transfer">New Transfer</Link>
                 </Button>
               </div>
 
@@ -405,7 +405,7 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
                   <span className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Compliance Verified</span>
                 </div>
                 <p className="text-[10px] text-slate-700 font-medium leading-relaxed italic">
-                  This artifact serves as an immutable record of transmission. Authorized use only.
+                  This receipt serves as an official record of transaction. Authorized use only.
                 </p>
               </div>
             </div>

@@ -34,24 +34,24 @@ export default function CardsClient({ cards }: CardsClientProps) {
                     <div className="space-y-2">
                         <div className="flex items-center gap-2 text-emerald-500 font-black uppercase tracking-widest text-[10px] mb-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 w-fit rounded-full">
                             <CreditCard className="h-3 w-3" />
-                            Security Infrastructure
+                            Secure Payments
                         </div>
                         <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter">
-                            Payment <span className="text-slate-500 italic">Gateways</span>
+                            My <span className="text-slate-500 italic">Cards</span>
                         </h1>
-                        <p className="text-slate-400 font-medium">Manage your encrypted payment vectors and digital verification methods.</p>
+                        <p className="text-slate-400 font-medium">Manage your cards and payment methods.</p>
                     </div>
                     <div className="flex items-center gap-3">
                         <Button asChild variant="ghost" className="h-12 px-6 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 font-bold text-white flex items-center gap-2 transition-all">
                             <Link href="/dashboard" className="flex items-center gap-2">
                                 <ChevronLeft className="h-4 w-4" />
-                                Terminal
+                                Dashboard
                             </Link>
                         </Button>
                         <Button asChild className="h-12 px-6 bg-emerald-500 hover:bg-emerald-400 text-[#001c10] rounded-xl shadow-xl shadow-emerald-500/20 font-black transition-all hover:-translate-y-1">
                             <Link href="/dashboard/card/apply" className="flex items-center gap-2">
                                 <Plus className="h-4 w-4" />
-                                New Protocol
+                                New Card
                             </Link>
                         </Button>
                     </div>
@@ -92,7 +92,7 @@ export default function CardsClient({ cards }: CardsClientProps) {
                                     <Globe className="h-7 w-7" />
                                 </div>
                                 <div className="space-y-0.5">
-                                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none">Global Sync</p>
+                                    <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest leading-none">Global Access</p>
                                     <p className="text-white font-black text-lg">Worldwide</p>
                                 </div>
                             </div>
@@ -109,11 +109,11 @@ export default function CardsClient({ cards }: CardsClientProps) {
                                     <CreditCard className="h-12 w-12" />
                                 </div>
                                 <div className="space-y-2">
-                                    <h3 className="text-2xl font-black text-white lowercase">Zero active gateways <span className="text-slate-500 italic">detected</span></h3>
-                                    <p className="text-slate-500 font-medium max-w-sm mx-auto">Initialize a premium virtual or physical card protocol to enable secure transaction channels.</p>
+                                    <h3 className="text-2xl font-black text-white lowercase">No active cards <span className="text-slate-500 italic">found</span></h3>
+                                    <p className="text-slate-500 font-medium max-w-sm mx-auto">Apply for a premium virtual or physical card to enable secure transactions.</p>
                                 </div>
                                 <Button asChild className="h-16 px-10 bg-emerald-500 hover:bg-emerald-400 text-[#001c10] rounded-2xl shadow-xl shadow-emerald-500/20 font-black text-lg transition-transform hover:scale-105">
-                                    <Link href="/dashboard/card/apply">Register First Gateway</Link>
+                                    <Link href="/dashboard/card/apply">Get Your First Card</Link>
                                 </Button>
                             </CardContent>
                         </UICard>

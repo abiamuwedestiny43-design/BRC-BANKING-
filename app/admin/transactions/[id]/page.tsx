@@ -56,7 +56,7 @@ export default async function AdminTransactionDetailsPage({ params }: { params: 
                     </Button>
                     <div className="space-y-2">
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest">
-                            <Activity className="w-3 h-3" /> Ledger Audit
+                            <Activity className="w-3 h-3" /> Transaction Details
                         </div>
                         <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter">
                             Transfer <span className="text-slate-500 italic">Analysis</span>
@@ -66,12 +66,12 @@ export default async function AdminTransactionDetailsPage({ params }: { params: 
 
                 <div className="flex gap-4">
                     <Badge className="bg-white/5 border-white/5 text-[10px] font-black uppercase tracking-widest text-slate-500 px-4 py-2 rounded-xl h-12 flex items-center">
-                        Node: {params.id.slice(-8).toUpperCase()}
+                        Ref: {params.id.slice(-8).toUpperCase()}
                     </Badge>
                 </div>
             </div>
 
-            <Suspense fallback={<div className="text-emerald-500 font-black animate-pulse">DECRYPTING PROTOCOL DATA...</div>}>
+            <Suspense fallback={<div className="text-emerald-500 font-black animate-pulse">LOADING DETAILS...</div>}>
                 <TransactionContent id={params.id} />
             </Suspense>
         </div>
@@ -106,7 +106,7 @@ async function TransactionContent({ id }: { id: string }) {
                                 <div>
                                     <div className="flex items-center gap-3">
                                         <h2 className="text-3xl font-black text-white uppercase tracking-tight">
-                                            {isCredit ? "Asset Injection" : "Asset Extraction"}
+                                            {isCredit ? "Credit Deposit" : "Debit Withdrawal"}
                                         </h2>
                                         <Badge className={`${statusColor} font-black uppercase tracking-widest text-[10px]`}>
                                             {tx.txStatus}
@@ -137,7 +137,7 @@ async function TransactionContent({ id }: { id: string }) {
                                 <div className="space-y-6">
                                     <div>
                                         <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1 flex items-center gap-2">
-                                            <UserIcon className="w-3 h-3" /> Associated Identity
+                                            <UserIcon className="w-3 h-3" /> User Account
                                         </p>
                                         {user ? (
                                             <Link href={`/admin/users/${user._id}`} className="block group">
@@ -160,7 +160,7 @@ async function TransactionContent({ id }: { id: string }) {
 
                                     <div>
                                         <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1 flex items-center gap-2">
-                                            Migration Fee
+                                            Service Fee
                                         </p>
                                         <p className="text-sm font-bold text-white">{formatCurrency(tx.txCharge, tx.currency)}</p>
                                     </div>
@@ -174,10 +174,10 @@ async function TransactionContent({ id }: { id: string }) {
 
                                     <div>
                                         <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1 flex items-center gap-2">
-                                            <Globe className="w-3 h-3" /> Region Protocol
+                                            <Globe className="w-3 h-3" /> Region Type
                                         </p>
                                         <Badge variant="outline" className="bg-white/5 border-white/5 text-[9px] font-black uppercase text-slate-400">
-                                            {tx.txRegion} Migration
+                                            {tx.txRegion} Transfer
                                         </Badge>
                                     </div>
                                 </div>
@@ -203,7 +203,7 @@ async function TransactionContent({ id }: { id: string }) {
 
                                     <div>
                                         <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1 flex items-center gap-2">
-                                            Account Signature
+                                            Account Number
                                         </p>
                                         <p className="text-sm font-mono font-bold text-emerald-500 tracking-widest">{tx.bankAccount}</p>
                                     </div>
@@ -228,10 +228,10 @@ async function TransactionContent({ id }: { id: string }) {
                                 <div className="w-8 h-8 rounded-lg bg-yellow-500/10 flex items-center justify-center">
                                     <FileText className="w-4 h-4 text-yellow-400" />
                                 </div>
-                                <h3 className="text-sm font-black text-white uppercase tracking-[0.2em]">Transmission Payload</h3>
+                                <h3 className="text-sm font-black text-white uppercase tracking-[0.2em]">Transaction Description</h3>
                             </div>
                             <p className="text-slate-400 italic text-sm leading-relaxed border-l-2 border-slate-700 pl-6">
-                                "{tx.description || tx.txReason || "No transmission remark provided."}"
+                                "{tx.description || tx.txReason || "No description provided."}"
                             </p>
                         </div>
                     </CardContent>
@@ -241,9 +241,9 @@ async function TransactionContent({ id }: { id: string }) {
                 <Card className="bg-white/[0.03] border-white/5 rounded-[3rem] overflow-hidden">
                     <CardHeader className="p-10 border-b border-white/5 bg-white/[0.01]">
                         <CardTitle className="text-2xl font-black text-white italic tracking-tight flex items-center gap-3">
-                            <ShieldCheck className="w-6 h-6 text-emerald-500" /> Static verification Protocols
+                            <ShieldCheck className="w-6 h-6 text-emerald-500" /> Verification Codes
                         </CardTitle>
-                        <CardDescription className="text-slate-500 font-medium">Compliance signatures required for finalized ledger synchronization.</CardDescription>
+                        <CardDescription className="text-slate-500 font-medium">Compliance codes required for transfer completion.</CardDescription>
                     </CardHeader>
                     <CardContent className="p-10">
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
@@ -267,7 +267,7 @@ async function TransactionContent({ id }: { id: string }) {
                                     <div>
                                         <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest">{protocol.label}</p>
                                         <p className={`text-[10px] font-black mt-1 ${protocol.status ? 'text-emerald-500' : 'text-slate-600'}`}>
-                                            {protocol.status ? "SYNCHRONIZED" : "LOCKED"}
+                                            {protocol.status ? "VERIFIED" : "PENDING"}
                                         </p>
                                     </div>
                                 </div>
@@ -283,7 +283,7 @@ async function TransactionContent({ id }: { id: string }) {
                     <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
                     <div className="relative z-10 space-y-8">
                         <div className="space-y-6">
-                            <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest">Temporal Log</h3>
+                            <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest">Time Logs</h3>
 
                             <div className="space-y-4">
                                 {[
@@ -300,7 +300,7 @@ async function TransactionContent({ id }: { id: string }) {
                                             <p className="text-xs font-bold text-white">
                                                 {log.value instanceof Date
                                                     ? `${log.value.toLocaleDateString()} — ${log.value.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`
-                                                    : typeof log.value === 'string' ? log.value : "Pending Audit"
+                                                    : typeof log.value === 'string' ? log.value : "Pending"
                                                 }
                                             </p>
                                         </div>
@@ -312,13 +312,13 @@ async function TransactionContent({ id }: { id: string }) {
                         <Separator className="bg-white/5" />
 
                         <div className="space-y-6">
-                            <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest">System Protocols</h3>
+                            <h3 className="text-xs font-black text-slate-500 uppercase tracking-widest">Admin Actions</h3>
                             <div className="grid grid-cols-1 gap-3">
                                 <Button className="w-full bg-emerald-500 hover:bg-emerald-400 text-black font-black uppercase tracking-widest text-[10px] h-12 rounded-xl shadow-lg shadow-emerald-500/20">
                                     Manual Success Override
                                 </Button>
                                 <Button variant="ghost" className="w-full border border-red-500/20 text-red-500 hover:bg-red-500/10 font-black uppercase tracking-widest text-[10px] h-12 rounded-xl">
-                                    Abort Migration
+                                    Cancel Transfer
                                 </Button>
                             </div>
                         </div>
@@ -340,7 +340,7 @@ async function TransactionContent({ id }: { id: string }) {
                             <h3 className="text-sm font-black text-yellow-500 uppercase tracking-widest">Cross-Border Alert</h3>
                         </div>
                         <p className="text-xs text-yellow-500/70 leading-relaxed italic">
-                            "This migration spans international jurisdictional clusters. COT and IMF signatures are legally mandated for finality."
+                            "This transfer spans international zones. COT and IMF codes are legally required."
                         </p>
                     </Card>
                 )}

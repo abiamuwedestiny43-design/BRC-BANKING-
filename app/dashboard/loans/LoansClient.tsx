@@ -39,21 +39,21 @@ export default function LoansClient({ loans }: LoansClientProps) {
                             Credit Systems
                         </div>
                         <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter">
-                            Financial <span className="text-slate-500 italic">Leverage</span>
+                            My <span className="text-slate-500 italic">Loans</span>
                         </h1>
-                        <p className="text-slate-400 font-medium">Manage your active financing protocols and pending authorization requests.</p>
+                        <p className="text-slate-400 font-medium">Manage your active loans and pending requests.</p>
                     </div>
                     <div className="flex items-center gap-3">
                         <Button asChild variant="ghost" className="h-12 px-6 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 font-bold text-white flex items-center gap-2 transition-all">
                             <Link href="/dashboard" className="flex items-center gap-2">
                                 <ChevronLeft className="h-4 w-4" />
-                                Terminal
+                                Dashboard
                             </Link>
                         </Button>
                         <Button asChild className="h-12 px-6 bg-emerald-500 hover:bg-emerald-400 text-[#001c10] rounded-xl shadow-xl shadow-emerald-500/20 font-black transition-all hover:-translate-y-1">
                             <Link href="/dashboard/loans/apply" className="flex items-center gap-2">
                                 <Plus className="h-4 w-4" />
-                                New Protocol
+                                Apply for Loan
                             </Link>
                         </Button>
                     </div>
@@ -62,9 +62,9 @@ export default function LoansClient({ loans }: LoansClientProps) {
                 {/* Status Overview cards */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {[
-                        { label: "Active Details", val: activeLoans.length, icon: TrendingUp, color: "text-emerald-400", bg: "bg-emerald-500/10 border-emerald-500/20" },
-                        { label: "Pending Auth", val: pendingLoans.length, icon: Clock, color: "text-yellow-400", bg: "bg-yellow-500/10 border-yellow-500/20" },
-                        { label: "Archived Files", val: completedLoans.length, icon: CheckCircle2, color: "text-slate-400", bg: "bg-white/5 border-white/10" },
+                        { label: "Active Loans", val: activeLoans.length, icon: TrendingUp, color: "text-emerald-400", bg: "bg-emerald-500/10 border-emerald-500/20" },
+                        { label: "Pending Requests", val: pendingLoans.length, icon: Clock, color: "text-yellow-400", bg: "bg-yellow-500/10 border-yellow-500/20" },
+                        { label: "Loan History", val: completedLoans.length, icon: CheckCircle2, color: "text-slate-400", bg: "bg-white/5 border-white/10" },
                     ].map((item, i) => (
                         <motion.div key={i} {...fadeInUp} transition={{ delay: 0.1 * i }}>
                             <Card className="border border-white/5 shadow-2xl bg-white/[0.03] backdrop-blur-md p-8 rounded-[2rem] relative overflow-hidden group hover:bg-emerald-500/5 transition-all duration-500">
@@ -90,11 +90,11 @@ export default function LoansClient({ loans }: LoansClientProps) {
                                     <FileText className="h-12 w-12" />
                                 </div>
                                 <div className="space-y-2">
-                                    <h3 className="text-2xl font-black text-white lowercase">Zero credit records <span className="text-slate-500 italic">detected</span></h3>
-                                    <p className="text-slate-500 font-medium max-w-sm mx-auto">Initialize a new financial protocol to access liquidity and scale your operations.</p>
+                                    <h3 className="text-2xl font-black text-white lowercase">No loans <span className="text-slate-500 italic">found</span></h3>
+                                    <p className="text-slate-500 font-medium max-w-sm mx-auto">Apply for a new loan to access funding for your needs.</p>
                                 </div>
                                 <Button asChild className="h-16 px-10 bg-emerald-500 hover:bg-emerald-400 text-[#001c10] rounded-2xl shadow-xl shadow-emerald-500/20 font-black text-lg transition-transform hover:scale-105">
-                                    <Link href="/dashboard/loans/apply">Deploy New Protocol</Link>
+                                    <Link href="/dashboard/loans/apply">Apply Now</Link>
                                 </Button>
                             </CardContent>
                         </Card>
@@ -106,7 +106,7 @@ export default function LoansClient({ loans }: LoansClientProps) {
                             <motion.div {...fadeInUp} className="space-y-8">
                                 <h2 className="text-xl font-black text-white flex items-center gap-3 uppercase tracking-widest">
                                     <div className="h-2 w-2 rounded-full bg-yellow-500 animate-pulse shadow-[0_0_10px_rgba(234,179,8,0.5)]" />
-                                    Pending Authorization
+                                    Pending Approval
                                 </h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                     {pendingLoans.map((loan, idx) => (
@@ -119,7 +119,7 @@ export default function LoansClient({ loans }: LoansClientProps) {
                                         >
                                             <LoanComponent loan={loan} />
                                             <div className="absolute top-6 right-6 bg-yellow-500/10 text-yellow-500 border border-yellow-500/20 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-tighter backdrop-blur-md">
-                                                In Verification
+                                                Under Review
                                             </div>
                                         </motion.div>
                                     ))}
@@ -132,7 +132,7 @@ export default function LoansClient({ loans }: LoansClientProps) {
                             <motion.div {...fadeInUp} className="space-y-8">
                                 <h2 className="text-xl font-black text-white flex items-center gap-3 uppercase tracking-widest">
                                     <div className="h-2 w-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
-                                    Active Streams
+                                    Active Loans
                                 </h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                                     {activeLoans.map((loan, idx) => (
@@ -153,7 +153,7 @@ export default function LoansClient({ loans }: LoansClientProps) {
                         {/* History Section */}
                         {completedLoans.length > 0 && (
                             <motion.div {...fadeInUp} className="space-y-8 opacity-60">
-                                <h2 className="text-sm font-black text-slate-500 uppercase tracking-[0.4em]">Protocol Archive</h2>
+                                <h2 className="text-sm font-black text-slate-500 uppercase tracking-[0.4em]">Loan History</h2>
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                     {completedLoans.map((loan, idx) => (
                                         <div key={loan._id} className="grayscale hover:grayscale-0 transition-all duration-500">

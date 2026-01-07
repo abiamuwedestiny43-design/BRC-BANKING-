@@ -64,12 +64,12 @@ export default function AdminTransferCodesPage() {
 
     if (res.ok) {
       toast({
-        title: "Protocol Updated",
-        description: `Transfer permissions ${!currentState ? "initialized" : "revoked"} for node.`,
+        title: "Profile Updated",
+        description: `Transfer permissions ${!currentState ? "granted" : "revoked"} for user.`,
       })
       mutateUsers()
     } else {
-      toast({ title: "Error", description: "Identity state synchronization failed." })
+      toast({ title: "Error", description: "User permission update failed." })
     }
   }
 
@@ -81,12 +81,12 @@ export default function AdminTransferCodesPage() {
       {/* Header */}
       <div className="space-y-2 relative z-10">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-widest">
-          <Key className="w-3 h-3" /> Security Protocols
+          <Key className="w-3 h-3" /> Security Codes
         </div>
         <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter">
           Transfer <span className="text-slate-500 italic">Management</span>
         </h1>
-        <p className="text-slate-400 font-medium max-w-md">Authorized control of global verification codes and individual identity permissions.</p>
+        <p className="text-slate-400 font-medium max-w-md">Authorized control of global verification codes and individual user permissions.</p>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 relative z-10">
@@ -98,9 +98,9 @@ export default function AdminTransferCodesPage() {
           >
             <div>
               <CardTitle className="text-2xl font-black text-white italic tracking-tight flex items-center gap-3">
-                <ShieldCheck className="w-6 h-6 text-emerald-500" /> Infrastructure Codes
+                <ShieldCheck className="w-6 h-6 text-emerald-500" /> Transfer Verification Codes
               </CardTitle>
-              <CardDescription className="text-slate-500 font-medium">Global security signatures for multi-stage auditing.</CardDescription>
+              <CardDescription className="text-slate-500 font-medium">Global security codes for transfer auditing.</CardDescription>
             </div>
             <div className={`p-2 rounded-xl bg-white/5 text-slate-400 group-hover:text-emerald-500 transition-all ${expandedSections.codes ? '' : 'rotate-180'}`}>
               <ChevronUp className="w-5 h-5" />
@@ -111,12 +111,12 @@ export default function AdminTransferCodesPage() {
             <CardContent className="p-8 space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
-                  { label: "COT Signature", value: cot, set: setCot, color: "text-emerald-500" },
-                  { label: "IMF Signature", value: imf, set: setImf, color: "text-blue-500" },
-                  { label: "ESI Signature", value: esi, set: setEsi, color: "text-purple-500" },
-                  { label: "DCO Signature", value: dco, set: setDco, color: "text-orange-500" },
-                  { label: "TAX Signature", value: tax, set: setTax, color: "text-red-500" },
-                  { label: "TAC Signature", value: tac, set: setTac, color: "text-cyan-500" },
+                  { label: "COT Code", value: cot, set: setCot, color: "text-emerald-500" },
+                  { label: "IMF Code", value: imf, set: setImf, color: "text-blue-500" },
+                  { label: "ESI Code", value: esi, set: setEsi, color: "text-purple-500" },
+                  { label: "DCO Code", value: dco, set: setDco, color: "text-orange-500" },
+                  { label: "TAX Code", value: tax, set: setTax, color: "text-red-500" },
+                  { label: "TAC Code", value: tac, set: setTac, color: "text-cyan-500" },
                 ].map((row) => (
                   <div key={row.label} className="space-y-2 group">
                     <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 group-hover:text-white transition-colors flex items-center gap-2">
@@ -147,7 +147,7 @@ export default function AdminTransferCodesPage() {
                   disabled={saving}
                   className="w-full bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black h-14 rounded-2xl shadow-xl shadow-emerald-500/20 uppercase tracking-widest text-xs"
                 >
-                  {saving ? "SYNCHRONIZING..." : "Publish Global Signatures"}
+                  {saving ? "SAVING..." : "Publish Global Codes"}
                 </Button>
               </div>
             </CardContent>
@@ -162,9 +162,9 @@ export default function AdminTransferCodesPage() {
           >
             <div>
               <CardTitle className="text-2xl font-black text-white italic tracking-tight flex items-center gap-3">
-                <Users className="w-6 h-6 text-blue-500" /> Identity Permissions
+                <Users className="w-6 h-6 text-blue-500" /> User Permissions
               </CardTitle>
-              <CardDescription className="text-slate-500 font-medium">Provision or revoke cluster-wide migration rights.</CardDescription>
+              <CardDescription className="text-slate-500 font-medium">Provision or revoke transfer rights.</CardDescription>
             </div>
             <div className={`p-2 rounded-xl bg-white/5 text-slate-400 group-hover:text-blue-500 transition-all ${expandedSections.users ? '' : 'rotate-180'}`}>
               <ChevronUp className="w-5 h-5" />
@@ -193,11 +193,11 @@ export default function AdminTransferCodesPage() {
                       variant="ghost"
                       onClick={() => toggleUserTransfer(user._id, user.bankAccount?.canTransfer)}
                       className={`h-10 px-6 rounded-xl font-black text-[10px] uppercase tracking-widest transition-all ${user.bankAccount?.canTransfer
-                          ? "bg-blue-500 text-white hover:bg-blue-400"
-                          : "bg-white/5 text-slate-400 border border-white/5 hover:bg-white/10"
+                        ? "bg-blue-500 text-white hover:bg-blue-400"
+                        : "bg-white/5 text-slate-400 border border-white/5 hover:bg-white/10"
                         }`}
                     >
-                      {user.bankAccount?.canTransfer ? "Provisioned" : "Revoked"}
+                      {user.bankAccount?.canTransfer ? "Enabled" : "Revoked"}
                     </Button>
                   </div>
                 ))}
@@ -206,7 +206,7 @@ export default function AdminTransferCodesPage() {
                     <div className="w-16 h-16 rounded-full bg-white/5 border border-white/10 flex items-center justify-center mx-auto opacity-20">
                       <Users className="w-8 h-8 text-slate-500" />
                     </div>
-                    <p className="text-slate-500 font-medium italic">No authenticated identities detected in the node index.</p>
+                    <p className="text-slate-500 font-medium italic">No users found.</p>
                   </div>
                 )}
               </div>

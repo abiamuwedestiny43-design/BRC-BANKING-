@@ -31,12 +31,12 @@ export default async function SecurityPage() {
           <div className="space-y-4">
             <div className="flex items-center gap-2 text-emerald-500 font-black uppercase tracking-widest text-[10px] px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 w-fit rounded-full">
               <Shield className="h-3 w-3" />
-              Auth Integrity
+              Security
             </div>
             <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter lowercase">
-              Security <span className="text-slate-500 italic">Details</span>
+              Security <span className="text-slate-500 italic">Center</span>
             </h1>
-            <p className="text-slate-400 font-medium text-lg">Monitor identity verification and system access logs.</p>
+            <p className="text-slate-400 font-medium text-lg">Monitor account security and login history.</p>
           </div>
         </div>
 
@@ -47,16 +47,16 @@ export default async function SecurityPage() {
             <CardHeader className="p-8 border-b border-white/5">
               <CardTitle className="text-2xl font-black text-white lowercase tracking-tighter flex items-center gap-3">
                 <Shield className="h-5 w-5 text-emerald-500" />
-                Identity <span className="text-slate-500 italic">Core</span>
+                Account <span className="text-slate-500 italic">Status</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="p-8 space-y-6">
               {[
-                { label: "Verification Protocol", value: user.bankAccount.verified ? "Verified" : "Unverified", active: user.bankAccount.verified },
-                { label: "Transfer Gateway", value: user.bankAccount.canTransfer ? "Enabled" : "Disabled", active: user.bankAccount.canTransfer },
-                { label: "Multi-Factor Relay", value: "Offline", active: false },
-                { label: "Global Liquidity", value: globalEnabled ? "Enabled" : "Disabled", active: globalEnabled },
-                { label: "Local Synchronicity", value: localEnabled ? "Enabled" : "Disabled", active: localEnabled },
+                { label: "Account Verified", value: user.bankAccount.verified ? "Yes" : "No", active: user.bankAccount.verified },
+                { label: "Transfers", value: user.bankAccount.canTransfer ? "Enabled" : "Disabled", active: user.bankAccount.canTransfer },
+                { label: "Multi-Factor Authentication", value: "Offline", active: false },
+                { label: "International Transfers", value: globalEnabled ? "Enabled" : "Disabled", active: globalEnabled },
+                { label: "Local Transfers", value: localEnabled ? "Enabled" : "Disabled", active: localEnabled },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center justify-between group/row">
                   <span className="text-slate-400 font-bold lowercase text-sm group-hover/row:text-emerald-500 transition-colors">{item.label}</span>
@@ -76,16 +76,16 @@ export default async function SecurityPage() {
             <CardHeader className="p-8 border-b border-white/5">
               <CardTitle className="text-2xl font-black text-white lowercase tracking-tighter flex items-center gap-3">
                 <Smartphone className="h-5 w-5 text-blue-500" />
-                App <span className="text-slate-500 italic">Parameters</span>
+                App <span className="text-slate-500 italic">Settings</span>
               </CardTitle>
             </CardHeader>
             <CardContent className="p-8 space-y-6">
               {[
-                { label: "PIN Hardening", value: "Active", active: true, color: 'emerald' },
-                { label: "Transmissions", value: "Enabled", active: true, color: 'emerald' },
-                { label: "Lease Duration", value: "7 Days", active: true, color: 'blue' },
-                { label: "System Sync", value: "Online", active: true, color: 'emerald' },
-                { label: "Proxy Masking", value: "Standard", active: false, color: 'slate' },
+                { label: "PIN Protection", value: "Active", active: true, color: 'emerald' },
+                { label: "Notifications", value: "Enabled", active: true, color: 'emerald' },
+                { label: "Session Timeout", value: "7 Days", active: true, color: 'blue' },
+                { label: "App Status", value: "Online", active: true, color: 'emerald' },
+                { label: "Privacy Mode", value: "Standard", active: false, color: 'slate' },
               ].map((item, idx) => (
                 <div key={idx} className="flex items-center justify-between group/row">
                   <span className="text-slate-400 font-bold lowercase text-sm group-hover/row:text-blue-500 transition-colors">{item.label}</span>
@@ -109,9 +109,9 @@ export default async function SecurityPage() {
               <div className="space-y-1">
                 <CardTitle className="text-3xl font-black text-white lowercase tracking-tighter flex items-center gap-4">
                   <Clock className="h-6 w-6 text-emerald-500" />
-                  Relay <span className="text-slate-500 italic">Logs</span>
+                  Activity <span className="text-slate-500 italic">Logs</span>
                 </CardTitle>
-                <CardDescription className="text-slate-500 font-medium">Historical validation and access records.</CardDescription>
+                <CardDescription className="text-slate-500 font-medium">Recent login and security activity.</CardDescription>
               </div>
               <div className="px-4 py-2 rounded-2xl bg-white/5 border border-white/10 text-slate-500 text-[9px] font-black uppercase tracking-widest">
                 Sector: Universal
@@ -158,7 +158,7 @@ export default async function SecurityPage() {
                 <div className="h-20 w-20 bg-white/5 border border-white/10 rounded-full flex items-center justify-center mx-auto text-slate-800 group-hover:scale-110 transition-transform">
                   <Clock className="h-8 w-8" />
                 </div>
-                <p className="text-slate-600 font-black uppercase tracking-[0.2em] text-xs">No activity relays detected.</p>
+                <p className="text-slate-600 font-black uppercase tracking-[0.2em] text-xs">No activity found.</p>
               </div>
             )}
           </CardContent>

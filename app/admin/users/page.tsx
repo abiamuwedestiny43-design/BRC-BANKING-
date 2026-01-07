@@ -55,18 +55,18 @@ export default async function UsersPage({ searchParams }: { searchParams: { sear
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 relative z-10">
         <div className="space-y-2">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-widest">
-            <Users className="w-3 h-3" /> User Infrastructure
+            <Users className="w-3 h-3" /> User Management
           </div>
           <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter">
             User <span className="text-slate-500 italic">Management</span>
           </h1>
-          <p className="text-slate-400 font-medium max-w-md">Vetting, auditing, and managing the global PRIMEHARBOR BANK user base.</p>
+          <p className="text-slate-400 font-medium max-w-md">Manage and view the global PRIMEHARBOR BANK user base.</p>
         </div>
 
         <Button asChild className="bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black h-12 px-8 rounded-xl shadow-xl shadow-emerald-500/20">
           <Link href="/admin/users/create">
             <Plus className="mr-2 h-5 w-5" />
-            Provision New Account
+            Create New Account
           </Link>
         </Button>
       </div>
@@ -79,7 +79,7 @@ export default async function UsersPage({ searchParams }: { searchParams: { sear
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-emerald-500/50" />
             <Input
               name="search"
-              placeholder="Query by name, email, or account signature..."
+              placeholder="Search by name, email, or account number..."
               defaultValue={searchParams.search}
               className="pl-12 bg-white/5 border-white/10 rounded-2xl h-14 text-white focus:border-emerald-500 transition-all font-medium"
             />
@@ -96,7 +96,7 @@ export default async function UsersPage({ searchParams }: { searchParams: { sear
       </Card>
 
       {/* Users Table */}
-      <Suspense fallback={<div className="text-emerald-500 font-black animate-pulse">SYNCHRONIZING USER DATA...</div>}>
+      <Suspense fallback={<div className="text-emerald-500 font-black animate-pulse">LOADING USERS...</div>}>
         <UsersTable searchQuery={searchParams.search} />
       </Suspense>
     </div>
@@ -112,15 +112,15 @@ async function UsersTable({ searchQuery }: { searchQuery?: string }) {
         <div className="flex justify-between items-center">
           <div>
             <CardTitle className="text-2xl font-black text-white italic tracking-tight">
-              {searchQuery ? `Query Results (${users.length})` : "Verified Identities"}
+              {searchQuery ? `Query Results (${users.length})` : "User Directory"}
             </CardTitle>
             <CardDescription className="text-slate-500 font-medium">
-              {searchQuery ? `Filtering for "${searchQuery}"` : "Global register of authenticated PRIMEHARBOR BANK participants."}
+              {searchQuery ? `Filtering for "${searchQuery}"` : "Global register of PrimeHarbor Bank users."}
             </CardDescription>
           </div>
           <div className="hidden md:flex gap-4">
             <div className="text-right">
-              <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Total Details</p>
+              <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Total Users</p>
               <p className="text-lg font-black text-white">{users.length}</p>
             </div>
           </div>
@@ -131,11 +131,11 @@ async function UsersTable({ searchQuery }: { searchQuery?: string }) {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="border-b border-white/5 bg-black/20 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
-                <th className="px-8 py-6">Operational Identity</th>
-                <th className="px-8 py-6">Core Signatures</th>
-                <th className="px-8 py-6">Liquidity</th>
-                <th className="px-8 py-6">State</th>
-                <th className="px-8 py-6 text-right">Protocols</th>
+                <th className="px-8 py-6">User</th>
+                <th className="px-8 py-6">Account Details</th>
+                <th className="px-8 py-6">Balance</th>
+                <th className="px-8 py-6">Status</th>
+                <th className="px-8 py-6 text-right">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/5">
@@ -209,7 +209,7 @@ async function UsersTable({ searchQuery }: { searchQuery?: string }) {
               ) : (
                 <tr>
                   <td colSpan={5} className="px-8 py-20 text-center text-slate-500 italic font-medium">
-                    {searchQuery ? `No identities matching signature "${searchQuery}" detected in the cluster.` : "No user Details have been provisioned yet."}
+                    {searchQuery ? `No users matching "${searchQuery}" found.` : "No users have been created yet."}
                   </td>
                 </tr>
               )}

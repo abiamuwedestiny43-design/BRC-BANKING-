@@ -133,7 +133,7 @@ export default function AdminLoansPage() {
     return (
       <div className="p-10 text-emerald-500 font-black animate-pulse flex items-center gap-3 uppercase tracking-widest">
         <div className="w-5 h-5 border-2 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
-        CALIBRATING LOAN PROTOCOLS...
+        CALIBRATING LOAN SERVICES...
       </div>
     )
   }
@@ -149,7 +149,7 @@ export default function AdminLoansPage() {
           <Banknote className="w-3 h-3" /> Asset Distribution
         </div>
         <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter">
-          Loan <span className="text-slate-500 italic">Protocols</span>
+          Loan <span className="text-slate-500 italic">Services</span>
         </h1>
         <p className="text-slate-400 font-medium max-w-md">Authorized vetting and execution of institutional credit frameworks.</p>
       </div>
@@ -161,7 +161,7 @@ export default function AdminLoansPage() {
           <div className="relative flex-1">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-emerald-500/50" />
             <Input
-              placeholder="Query by applicant, account signature, or loan typology..."
+              placeholder="Query by applicant, account number, or loan type..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="pl-12 bg-white/5 border-white/10 rounded-2xl h-14 text-white focus:border-emerald-500 transition-all font-medium"
@@ -169,15 +169,15 @@ export default function AdminLoansPage() {
           </div>
           <Select value={statusFilter} onValueChange={setStatusFilter}>
             <SelectTrigger className="h-14 w-full md:w-[220px] bg-white/5 border-white/10 rounded-2xl text-slate-400 font-bold">
-              <SelectValue placeholder="Protocol State" />
+              <SelectValue placeholder="Loan Status" />
             </SelectTrigger>
             <SelectContent className="bg-[#001c10] border-white/10 text-slate-300">
-              <SelectItem value="all">Global Ledger</SelectItem>
-              <SelectItem value="pending">Vetting Required</SelectItem>
-              <SelectItem value="approved">Provisioned</SelectItem>
-              <SelectItem value="active">Operational</SelectItem>
+              <SelectItem value="all">All Loans</SelectItem>
+              <SelectItem value="pending">Review Required</SelectItem>
+              <SelectItem value="approved">Approved</SelectItem>
+              <SelectItem value="active">Active</SelectItem>
               <SelectItem value="rejected">Denied</SelectItem>
-              <SelectItem value="completed">Finalized</SelectItem>
+              <SelectItem value="completed">Paid Off</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -206,11 +206,11 @@ export default function AdminLoansPage() {
             <table className="w-full text-left border-collapse">
               <thead>
                 <tr className="border-b border-white/5 bg-black/20 text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
-                  <th className="px-8 py-6">Applicant Node</th>
-                  <th className="px-8 py-6">Protocol Specification</th>
-                  <th className="px-8 py-6">Capital Flux</th>
-                  <th className="px-8 py-6">State</th>
-                  <th className="px-8 py-6 text-right">Execution</th>
+                  <th className="px-8 py-6">Applicant</th>
+                  <th className="px-8 py-6">Loan Details</th>
+                  <th className="px-8 py-6">Capital</th>
+                  <th className="px-8 py-6">Status</th>
+                  <th className="px-8 py-6 text-right">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
@@ -252,7 +252,7 @@ export default function AdminLoansPage() {
                               onClick={() => updateLoanStatus(loan._id, 'approved')}
                               className="h-10 px-6 rounded-xl bg-emerald-500 text-[#001c10] font-black text-[10px] uppercase tracking-widest hover:bg-emerald-400 transition-all shadow-lg shadow-emerald-500/10"
                             >
-                              Provision
+                              Approve
                             </Button>
                             <Button
                               size="sm"
@@ -277,7 +277,7 @@ export default function AdminLoansPage() {
             {filteredLoans.length === 0 && (
               <div className="text-center py-20 space-y-4">
                 <Search className="h-16 w-16 text-slate-500/20 mx-auto" />
-                <p className="text-slate-500 font-medium italic">No loan Details detected with specified signatures.</p>
+                <p className="text-slate-500 font-medium italic">No loan applications found.</p>
               </div>
             )}
           </div>
@@ -288,19 +288,19 @@ export default function AdminLoansPage() {
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="bg-[#001c10] border-white/10 rounded-[2.5rem] p-10 max-w-lg">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-black text-white tracking-tight">Abort Provisioning</DialogTitle>
+            <DialogTitle className="text-2xl font-black text-white tracking-tight">Decline Application</DialogTitle>
             <DialogDescription className="text-slate-500 font-medium">
-              Authorized justification required for protocol rejection. This report will be transmitted to the node owner.
+              Please provide a reason for rejecting this loan application. This will be sent to the user.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-6 pt-6">
             <div className="p-4 rounded-2xl bg-white/5 border border-white/5">
-              <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Target Identity</p>
+              <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-1">Target Account</p>
               <p className="text-sm font-bold text-white uppercase tracking-tight">
                 {selectedLoan?.userId.bankInfo.bio.firstname} {selectedLoan?.userId.bankInfo.bio.lastname}
               </p>
               <p className="text-[10px] font-black text-red-500 mt-2 uppercase tracking-widest">
-                ${selectedLoan?.amount.toLocaleString()} • {selectedLoan?.loanType} FRAMEWORK
+                ${selectedLoan?.amount.toLocaleString()} • {selectedLoan?.loanType} LOAN
               </p>
             </div>
             <div className="space-y-2">
@@ -316,7 +316,7 @@ export default function AdminLoansPage() {
           </div>
           <DialogFooter className="pt-8">
             <Button variant="ghost" onClick={() => setIsDialogOpen(false)} className="rounded-xl text-slate-400 font-bold hover:bg-white/5">
-              Cancel Execution
+              Cancel
             </Button>
             <Button
               onClick={() => selectedLoan && updateLoanStatus(selectedLoan._id, 'rejected', rejectionReason)}

@@ -88,7 +88,7 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
 
           {/* Navigation */}
           <nav className="flex-1 px-4 space-y-2 overflow-y-auto">
-            <p className="px-4 text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 mb-4">Core Infrastructure</p>
+            <p className="px-4 text-[10px] font-black uppercase tracking-[0.3em] text-slate-500 mb-4">Core Banking</p>
             {navigation.map((item) => {
               const isActive = pathname === item.href
               return (
@@ -104,7 +104,7 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   <item.icon className={cn("h-5 w-5 transition-transform group-hover:scale-110", isActive ? "text-[#001c10]" : "text-emerald-500/50")} />
-                  <span>{item.name}</span>
+                  <span>{item.name === "Loan Protocols" ? "Loan Services" : item.name}</span>
                 </Link>
               )
             })}
@@ -118,7 +118,7 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
               onClick={handleLogout}
             >
               <LogOut className="h-4 w-4" />
-              Terminate Session
+              Sign Out
             </Button>
           </div>
         </div>

@@ -159,7 +159,7 @@ export default function TransactionsList({
         <div className="space-y-2">
           <div className="flex items-center gap-2 text-emerald-500 font-black uppercase tracking-widest text-[10px] mb-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 w-fit rounded-full">
             <ArrowRightLeft className="h-3 w-3" />
-            Audit Ledger
+            Transactions
           </div>
           <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter">
             Transaction <span className="text-slate-500 italic">History</span>
@@ -179,7 +179,7 @@ export default function TransactionsList({
           <Button asChild className="h-12 px-6 bg-emerald-500 hover:bg-emerald-400 text-[#001c10] rounded-xl shadow-xl shadow-emerald-500/20 font-black">
             <Link href="/dashboard" className="flex items-center gap-2">
               <ChevronLeft className="h-4 w-4" />
-              Terminal
+              Back
             </Link>
           </Button>
         </div>
@@ -192,15 +192,15 @@ export default function TransactionsList({
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-end">
 
               <div className="lg:col-span-3 space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Asset Status</Label>
+                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Status</Label>
                 <Select value={filters.status} onValueChange={(value) => handleFilterChange("status", value)}>
                   <SelectTrigger className="h-12 bg-white/5 border-white/10 rounded-xl font-bold text-white focus:ring-emerald-500">
                     <SelectValue placeholder="All Status" />
                   </SelectTrigger>
                   <SelectContent className="bg-[#002a18] border-white/10 text-white rounded-xl">
-                    <SelectItem value="all">Everywhere</SelectItem>
-                    <SelectItem value="pending">En Route</SelectItem>
-                    <SelectItem value="success">Confirmed</SelectItem>
+                    <SelectItem value="all">All Statuses</SelectItem>
+                    <SelectItem value="pending">Pending</SelectItem>
+                    <SelectItem value="success">Completed</SelectItem>
                     <SelectItem value="failed">Failed</SelectItem>
                     <SelectItem value="cancelled">Cancelled</SelectItem>
                   </SelectContent>
@@ -208,13 +208,13 @@ export default function TransactionsList({
               </div>
 
               <div className="lg:col-span-3 space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Flow Protocol</Label>
+                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Type</Label>
                 <Select value={filters.type} onValueChange={(value) => handleFilterChange("type", value)}>
                   <SelectTrigger className="h-12 bg-white/5 border-white/10 rounded-xl font-bold text-white focus:ring-emerald-500">
                     <SelectValue placeholder="All Types" />
                   </SelectTrigger>
                   <SelectContent className="bg-[#002a18] border-white/10 text-white rounded-xl">
-                    <SelectItem value="all">All Flow</SelectItem>
+                    <SelectItem value="all">All Types</SelectItem>
                     <SelectItem value="debit">Debit</SelectItem>
                     <SelectItem value="credit">Credit</SelectItem>
                   </SelectContent>
@@ -222,12 +222,12 @@ export default function TransactionsList({
               </div>
 
               <div className="lg:col-span-6 space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Secure Search</Label>
+                <Label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Search</Label>
                 <form onSubmit={handleSearch} className="flex gap-2">
                   <div className="relative flex-1 group">
                     <Search className="absolute left-3 top-3.5 h-4 w-4 text-slate-500 group-focus-within:text-emerald-500 transition-colors" />
                     <Input
-                      placeholder="Search references, Details..."
+                      placeholder="Search transactions..."
                       value={filters.search}
                       onChange={(e) => setFilters((prev) => ({ ...prev, search: e.target.value }))}
                       className="pl-10 h-12 bg-white/5 border-white/10 focus:bg-white/10 focus:ring-emerald-500 transition-all rounded-xl font-bold text-white"
@@ -247,8 +247,8 @@ export default function TransactionsList({
       <motion.div {...fadeInUp} transition={{ delay: 0.2 }} className="space-y-6">
         <div className="flex items-center justify-between px-2">
           <h2 className="text-xl font-black text-white flex items-center gap-3">
-            Active Records
-            <span className="text-[10px] font-black bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 px-3 py-1 rounded-full uppercase tracking-widest">{total} Verified</span>
+            Transactions
+            <span className="text-[10px] font-black bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 px-3 py-1 rounded-full uppercase tracking-widest">{total} Found</span>
           </h2>
           {(filters.status !== "all" || filters.type !== "all" || filters.search) && (
             <button
@@ -258,7 +258,7 @@ export default function TransactionsList({
               }}
               className="text-[10px] font-black text-red-400 hover:text-red-300 uppercase tracking-widest border-b border-red-400/30 pb-0.5"
             >
-              Reset Protocol
+              Reset Filters
             </button>
           )}
         </div>
@@ -272,7 +272,7 @@ export default function TransactionsList({
                 </div>
                 <div className="space-y-2">
                   <p className="text-xl font-black text-white">No Matching Data</p>
-                  <p className="text-slate-500 font-medium">Clear filters to resume global monitoring.</p>
+                  <p className="text-slate-500 font-medium">Clear filters to resume tracking.</p>
                 </div>
               </div>
             ) : (
@@ -329,7 +329,7 @@ export default function TransactionsList({
                           {formatCurrency(transaction.amount, transaction.currency)}
                         </p>
                         <div className="flex items-center gap-2 group-hover:text-emerald-400 transition-colors">
-                          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 group-hover:text-emerald-400 transition-colors">Audit File</span>
+                          <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 group-hover:text-emerald-400 transition-colors">View Details</span>
                           <ArrowRight className="h-3 w-3 group-hover:translate-x-1 transition-transform" />
                         </div>
                       </div>
@@ -345,7 +345,7 @@ export default function TransactionsList({
         {totalPages > 1 && (
           <motion.div {...fadeInUp} className="flex flex-col md:flex-row items-center justify-between p-8 bg-white/[0.03] backdrop-blur border border-white/5 rounded-[3rem] gap-6">
             <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500">
-              Tracing <span className="text-white">{(currentPage - 1) * 10 + 1}</span> - <span className="text-white">{Math.min(currentPage * 10, total)}</span> <span className="mx-2 opacity-30">|</span> Total Assets: <span className="text-emerald-500">{total}</span>
+              Showing <span className="text-white">{(currentPage - 1) * 10 + 1}</span> - <span className="text-white">{Math.min(currentPage * 10, total)}</span> <span className="mx-2 opacity-30">|</span> Total Transactions: <span className="text-emerald-500">{total}</span>
             </p>
             <div className="flex items-center gap-4">
               <Button

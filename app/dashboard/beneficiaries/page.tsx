@@ -54,7 +54,7 @@ export default function BeneficiariesPage() {
         setError(data.message || "Failed to add beneficiary")
         return
       }
-      toast({ title: "Authorized", description: "Beneficiary node integrated successfully." })
+      toast({ title: "Authorized", description: "Beneficiary added successfully." })
       setBankName("")
       setBankHolder("")
       setBankAccount("")
@@ -74,7 +74,7 @@ export default function BeneficiariesPage() {
       body: JSON.stringify({ id }),
     })
     if (res.ok) {
-      toast({ title: "Decommissioned", description: "Beneficiary node removed from registry." })
+      toast({ title: "Removed", description: "Beneficiary removed from list." })
       mutate()
     }
   }
@@ -95,9 +95,9 @@ export default function BeneficiariesPage() {
               Registry Management
             </div>
             <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter lowercase">
-              Transfer <span className="text-slate-500 italic">Gateways</span>
+              Transfer <span className="text-slate-500 italic">Beneficiaries</span>
             </h1>
-            <p className="text-slate-400 font-medium text-lg">Manage authorized recipient Details for high-velocity liquid routing.</p>
+            <p className="text-slate-400 font-medium text-lg">Manage authorized recipient details for quick transfers.</p>
           </div>
         </motion.div>
 
@@ -107,8 +107,8 @@ export default function BeneficiariesPage() {
           <motion.div {...fadeInUp} className="lg:col-span-12 xl:col-span-5">
             <Card className="border border-white/5 shadow-2xl bg-white/[0.03] backdrop-blur-md rounded-[2.5rem] overflow-hidden">
               <CardHeader className="p-8 border-b border-white/5 bg-emerald-500/5">
-                <CardTitle className="text-2xl font-black text-white lowercase tracking-tighter">Deploy <span className="text-slate-500 italic">Node</span></CardTitle>
-                <CardDescription className="text-slate-500 font-medium">Register a new receiving endpoint in the system.</CardDescription>
+                <CardTitle className="text-2xl font-black text-white lowercase tracking-tighter">Add <span className="text-slate-500 italic">Receiver</span></CardTitle>
+                <CardDescription className="text-slate-500 font-medium">Register a new recipient in the system.</CardDescription>
               </CardHeader>
               <CardContent className="p-8 space-y-8">
                 {error && (
@@ -134,7 +134,7 @@ export default function BeneficiariesPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Gateway Identity</Label>
+                    <Label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Bank Name</Label>
                     <div className="relative group">
                       <Landmark className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-600 group-focus-within:text-emerald-500 transition-colors" />
                       <Input
@@ -147,7 +147,7 @@ export default function BeneficiariesPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Target Holder</Label>
+                    <Label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Account Holder</Label>
                     <div className="relative group">
                       <Landmark className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-600 group-focus-within:text-emerald-500 transition-colors" />
                       <Input
@@ -160,7 +160,7 @@ export default function BeneficiariesPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Identity Marker (Acc/IBAN)</Label>
+                    <Label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Account Number / IBAN</Label>
                     <div className="relative group">
                       <Fingerprint className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-600 group-focus-within:text-emerald-500 transition-colors" />
                       <Input
@@ -197,7 +197,7 @@ export default function BeneficiariesPage() {
                   disabled={saving}
                   className="w-full bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black h-16 rounded-2xl shadow-xl shadow-emerald-500/20 uppercase tracking-tighter text-lg transition-all hover:-translate-y-1 active:scale-95"
                 >
-                  {saving ? "Synchronizing..." : "Authorize Node"}
+                  {saving ? "Saving..." : "Add Beneficiary"}
                 </Button>
               </CardContent>
             </Card>
@@ -206,9 +206,9 @@ export default function BeneficiariesPage() {
           {/* List Display */}
           <motion.div {...fadeInUp} transition={{ delay: 0.1 }} className="lg:col-span-12 xl:col-span-7 space-y-6">
             <div className="flex items-center justify-between px-4 pb-2">
-              <h2 className="text-2xl font-black text-white lowercase tracking-tighter">Active <span className="text-slate-500 italic">Inventory</span></h2>
+              <h2 className="text-2xl font-black text-white lowercase tracking-tighter">Active <span className="text-slate-500 italic">Beneficiaries</span></h2>
               <div className="px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-widest">
-                {isLoading ? "Scanning..." : `${beneficiaries.length} Details Online`}
+                {isLoading ? "Loading..." : `${beneficiaries.length} Recipients`}
               </div>
             </div>
 
@@ -217,7 +217,7 @@ export default function BeneficiariesPage() {
                 {beneficiaries.length === 0 ? (
                   <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="p-12 text-center rounded-[2.5rem] border border-dashed border-white/10 bg-white/[0.02]">
                     <Users className="h-12 w-12 text-slate-800 mx-auto mb-4" />
-                    <p className="text-slate-600 font-bold uppercase tracking-widest text-xs">Registry Empty — No Details detected.</p>
+                    <p className="text-slate-600 font-bold uppercase tracking-widest text-xs">No beneficiaries found.</p>
                   </motion.div>
                 ) : (
                   beneficiaries.map((b: any, index: number) => (
