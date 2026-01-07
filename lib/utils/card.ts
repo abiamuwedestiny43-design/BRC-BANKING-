@@ -51,3 +51,22 @@ export function getVendorColor(vendor: string): string {
   }
   return colors[vendor as keyof typeof colors] || "linear-gradient(135deg, #667eea, #764ba2)"
 }
+
+export function getVendorLogo(vendor: string): { src: string; alt: string } {
+  const logos = {
+    mastercard: {
+      src: "/placeholder-logo.png",
+      alt: "Mastercard",
+    },
+    visacard: {
+      src: "/placeholder-logo.png",
+      alt: "Visa",
+    },
+    amex: {
+      src: "/placeholder-logo.png",
+      alt: "American Express",
+    },
+  }
+  return logos[vendor as keyof typeof logos] || { src: "/placeholder-logo.png", alt: "Vendor Logo" }
+}
+

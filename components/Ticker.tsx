@@ -7,7 +7,7 @@ const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 const Ticker = () => {
     const [mounted, setMounted] = React.useState(false)
-    
+
     React.useEffect(() => {
         setMounted(true)
     }, [])
@@ -73,8 +73,9 @@ const Ticker = () => {
         return result
     }, [btcData, forexData])
 
-    // Use exactly 2 copies for seamless scroll with translateX(-50%)
-    const displayItems = [...items, ...items]
+    // Create enough copies to fill large screens, then duplicate for the loop
+    const repeatedItems = [...items, ...items, ...items, ...items]
+    const displayItems = [...repeatedItems, ...repeatedItems]
 
     return (
         <div className="h-10 w-full bg-[#001c10]/95 backdrop-blur-md border-b border-emerald-500/10 flex items-center overflow-hidden z-[60] fixed top-0">
@@ -85,9 +86,8 @@ const Ticker = () => {
 
             <div className="flex-1 overflow-hidden relative">
                 {mounted && (
-                    <div 
+                    <div
                         className="flex animate-marquee hover:[animation-play-state:paused] whitespace-nowrap w-max"
-                        style={{ animationPlayState: 'running' }}
                     >
                         {displayItems.map((item, index) => (
                             <div key={index} className="flex items-center gap-6 px-8 border-r border-white/5 shrink-0">
