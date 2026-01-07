@@ -19,7 +19,7 @@ export interface EmailOptions {
 
 export async function sendEmail({ to, subject, html, from }: EmailOptions) {
   const mailOptions = {
-    from: from || process.env.SMTP_FROM || "noreply@Corporatebank.com",
+    from: from || process.env.SMTP_FROM || "noreply@primeharborbnk.online",
     to,
     subject,
     html,
@@ -68,7 +68,7 @@ const brandStyles = `
 
 export const emailTemplates = {
   welcome: (name: string, accountNumber: string) => ({
-    subject: "Welcome to NOVA - Identity Initialized",
+    subject: "Welcome to PrimeHarbor Bank - Identity Initialized",
     html: `
       <!DOCTYPE html>
       <html>
@@ -80,7 +80,7 @@ export const emailTemplates = {
         <body>
           <div class="container">
             <div class="header">
-              <div class="logo">nova<span>core</span></div>
+              <div class="logo">prime<span>harbor</span></div>
             </div>
             <div class="content">
               <div class="badge badge-success">Protocol Initialized</div>
@@ -110,7 +110,7 @@ export const emailTemplates = {
               </div>
             </div>
             <div class="footer">
-              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
               <p>Secure Transmission Protocol ID: ${Math.random().toString(36).substring(7).toUpperCase()}</p>
             </div>
           </div>
@@ -132,7 +132,7 @@ export const emailTemplates = {
         <body>
           <div class="container">
             <div class="header">
-              <div class="logo">nova<span>core</span></div>
+              <div class="logo">prime<span>harbor</span></div>
             </div>
             <div class="content">
               <div class="badge badge-danger">High Priority Authorization</div>
@@ -155,7 +155,7 @@ export const emailTemplates = {
               <p style="font-size: 12px; color: #64748b;">Security Notice: If you did not initiate this transmission, immediately disable your node and contact core security.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -185,7 +185,7 @@ export const emailTemplates = {
         <body>
           <div class="container">
             <div class="header">
-              <div class="logo">nova<span>core</span></div>
+              <div class="logo">prime<span>harbor</span></div>
             </div>
             <div class="content">
               <div class="badge ${type === "credit" ? "badge-success" : "badge-danger"}">
@@ -218,7 +218,7 @@ export const emailTemplates = {
               </div>
             </div>
             <div class="footer">
-              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -239,7 +239,7 @@ export const emailTemplates = {
         <body>
           <div class="container">
             <div class="header">
-              <div class="logo">nova<span>core</span></div>
+              <div class="logo">prime<span>harbor</span></div>
             </div>
             <div class="content">
               <div class="badge badge-success">Verification Complete</div>
@@ -259,7 +259,7 @@ export const emailTemplates = {
               </div>
             </div>
             <div class="footer">
-              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -280,7 +280,7 @@ export const emailTemplates = {
         <body>
           <div class="container">
             <div class="header">
-              <div class="logo">nova<span>core</span></div>
+              <div class="logo">prime<span>harbor</span></div>
             </div>
             <div class="content">
               <div class="badge badge-danger">Security Recovery</div>
@@ -294,7 +294,7 @@ export const emailTemplates = {
               <p style="font-size: 12px; color: #64748b;">This link will expire in 60 minutes. If you did not request this, please ignore this transmission.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -315,7 +315,7 @@ export const emailTemplates = {
         <body>
           <div class="container">
             <div class="header">
-              <div class="logo">nova<span>core</span></div>
+              <div class="logo">prime<span>harbor</span></div>
             </div>
             <div class="content">
               <div class="badge badge-success">Meta-data Update</div>
@@ -331,7 +331,7 @@ export const emailTemplates = {
               </div>
             </div>
             <div class="footer">
-              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -352,12 +352,12 @@ export const emailTemplates = {
         <body>
           <div class="container">
             <div class="header">
-              <div class="logo">nova<span>core</span></div>
+              <div class="logo">prime<span>harbor</span></div>
             </div>
             <div class="content">
               <div class="badge badge-danger">Security Synchronized</div>
               <h1>Credentials Updated</h1>
-              <p>Your authentication key for NOVA CORE has been successfully changed.</p>
+              <p>Your authentication key for PRIMEHARBOR BANK has been successfully changed.</p>
               
               <div class="info-box">
                 <div class="info-label">Change Status</div>
@@ -370,7 +370,7 @@ export const emailTemplates = {
               <p style="font-size: 12px; color: #64748b;">If you did not authorize this change, immediately terminate all active sessions and contact security.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -396,7 +396,7 @@ export const emailTemplates = {
         <body>
           <div class="container">
             <div class="header">
-              <div class="logo">nova<span>core</span></div>
+              <div class="logo">prime<span>harbor</span></div>
             </div>
             <div class="content">
               <div class="badge badge-success">Application Logged</div>
@@ -417,7 +417,7 @@ export const emailTemplates = {
               <p>The evaluation protocol typically completes within 72-96 hours. You will receive a synchronization alert once the decision is finalized.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -445,7 +445,7 @@ export const emailTemplates = {
         <body>
           <div class="container">
             <div class="header">
-              <div class="logo">nova<span>core</span></div>
+              <div class="logo">prime<span>harbor</span></div>
             </div>
             <div class="content">
               <div class="badge ${status === 'approved' ? 'badge-success' : 'badge-danger'}">
@@ -471,7 +471,7 @@ export const emailTemplates = {
         : `<p>If you require clarification on this protocol decision, contact core support.</p>`}
             </div>
             <div class="footer">
-              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -492,7 +492,7 @@ export const emailTemplates = {
         <body>
           <div class="container">
             <div class="header">
-              <div class="logo">nova<span>core</span></div>
+              <div class="logo">prime<span>harbor</span></div>
             </div>
             <div class="content">
               <div class="badge badge-success">Asset Requested</div>
@@ -513,7 +513,7 @@ export const emailTemplates = {
               <p>Once approved, your physical asset will be dispatched via secure transport. Virtual credentials will be active immediately upon approval.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -540,7 +540,7 @@ export const emailTemplates = {
         <body>
           <div class="container">
             <div class="header">
-              <div class="logo">nova<span>core</span></div>
+              <div class="logo">prime<span>harbor</span></div>
             </div>
             <div class="content">
               <div class="badge ${status === 'active' ? 'badge-success' : 'badge-danger'}">
@@ -573,7 +573,7 @@ export const emailTemplates = {
         : `<p>Identity or credit vetting parameters were not met for this specific asset request.</p>`}
             </div>
             <div class="footer">
-              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -594,7 +594,7 @@ export const emailTemplates = {
         <body>
           <div class="container">
             <div class="header">
-              <div class="logo">nova<span>core</span></div>
+              <div class="logo">prime<span>harbor</span></div>
             </div>
             <div class="content">
               <div class="badge badge-success">Manual Clearance</div>
@@ -614,7 +614,7 @@ export const emailTemplates = {
               <p>Total network access is now synchronized. All restrictions have been purged.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -635,7 +635,7 @@ export const emailTemplates = {
         <body>
           <div class="container">
             <div class="header">
-              <div class="logo">nova<span>core</span></div>
+              <div class="logo">prime<span>harbor</span></div>
             </div>
             <div class="content">
               <div class="badge badge-success">Elevated Access</div>
@@ -653,7 +653,7 @@ export const emailTemplates = {
               <p>New terminal capabilities should be visible upon your next synchronization session.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 NOVA CORE SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>

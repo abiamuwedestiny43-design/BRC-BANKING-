@@ -226,7 +226,7 @@ export default function InvestmentServicesPage() {
               Start Scaling your <span className="text-emerald-500 italic">Net Worth</span>
             </h2>
             <p className="text-xl text-slate-400 font-medium">
-              Join the upper echelon of investors who leverage the Nova capital infrastructure.
+              Join the upper echelon of investors who leverage the PrimeHarbor capital infrastructure.
             </p>
           </motion.div>
 

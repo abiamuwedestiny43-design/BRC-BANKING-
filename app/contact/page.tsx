@@ -80,8 +80,8 @@ const ContactPage: React.FC = () => {
                 <h2 className="text-3xl font-black text-white mb-10 tracking-tight">Direct <span className="text-emerald-400">Channels</span></h2>
                 <div className="space-y-8">
                   {[
-                    { icon: Phone, title: 'Voice Support', value: '(555) 123-Nova', desc: 'Available Mon-Fri, 9AM-6PM EST', color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
-                    { icon: Mail, title: 'Secure Email', value: 'concierge@novabank.com', desc: 'Encrypted communication line', color: 'text-blue-400', bg: 'bg-blue-500/10' },
+                    { icon: Phone, title: 'Voice Support', value: '(555) 123-PRIME', desc: 'Available Mon-Fri, 9AM-6PM EST', color: 'text-emerald-400', bg: 'bg-emerald-500/10' },
+                    { icon: Mail, title: 'Secure Email', value: 'support@primeharborbnk.online', desc: 'Encrypted communication line', color: 'text-blue-400', bg: 'bg-blue-500/10' },
                     { icon: MapPin, title: 'Global HQ', value: '77 Financial Plaza', desc: 'Downtown District, Suite 1200', color: 'text-purple-400', bg: 'bg-purple-500/10' }
                   ].map((item, i) => (
                     <div key={i} className="flex gap-6 group">
@@ -108,7 +108,7 @@ const ContactPage: React.FC = () => {
                   Our AI-driven support ecosystem is always active for immediate account verification and urgent security reports.
                 </p>
                 <div className="pt-4">
-                  <p className="text-3xl font-black text-white underline decoration-emerald-500 underline-offset-8">1-800-NOVA-SAFE</p>
+                  <p className="text-3xl font-black text-white underline decoration-emerald-500 underline-offset-8">1-800-PH-SAFE</p>
                 </div>
               </div>
             </div>

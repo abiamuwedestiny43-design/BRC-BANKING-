@@ -113,7 +113,7 @@ export default function LoginPage() {
           </div>
           <div className="space-y-1">
             <h1 className="text-4xl font-black text-white tracking-tighter uppercase italic">
-              NOVA<span className="text-emerald-500 font-medium">CORE</span>
+              PRIME<span className="text-emerald-500 font-medium">HARBOR</span>
             </h1>
             <p className="text-emerald-500/50 font-black text-[10px] uppercase tracking-[0.4em]">Integrated Banking Mainframe</p>
           </div>
@@ -149,7 +149,7 @@ export default function LoginPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      placeholder="node_identifier@nova.sys"
+                      placeholder="node_identifier@primeharborbnk.online"
                       disabled={isLoading}
                       className="h-14 pl-12 bg-white/5 border-white/10 rounded-2xl text-white focus:border-emerald-500/50 focus:ring-emerald-500/20 transition-all font-medium placeholder:text-slate-700"
                     />

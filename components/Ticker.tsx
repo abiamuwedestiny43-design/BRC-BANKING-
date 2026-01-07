@@ -6,6 +6,12 @@ import { TrendingUp, TrendingDown, Activity } from 'lucide-react'
 const fetcher = (url: string) => fetch(url).then((res) => res.json())
 
 const Ticker = () => {
+    const [mounted, setMounted] = React.useState(false)
+    
+    React.useEffect(() => {
+        setMounted(true)
+    }, [])
+
     const { data: btcData } = useSWR(
         "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,binancecoin,ripple,cardano,solana&vs_currencies=usd&include_24hr_change=true",
         fetcher,
@@ -78,20 +84,25 @@ const Ticker = () => {
             </div>
 
             <div className="flex-1 overflow-hidden relative">
-                <div className="flex animate-marquee hover:[animation-play-state:paused] cursor-default whitespace-nowrap min-w-max">
-                    {displayItems.map((item, index) => (
-                        <div key={index} className="flex items-center gap-6 px-8 border-r border-white/5 shrink-0">
-                            <div className="flex items-center gap-2">
-                                <span className="text-[11px] font-bold text-slate-400">{item.label}</span>
-                                <span className="text-xs font-mono font-bold text-white tracking-wider">${item.price}</span>
+                {mounted && (
+                    <div 
+                        className="flex animate-marquee hover:[animation-play-state:paused] whitespace-nowrap w-max"
+                        style={{ animationPlayState: 'running' }}
+                    >
+                        {displayItems.map((item, index) => (
+                            <div key={index} className="flex items-center gap-6 px-8 border-r border-white/5 shrink-0">
+                                <div className="flex items-center gap-2">
+                                    <span className="text-[11px] font-bold text-slate-400">{item.label}</span>
+                                    <span className="text-xs font-mono font-bold text-white tracking-wider">${item.price}</span>
+                                </div>
+                                <div className={`flex items-center gap-1 text-[10px] font-bold ${item.change >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                                    {item.change >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
+                                    <span>{Math.abs(item.change).toFixed(2)}%</span>
+                                </div>
                             </div>
-                            <div className={`flex items-center gap-1 text-[10px] font-bold ${item.change >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
-                                {item.change >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
-                                <span>{Math.abs(item.change).toFixed(2)}%</span>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     )

@@ -148,7 +148,7 @@ export default async function AdminTransactionsPage({
               Global <span className="text-slate-500 italic font-medium">Flux Monitoring</span>
             </h1>
             <p className="text-slate-400 font-medium max-w-xl text-lg leading-relaxed">
-              Monitoring the global movement of assets across the NOVA BANK ecosystem. Protocol synchronization status and node audit trails.
+              Monitoring the global movement of assets across the PRIMEHARBOR BANK ecosystem. Protocol synchronization status and node audit trails.
             </p>
           </div>
 

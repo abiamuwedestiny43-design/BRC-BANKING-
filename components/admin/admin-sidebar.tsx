@@ -53,10 +53,10 @@ export default function AdminSidebar({ user }: AdminSidebarProps) {
           <div className="p-8 pb-10">
             <Link href="/" className="flex items-center gap-3 group">
               <div className="relative h-10 w-10 rounded-xl overflow-hidden shadow-2xl group-hover:scale-110 transition-transform">
-                <Image src="/santech.png" alt="Logo" fill className="object-cover" />
+                <Image src="/logo.png" alt="Logo" fill className="object-cover" />
               </div>
               <span className="text-xl font-black tracking-tighter text-white">
-                NOVA<span className="text-emerald-500 italic">ADMIN</span>
+                PRIME<span className="text-emerald-500 italic">ADMIN</span>
               </span>
             </Link>
           </div>

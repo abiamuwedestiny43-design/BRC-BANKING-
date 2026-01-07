@@ -25,7 +25,7 @@ const ServicesPage: React.FC = () => {
             </span>
           </h1>
           <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed mb-12">
-            NOVA BANK provides an elite suite of financial frameworks designed to empower your journey.
+            PRIMEHARBOR BANK provides an elite suite of financial frameworks designed to empower your journey.
             From personal wealth to institutional leverage, we orchestrate success at every scale.
           </p>
         </div>
@@ -124,7 +124,7 @@ const ServicesPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div>
-              <p className="text-xs font-black tracking-[0.5em] uppercase text-emerald-500 mb-6">The NOVA Protocol</p>
+              <p className="text-xs font-black tracking-[0.5em] uppercase text-emerald-500 mb-6">The PRIMEHARBOR Protocol</p>
               <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter leading-tight">Fortified <span className="text-emerald-400">Digital Architecture</span></h2>
               <p className="text-slate-400 text-lg leading-relaxed mb-10">
                 Behind every service is a military-grade infrastructure designed to protect your assets

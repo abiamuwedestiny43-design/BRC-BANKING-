@@ -25,7 +25,7 @@ const MortgagePage: React.FC = () => {
           </h1>
           <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed mb-12">
             Secure your sanctuary with our intelligent mortgage frameworks. Whether you're a first-time buyer
-            or seeking high-value property leverage, NOVA BANK provides the most sophisticated solutions in the market.
+            or seeking high-value property leverage, PRIMEHARBOR BANK provides the most sophisticated solutions in the market.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-20 relative z-20">

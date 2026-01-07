@@ -99,7 +99,7 @@ export default function RegisterPage() {
             IDENTITY <span className="text-emerald-500">PROVISIONING</span>
           </h1>
           <p className="text-slate-500 font-medium text-sm max-w-md mx-auto italic leading-relaxed">
-            Establishing new secure node within the NOVA global asset perimeter.
+            Establishing new secure node within the PRIMEHARBOR global asset perimeter.
           </p>
         </div>
 
@@ -196,7 +196,7 @@ export default function RegisterPage() {
                         value={formData.email}
                         onChange={(e) => handleChange("email", e.target.value)}
                         required
-                        placeholder="identity_anchor@nova.sys"
+                        placeholder="identity_anchor@primeharborbnk.online"
                         className="h-12 pl-12 bg-white/5 border-white/10 rounded-xl text-white focus:border-emerald-500/50 transition-all font-bold tracking-tight placeholder:text-slate-700"
                       />
                     </div>
@@ -303,7 +303,7 @@ export default function RegisterPage() {
         {/* Legal Cipher */}
         <div className="mt-10 text-center opacity-20 hover:opacity-100 transition-opacity">
           <p className="text-[8px] font-black text-slate-500 uppercase tracking-[0.5em] leading-relaxed">
-            By initializing this provisioning protocol, you agree to the NOVA BANK Global Asset Custody Terms and Neural Agreement.
+            By initializing this provisioning protocol, you agree to the PRIMEHARBOR BANK Global Asset Custody Terms and Neural Agreement.
           </p>
         </div>
       </div>

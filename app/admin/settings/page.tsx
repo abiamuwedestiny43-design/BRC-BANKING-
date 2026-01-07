@@ -162,7 +162,7 @@ export default function AdminSettingsPage() {
           <Card className="bg-white/[0.03] border-white/5 rounded-[3rem] overflow-hidden">
             <CardHeader className="p-8 border-b border-white/5 bg-white/[0.01]">
               <CardTitle className="text-2xl font-black text-white italic tracking-tight">Transfer Protocols</CardTitle>
-              <CardDescription className="text-slate-500 font-medium">Control the global flow of assets across the NOVA framework.</CardDescription>
+              <CardDescription className="text-slate-500 font-medium">Control the global flow of assets across the PRIMEHARBOR framework.</CardDescription>
             </CardHeader>
             <CardContent className="p-8 space-y-12">
               {/* Global Transfers */}
@@ -196,7 +196,7 @@ export default function AdminSettingsPage() {
                   <Label className="text-lg font-black text-white flex items-center gap-2 italic">
                     <Database className="w-4 h-4 text-blue-500" /> INTRASYSTEM ASSETS
                   </Label>
-                  <p className="text-sm text-slate-500 max-w-sm">Restrict migrations within the internal NOVA BANK node network.</p>
+                  <p className="text-sm text-slate-500 max-w-sm">Restrict migrations within the internal PRIMEHARBOR BANK node network.</p>
                 </div>
                 <div className="flex items-center gap-6">
                   <Switch

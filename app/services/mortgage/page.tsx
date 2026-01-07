@@ -63,7 +63,7 @@ export default function MortgageServicesPage() {
               mortgage <span className="text-emerald-500 italic">services</span>
             </h1>
             <p className="max-w-2xl mx-auto text-xl md:text-2xl text-slate-400 font-medium">
-              Clarity from pre-qualification to the final signature. Secure your cornerstone with Nova.
+              Clarity from pre-qualification to the final signature. Secure your cornerstone with PrimeHarbor.
             </p>
           </motion.div>
 
@@ -204,7 +204,7 @@ export default function MortgageServicesPage() {
               Secure your <span className="text-emerald-500">Ground Zero</span>
             </h2>
             <p className="text-xl text-slate-400 font-medium">
-              Join the future of residency financing with Nova's automated mortgage gateway.
+              Join the future of residency financing with PrimeHarbor's automated mortgage gateway.
             </p>
           </motion.div>
 

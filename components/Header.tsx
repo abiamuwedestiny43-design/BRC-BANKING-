@@ -56,10 +56,10 @@ const Header = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <div className="relative h-12 w-12 rounded-xl overflow-hidden shadow-2xl group-hover:scale-110 transition-transform">
-              <Image src="/santech.png" alt="Corporate Bank" fill className="object-cover" />
+              <Image src="/logo.png" alt="PrimeHarbor Bank" fill className="object-cover" />
             </div>
             <span className={cn("text-xl font-black tracking-tighter transition-colors", isScrolled ? "text-emerald-400" : "text-white")}>
-              NOVA<span className="text-emerald-500 italic">BANK</span>
+              PRIME<span className="text-emerald-500 italic">HARBOR</span>
             </span>
           </Link>
 
@@ -111,7 +111,7 @@ const Header = () => {
                       ) : (
                         currentUser?.bankInfo?.bio?.firstname?.[0] || 'U'
                       )}
-                    </div>     
+                    </div>
                     <span className="text-sm font-black text-white">{currentUser?.bankInfo?.bio?.firstname || 'Account'}</span>
                     <ChevronDown className="w-4 h-4 text-emerald-400" />
                   </button>

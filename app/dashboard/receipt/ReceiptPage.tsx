@@ -75,11 +75,11 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
       doc.setFont("helvetica", "bold")
       doc.setFontSize(24)
       doc.setTextColor(255, 255, 255)
-      doc.text("NOVA", margin, 25)
+      doc.text("PRIME", margin, 25)
 
       doc.setFont("helvetica", "normal")
       doc.setTextColor(16, 185, 129)
-      doc.text("CORE", margin + 28, 25)
+      doc.text("HARBOR", margin + 32, 25)
 
       doc.setFontSize(10)
       doc.setTextColor(16, 185, 129)
@@ -163,7 +163,7 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
       doc.text("Originator & Gateway Info", margin, y)
       y += 10
 
-      y = addRow("Source Details", "Nova Financial Ecosystem", y)
+      y = addRow("Source Details", "PrimeHarbor Financial Ecosystem", y)
       y = addRow("Transmission Ref", transfer.txRef, y)
       y = addRow("Region Protocol", transfer.txRegion || "International", y)
 
@@ -220,9 +220,9 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
       doc.setFontSize(8)
       doc.setTextColor(...colors.textLight)
       doc.setFont("helvetica", "normal")
-      doc.text("Nova Financial Core Transmission Protocol V2.4", pageWidth / 2, footerY + 8, { align: "center" })
-      doc.text("This document is an immutable record of a secure financial transmission. Issued by Nova Global Systems.", pageWidth / 2, footerY + 12, { align: "center" })
-      doc.text("Nova Financial © 2026 | Secure • Authorized • Verified", pageWidth / 2, footerY + 16, { align: "center" })
+      doc.text("PrimeHarbor Financial Core Transmission Protocol V2.4", pageWidth / 2, footerY + 8, { align: "center" })
+      doc.text("This document is an immutable record of a secure financial transmission. Issued by PrimeHarbor Global Systems.", pageWidth / 2, footerY + 12, { align: "center" })
+      doc.text("PrimeHarbor Bank © 2026 | Secure • Authorized • Verified", pageWidth / 2, footerY + 16, { align: "center" })
 
       // Watermark
       doc.setTextColor(245, 245, 245)
@@ -231,7 +231,7 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
       doc.text("VERIFIED", pageWidth / 2, pageHeight / 2 + 20, { align: "center", angle: 45 })
 
       const timestamp = new Date().toISOString().slice(0, 10)
-      doc.save(`Nova_Receipt_${transfer.txRef}_${timestamp}.pdf`)
+      doc.save(`PrimeHarbor_Receipt_${transfer.txRef}_${timestamp}.pdf`)
     } catch (err) {
       console.error("Receipt generation failed:", err)
       alert("System failed to compile receipt protocol.")

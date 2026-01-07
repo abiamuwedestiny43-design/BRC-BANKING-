@@ -17,9 +17,9 @@ const MortgagePage: React.FC = () => {
             Home Mortgages Made Simple
           </h1>
           <p className="text-lg md:text-xl leading-relaxed animate-slide-up delay-200">
-            Finding the perfect home loan doesn't have to be complicated. At Corporate Bank, we offer tailored mortgage solutions with competitive rates and personalized guidance to help you secure your dream home. Whether you're a first-time homebuyer or looking to refinance, our team of experts is here to assist you every step of the way.
+            Finding the perfect home loan doesn't have to be complicated. At PrimeHarbor Bank, we offer tailored mortgage solutions with competitive rates and personalized guidance to help you secure your dream home. Whether you're a first-time homebuyer or looking to refinance, our team of experts is here to assist you every step of the way.
             <br /><br />
-            Our mortgage process is transparent, efficient, and designed to fit your unique financial needs. We provide clear information on loan options, rates, and repayment plans, empowering you to make confident decisions. With Corporate Bank, you'll have access to tools, calculators, and advisors to ensure a smooth journey from pre-approval to closing. Start your path to homeownership today and experience the peace of mind that comes from working with a trusted financial partner committed to your success.
+            Our mortgage process is transparent, efficient, and designed to fit your unique financial needs. We provide clear information on loan options, rates, and repayment plans, empowering you to make confident decisions. With PrimeHarbor Bank, you'll have access to tools, calculators, and advisors to ensure a smooth journey from pre-approval to closing. Start your path to homeownership today and experience the peace of mind that comes from working with a trusted financial partner committed to your success.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             <button className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-medium">

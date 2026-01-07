@@ -60,7 +60,7 @@ export default async function UsersPage({ searchParams }: { searchParams: { sear
           <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter">
             User <span className="text-slate-500 italic">Management</span>
           </h1>
-          <p className="text-slate-400 font-medium max-w-md">Vetting, auditing, and managing the global NOVA BANK user base.</p>
+          <p className="text-slate-400 font-medium max-w-md">Vetting, auditing, and managing the global PRIMEHARBOR BANK user base.</p>
         </div>
 
         <Button asChild className="bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black h-12 px-8 rounded-xl shadow-xl shadow-emerald-500/20">
@@ -115,7 +115,7 @@ async function UsersTable({ searchQuery }: { searchQuery?: string }) {
               {searchQuery ? `Query Results (${users.length})` : "Verified Identities"}
             </CardTitle>
             <CardDescription className="text-slate-500 font-medium">
-              {searchQuery ? `Filtering for "${searchQuery}"` : "Global register of authenticated NOVA BANK participants."}
+              {searchQuery ? `Filtering for "${searchQuery}"` : "Global register of authenticated PRIMEHARBOR BANK participants."}
             </CardDescription>
           </div>
           <div className="hidden md:flex gap-4">

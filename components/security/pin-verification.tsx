@@ -160,7 +160,7 @@ export default function PinVerification({
           {/* Footer Cipher */}
           <div className="mt-8 flex items-center justify-center gap-4 opacity-30">
             <div className="w-1 h-1 rounded-full bg-emerald-500" />
-            <span className="text-[7px] font-black text-slate-500 uppercase tracking-[0.5em]">Auth0_Nova_v4.2</span>
+            <span className="text-[7px] font-black text-slate-500 uppercase tracking-[0.5em]">Auth0_PrimeHarbor_v4.2</span>
             <div className="w-1 h-1 rounded-full bg-emerald-500" />
           </div>
         </div>

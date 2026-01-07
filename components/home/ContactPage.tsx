@@ -17,9 +17,9 @@ const ContactPage: React.FC = () => {
             Get in Touch
           </h1>
           <p className="text-lg md:text-xl leading-relaxed animate-slide-up delay-200">
-            At Corporate Bank, your questions and concerns are our priority. Whether you’re seeking advice on loans, mortgages, or general banking services, our dedicated team is here to provide personalized support. Reach out to us and experience responsive, friendly, and professional assistance tailored to your needs.
+            At PrimeHarbor Bank, your questions and concerns are our priority. Whether you’re seeking advice on loans, mortgages, or general banking services, our dedicated team is here to provide personalized support. Reach out to us and experience responsive, friendly, and professional assistance tailored to your needs.
             <br /><br />
-            Contact us today and let us guide you through our services, help you navigate your finances, or quickly resolve any issues you may have. With multiple channels of communication and convenient branch locations, staying connected with Corporate Bank has never been easier.
+            Contact us today and let us guide you through our services, help you navigate your finances, or quickly resolve any issues you may have. With multiple channels of communication and convenient branch locations, staying connected with PrimeHarbor Bank has never been easier.
           </p>
         </div>
       </section>
@@ -97,8 +97,8 @@ const ContactPage: React.FC = () => {
                     </div>
                     <div className="ml-4">
                       <h3 className="text-lg font-semibold text-gray-900">Email</h3>
-                      <p className="text-gray-600">info@Corporate Bank.com</p>
-                      <p className="text-gray-600">support@Corporate Bank.com</p>
+                      <p className="text-gray-600">info@primeharborbnk.online</p>
+                      <p className="text-gray-600">support@primeharborbnk.online</p>
                     </div>
                   </div>
                   <div className="flex items-start">

@@ -63,7 +63,7 @@ export default function BusinessBankingPage() {
               business <span className="text-emerald-500 italic">banking</span>
             </h1>
             <p className="max-w-2xl mx-auto text-xl md:text-2xl text-slate-400 font-medium">
-              Scale with confidence. Nova provides the liquidity, controls, and insights your venture demands.
+              Scale with confidence. PrimeHarbor provides the liquidity, controls, and insights your venture demands.
             </p>
           </motion.div>
 
@@ -204,7 +204,7 @@ export default function BusinessBankingPage() {
               Ready to <span className="text-emerald-500">Accelerate?</span>
             </h2>
             <p className="text-xl text-slate-400 font-medium max-w-2xl mx-auto">
-              Onboard your venture to the Nova ecosystem and experience the future of commercial banking.
+              Onboard your venture to the PrimeHarbor ecosystem and experience the future of commercial banking.
             </p>
           </motion.div>
 

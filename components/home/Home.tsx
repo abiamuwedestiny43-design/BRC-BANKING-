@@ -99,7 +99,7 @@ const HomePages: React.FC = () => {
           <div className="flex flex-wrap justify-center items-center gap-12 opacity-30 grayscale hover:grayscale-0 transition-all duration-500">
             {/* Logos could go here */}
             <div className="text-2xl font-black italic tracking-tighter">FINTECH</div>
-            <div className="text-2xl font-black italic tracking-tighter">GLOBAL BANK</div>
+            <div className="text-2xl font-black italic tracking-tighter">PRIMEHARBOR BANK</div>
             <div className="text-2xl font-black italic tracking-tighter">SECURE.IO</div>
             <div className="text-2xl font-black italic tracking-tighter">VENTURE CAP</div>
             <div className="text-2xl font-black italic tracking-tighter">CRYPTO TRUST</div>

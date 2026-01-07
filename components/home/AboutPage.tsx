@@ -14,10 +14,10 @@ const AboutPage: React.FC = () => {
         <div className="absolute inset-0 bg-black/50"></div>
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            About Corporate Bank
+            About PrimeHarbor Bank
           </h1>
           <p className="text-lg md:text-xl leading-relaxed">
-            For over five decades, Corporate Bank has been more than just a financial
+            For over five decades, PrimeHarbor Bank has been more than just a financial
             institution — we have been a trusted partner in helping individuals,
             families, and businesses grow and secure their futures. Our story
             began with a simple vision: to make banking accessible, transparent,
@@ -25,13 +25,13 @@ const AboutPage: React.FC = () => {
             us, blending tradition with modern innovation.
             <br />
             <br />
-            At Corporate Bank, we believe that finance is not only about numbers — it’s
+            At PrimeHarbor Bank, we believe that finance is not only about numbers — it’s
             about people. That’s why we focus on building genuine relationships
             with our customers, offering personalized solutions designed to
             meet their unique needs. Whether it’s securing your first home,
             planning for retirement, or scaling a business, our team is here to
             walk with you every step of the way. With a foundation built on
-            trust, innovation, and sustainability, Corporate Bank is committed to
+            trust, innovation, and sustainability, PrimeHarbor Bank is committed to
             creating opportunities, driving economic growth, and leaving a
             positive mark on every community we serve.
           </p>

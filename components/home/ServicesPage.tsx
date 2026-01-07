@@ -18,7 +18,7 @@ const ServicesPage: React.FC = () => {
             Our Services
           </h1>
           <p className="text-lg md:text-xl leading-relaxed animate-slide-up delay-200">
-            At Corporate Bank, we provide comprehensive financial solutions designed to meet all your banking needs. Whether you are an individual planning your future, a business seeking growth, or an investor aiming for sustainable wealth, our full range of services ensures that every financial goal is achievable.
+            At PrimeHarbor Bank, we provide comprehensive financial solutions designed to meet all your banking needs. Whether you are an individual planning your future, a business seeking growth, or an investor aiming for sustainable wealth, our full range of services ensures that every financial goal is achievable.
             <br /><br />
             Our dedicated team combines decades of expertise with innovative technology to offer secure, accessible, and personalized services. From day-to-day banking to advanced investment strategies, we empower our clients with the knowledge, tools, and guidance they need to succeed. Experience financial services that are not only efficient and reliable but also focused on building long-term relationships and creating lasting value.
           </p>

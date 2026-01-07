@@ -203,7 +203,7 @@ export default function PersonalBankingPage() {
               Ready to Upgrade your <span className="text-emerald-500 italic">Financial OS?</span>
             </h2>
             <p className="text-xl text-slate-400 font-medium max-w-2xl mx-auto">
-              Join thousands of users who have streamlined their economic existence through the Nova protocol.
+              Join thousands of users who have streamlined their economic existence through the PrimeHarbor protocol.
             </p>
           </motion.div>
 

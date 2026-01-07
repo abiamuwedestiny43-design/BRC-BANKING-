@@ -54,7 +54,7 @@ export default function CardComponent({ card, showDetails = false }: CardCompone
         {/* Header */}
         <div className="flex justify-between items-start relative z-10">
           <div className="space-y-1">
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40">Nova Bank <span className="text-emerald-500 italic">Premium</span></p>
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40">PrimeHarbor Bank <span className="text-emerald-500 italic">Premium</span></p>
             <h3 className="text-xl md:text-2xl font-black uppercase tracking-tighter text-white/90">
               {card.cardType} <span className="opacity-40 italic">System</span>
             </h3>
