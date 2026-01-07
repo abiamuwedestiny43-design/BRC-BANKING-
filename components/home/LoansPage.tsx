@@ -2,7 +2,7 @@ import { Car, Home, GraduationCap, CheckCircle } from 'lucide-react';
 
 const LoansPage: React.FC = () => {
   return (
-    <div className="animate-fade-in pt-20">
+    <div className="animate-fade-in pt-32">
       {/* Hero Section with Background Image */}
       <section
         className="relative py-32 bg-cover bg-center text-white"

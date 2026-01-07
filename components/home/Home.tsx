@@ -6,7 +6,7 @@ const HomePages: React.FC = () => {
   return (
     <div className="bg-[#001c10] text-slate-100 overflow-hidden font-sans">
       {/* Hero Section */}
-      <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden pt-20">
+      <section className="relative min-h-[95vh] flex items-center justify-center overflow-hidden pt-32">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 z-0">
           <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-900/40 rounded-full blur-[120px] animate-pulse"></div>

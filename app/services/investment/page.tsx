@@ -41,7 +41,7 @@ export default function InvestmentServicesPage() {
   return (
     <div className="min-h-screen bg-[#001c10] text-slate-200 selection:bg-emerald-500/30">
       {/* Hero Section */}
-      <section className="relative h-[80vh] flex items-center justify-center overflow-hidden pt-20">
+      <section className="relative h-[80vh] flex items-center justify-center overflow-hidden pt-32">
         <div
           className="absolute inset-0 bg-fixed bg-cover bg-center"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1920&q=80')" }}
