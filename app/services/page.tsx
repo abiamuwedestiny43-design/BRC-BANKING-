@@ -110,7 +110,7 @@ const ServicesPage: React.FC = () => {
                 </ul>
                 <Link href={service.href} className="block w-full">
                   <button className="w-full py-5 rounded-2xl bg-white/5 border border-white/10 text-white font-black hover:bg-emerald-500 hover:text-[#001c10] hover:border-emerald-500 transition-all text-xs uppercase tracking-widest">
-                    Initialize Setup
+                    Get Started
                   </button>
                 </Link>
               </div>
@@ -124,7 +124,7 @@ const ServicesPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div>
-              <p className="text-xs font-black tracking-[0.5em] uppercase text-emerald-500 mb-6">The PRIMEHARBOR Protocol</p>
+              <p className="text-xs font-black tracking-[0.5em] uppercase text-emerald-500 mb-6">The PRIMEHARBOR Platform</p>
               <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter leading-tight">Fortified <span className="text-emerald-400">Digital Architecture</span></h2>
               <p className="text-slate-400 text-lg leading-relaxed mb-10">
                 Behind every service is a military-grade infrastructure designed to protect your assets
@@ -172,12 +172,12 @@ const ServicesPage: React.FC = () => {
             <div className="flex flex-col sm:flex-row justify-center gap-6 relative z-10">
               <Link href="/register">
                 <button className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-400 text-[#001c10] px-12 py-6 rounded-2xl text-xl font-black transition-all hover:scale-105 shadow-2xl">
-                  Deploy Account
+                  Open Account
                 </button>
               </Link>
               <Link href="/contact">
                 <button className="w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white px-12 py-6 rounded-2xl text-xl font-bold border border-white/20 transition-all backdrop-blur-md">
-                  Consult Architect
+                  Contact Support
                 </button>
               </Link>
             </div>

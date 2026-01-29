@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     const { txRef, tacCode } = await request.json()
 
     if (!txRef || !tacCode) {
-      return NextResponse.json({ message: "Transaction reference and TAC code are required" }, { status: 400 })
+      return NextResponse.json({ message: "Transaction reference and Authorization Code are required" }, { status: 400 })
     }
 
     await dbConnect()
@@ -26,24 +26,16 @@ export async function POST(request: NextRequest) {
     }
 
     if (transfer.txRegion !== "international") {
-      return NextResponse.json({ message: "TAC code is only required for international transfers" }, { status: 400 })
+      return NextResponse.json({ message: "Authorization Code is only required for international transfers" }, { status: 400 })
     }
 
     // Check if previous steps were completed
-    if (!transfer.verificationSteps?.cotVerified) {
-      return NextResponse.json({ message: "COT code must be verified first" }, { status: 400 })
-    }
-    if (!transfer.verificationSteps?.imfVerified) {
-      return NextResponse.json({ message: "IMF code must be verified before TAC code" }, { status: 400 })
-    }
-    if (!transfer.verificationSteps?.esiVerified) {
-      return NextResponse.json({ message: "ESI code must be verified before TAC code" }, { status: 400 })
-    }
-    if (!transfer.verificationSteps?.dcoVerified) {
-      return NextResponse.json({ message: "DCO code must be verified before TAC code" }, { status: 400 })
-    }
-    if (!transfer.verificationSteps?.taxVerified) {
-      return NextResponse.json({ message: "TAX code must be verified before TAC code" }, { status: 400 })
+    if (!transfer.verificationSteps?.cotVerified || 
+        !transfer.verificationSteps?.imfVerified || 
+        !transfer.verificationSteps?.esiVerified || 
+        !transfer.verificationSteps?.dcoVerified || 
+        !transfer.verificationSteps?.taxVerified) {
+      return NextResponse.json({ message: "All previous security codes must be verified first" }, { status: 400 })
     }
 
     // Get system TAC code
@@ -59,7 +51,7 @@ export async function POST(request: NextRequest) {
     const validTacCode = validCodes.tac || "3427"
 
     if (tacCode !== validTacCode) {
-      return NextResponse.json({ message: "Invalid TAC code" }, { status: 400 })
+      return NextResponse.json({ message: "Invalid Authorization Code" }, { status: 400 })
     }
 
     // Update verification steps
@@ -87,12 +79,12 @@ Ref: ${transfer.txRef}`,
     await completionNotification.save()
 
     return NextResponse.json({
-      message: "Transfer verification completed successfully. Your transfer is now pending admin approval.",
+      message: "Transfer verification complete. Status: Processing.",
       status: "completed",
       txRef: transfer.txRef,
     })
   } catch (error) {
-    console.error("TAC verification error:", error)
+    console.error("Verification error:", error)
     return NextResponse.json({ message: "Internal server error" }, { status: 500 })
   }
 }

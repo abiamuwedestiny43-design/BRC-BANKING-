@@ -11,7 +11,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
             <Link href="/" className="inline-block mb-4">
-              <Image src="/logo.png" alt="PrimeHarbor Bank" width={90} height={50} className="h-[72px] rounded-lg" />
+              <Image src="/logo.png" alt="HB Bank" width={90} height={50} className="h-[72px] rounded-lg" />
             </Link>
             <p className="text-gray-400 text-sm">
               Your trusted financial partner for over 50 years. Building stronger communities through innovative banking solutions.
@@ -46,7 +46,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center">
                 <Mail className="w-4 h-4 mr-2" />
-                support@primeharborbnk.online
+                support@hb-bank.online
               </div>
               <div className="flex items-start">
                 <MapPin className="w-4 h-4 mr-2 mt-0.5" />
@@ -56,7 +56,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="border-t border-gray-800 mt-12 pt-8 text-center text-sm text-gray-400">
-          <p>&copy; 2025 PrimeHarbor Bank. All rights reserved. Member FDIC. Equal Housing Lender.</p>
+          <p>&copy; 2025 HB Bank. All rights reserved. Member FDIC. Equal Housing Lender.</p>
         </div>
       </div>
     </footer>

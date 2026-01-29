@@ -35,6 +35,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
         bankAccount: user.bankAccount,
         bankNumber: user.bankNumber,
         usercode: user.usercode,
+        transferCodeRequired: user.transferCodeRequired,
       },
     })
   } catch (error) {

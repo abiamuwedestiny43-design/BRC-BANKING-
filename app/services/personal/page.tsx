@@ -16,7 +16,7 @@ export default function PersonalBankingPage() {
   const features = [
     {
       title: "Checking & Savings",
-      description: "High-velocity accounts with real-time settlement and automated rounding protocols.",
+      description: "High-velocity accounts with real-time processing and automated rounding tools.",
       icon: Wallet,
       image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=800&q=80",
       color: "text-emerald-500",
@@ -24,7 +24,7 @@ export default function PersonalBankingPage() {
     },
     {
       title: "Global Credit Line",
-      description: "Fast, paperless lending with transparent APR and cross-border liquidity options.",
+      description: "Fast, paperless lending with transparent APR and international spending power.",
       icon: CreditCard,
       image: "https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&q=80",
       color: "text-blue-500",
@@ -34,8 +34,8 @@ export default function PersonalBankingPage() {
 
   const metrics = [
     { title: "Smart Ecosystem", desc: "Category budgets and AI-driven spending analytics.", icon: Smartphone },
-    { title: "Security Matrix", desc: "Device binding and multi-factor authentication protocols.", icon: ShieldCheck },
-    { title: "Human Support", desc: "24/7 access to specialized financial engineers.", icon: Headset }
+    { title: "Security Matrix", desc: "Device binding and multi-factor authentication methods.", icon: ShieldCheck },
+    { title: "Human Support", desc: "24/7 access to specialized financial advisors.", icon: Headset }
   ]
 
   return (
@@ -57,7 +57,7 @@ export default function PersonalBankingPage() {
             className="space-y-4"
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-[0.3em] mb-4">
-              <ShieldCheck className="w-3 h-3" /> Retail Banking Protocol
+              <ShieldCheck className="w-3 h-3" /> Retail Banking
             </div>
             <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter lowercase">
               personal <span className="text-emerald-500 italic">banking</span>
@@ -74,10 +74,10 @@ export default function PersonalBankingPage() {
             className="flex flex-wrap justify-center gap-4 pt-8"
           >
             <Button size="lg" className="bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black px-10 h-16 rounded-2xl shadow-xl shadow-emerald-500/20 text-lg uppercase tracking-tight" asChild>
-              <Link href="/register">Initialize Account</Link>
+              <Link href="/register">Open Account</Link>
             </Button>
             <Button size="lg" variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10 text-white font-black px-10 h-16 rounded-2xl backdrop-blur-md text-lg uppercase tracking-tight" asChild>
-              <Link href="/about">Protocol Specs</Link>
+              <Link href="/about">Learn More</Link>
             </Button>
           </motion.div>
         </div>
@@ -117,7 +117,7 @@ export default function PersonalBankingPage() {
                 </div>
                 <div className="space-y-2">
                   <p className="text-4xl font-black text-emerald-500 tracking-tighter">Instant</p>
-                  <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Node Settlement</p>
+                  <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest">Processing</p>
                 </div>
               </div>
             </motion.div>
@@ -163,7 +163,7 @@ export default function PersonalBankingPage() {
                     <p className="text-slate-400 font-medium leading-relaxed max-w-sm">{feature.description}</p>
                   </div>
                   <Button variant="ghost" className="text-emerald-500 font-black p-0 h-auto hover:bg-transparent group-hover:translate-x-2 transition-transform">
-                    Deploy Protocol <ArrowRight className="ml-2 w-4 h-4" />
+                    Get Started <ArrowRight className="ml-2 w-4 h-4" />
                   </Button>
                 </div>
               </motion.div>
@@ -200,19 +200,19 @@ export default function PersonalBankingPage() {
         <div className="max-w-5xl mx-auto px-6 relative z-10 text-center space-y-12">
           <motion.div {...fadeInUp} className="space-y-4">
             <h2 className="text-5xl md:text-7xl font-black text-white tracking-tighter leading-none">
-              Ready to Upgrade your <span className="text-emerald-500 italic">Financial OS?</span>
+              Ready to Upgrade your <span className="text-emerald-500 italic">Financial Experience?</span>
             </h2>
             <p className="text-xl text-slate-400 font-medium max-w-2xl mx-auto">
-              Join thousands of users who have streamlined their economic existence through the PrimeHarbor protocol.
+              Join thousands of users who have streamlined their economic existence through the PrimeHarbor platform.
             </p>
           </motion.div>
 
           <motion.div {...fadeInUp} transition={{ delay: 0.2 }} className="flex justify-center flex-wrap gap-6">
             <Button size="lg" className="bg-white text-[#001c10] hover:bg-slate-200 font-black px-12 h-16 rounded-2xl shadow-2xl text-lg uppercase tracking-tight" asChild>
-              <Link href="/register">Create Identity</Link>
+              <Link href="/register">Create Account</Link>
             </Button>
             <Button size="lg" variant="ghost" className="text-emerald-500 font-black px-12 h-16 rounded-2xl border border-emerald-500/20 hover:bg-emerald-500/10 text-lg uppercase tracking-tight" asChild>
-              <Link href="/contact">Speak to Engineer</Link>
+              <Link href="/contact">Speak to Advisor</Link>
             </Button>
           </motion.div>
         </div>

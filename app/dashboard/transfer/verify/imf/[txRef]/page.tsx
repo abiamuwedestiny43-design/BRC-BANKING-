@@ -44,7 +44,7 @@ export default function IMFVerificationPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!imfCode.trim()) {
-      setError("Please enter the IMF clearance key")
+      setError("Please enter the International Transfer Code")
       return
     }
 
@@ -66,10 +66,10 @@ export default function IMFVerificationPage() {
           router.push(`/dashboard/transfer/verify/esi/${txRef}`)
         }, 1200)
       } else {
-        setError(data.message || "Invalid IMF clearance key")
+        setError(data.message || "Invalid International Transfer Code")
       }
     } catch (error) {
-      setError("Network error in protocol relay.")
+      setError("Network error in processing.")
     } finally {
       setIsLoading(false)
     }
@@ -97,12 +97,12 @@ export default function IMFVerificationPage() {
           <div className="space-y-1">
             <div className="flex items-center gap-2 text-emerald-500 font-black uppercase tracking-widest text-[10px] mb-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 w-fit mx-auto md:mx-0 rounded-full">
               <Banknote className="h-3 w-3" />
-              Protocol V2 Verification
+              Identity Verification
             </div>
             <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter lowercase">
-              Relay <span className="text-slate-500 italic">Authorization</span>
+              Processing <span className="text-slate-500 italic">Authorization</span>
             </h1>
-            <p className="text-slate-400 font-medium">Stage 02: IMF Clearance Protocol</p>
+            <p className="text-slate-400 font-medium">Stage 02: International Transfer Code</p>
           </div>
         </motion.div>
 
@@ -111,21 +111,21 @@ export default function IMFVerificationPage() {
           <motion.div {...fadeInUp} transition={{ delay: 0.1 }}>
             <Card className="border border-white/10 shadow-3xl bg-white/[0.03] backdrop-blur-xl rounded-[2.5rem] overflow-hidden group">
               <div className="p-8 border-b border-white/5 bg-emerald-500/5 cursor-default">
-                <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Egress Summary</p>
+                <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Transfer Summary</p>
               </div>
               <CardContent className="p-8 grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div className="space-y-1">
-                  <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Quantum Value</p>
+                  <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Amount</p>
                   <p className="text-2xl font-black text-white tracking-tighter">
                     {transferDetails.currency} {transferDetails.amount?.toLocaleString()}
                   </p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Target Entity</p>
+                  <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Beneficiary</p>
                   <p className="text-lg font-bold text-slate-300 lowercase truncate">{transferDetails.accountHolder}</p>
                 </div>
                 <div className="space-y-1">
-                  <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Gateway Node</p>
+                  <p className="text-[9px] font-black text-slate-600 uppercase tracking-widest">Beneficiary Bank</p>
                   <p className="text-lg font-bold text-slate-300 lowercase truncate">{transferDetails.bankName}</p>
                 </div>
               </CardContent>
@@ -144,9 +144,9 @@ export default function IMFVerificationPage() {
                   <div className="absolute inset-0 bg-emerald-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
                 </div>
                 <div className="space-y-2">
-                  <CardTitle className="text-3xl font-black text-white lowercase tracking-tighter">Monetary Fund <span className="text-slate-500 italic">Clearance</span></CardTitle>
+                  <CardTitle className="text-3xl font-black text-white lowercase tracking-tighter">International <span className="text-slate-500 italic">Code</span></CardTitle>
                   <CardDescription className="text-slate-500 font-medium max-w-sm mx-auto">
-                    Provide your International Monetary Fund (IMF) authorization key to synchronize the final relay stage.
+                    Provide your International Transfer Code to authorize the transfer.
                   </CardDescription>
                 </div>
               </div>
@@ -162,7 +162,7 @@ export default function IMFVerificationPage() {
                 )}
 
                 <div className="space-y-4 text-center">
-                  <Label htmlFor="imfCode" className="text-[10px] font-black text-slate-600 uppercase tracking-[0.3em]">Clearance Key Sequence</Label>
+                  <Label htmlFor="imfCode" className="text-[10px] font-black text-slate-600 uppercase tracking-[0.3em]">Enter Clearance Code</Label>
                   <Input
                     id="imfCode"
                     type="text"
@@ -173,7 +173,7 @@ export default function IMFVerificationPage() {
                     className="h-24 text-center text-4xl font-black tracking-[0.5em] bg-black/40 border-white/10 rounded-[2rem] shadow-inner focus:ring-emerald-500 placeholder:text-white/5 text-emerald-500 transition-all focus:border-emerald-500/50"
                   />
                   <p className="text-[9px] text-slate-700 font-black uppercase tracking-widest italic">
-                    IMF synchronization is required for multi-jurisdictional settlement.
+                    International Transfer Code is required for international transfers.
                   </p>
                 </div>
 
@@ -186,13 +186,13 @@ export default function IMFVerificationPage() {
                     {isLoading ? (
                       <Loader2 className="h-6 w-6 animate-spin" />
                     ) : isVerified ? (
-                      "Protocol Verified ✓"
+                      "Code Verified ✓"
                     ) : (
-                      "Authorize Clearance"
+                      "Verify Code"
                     )}
                   </Button>
                   <Button type="button" variant="ghost" className="h-16 px-8 rounded-2xl border border-white/10 bg-white/5 text-slate-500 font-bold uppercase tracking-widest text-[10px] hover:text-white transition-all" onClick={() => router.push("/dashboard")} disabled={isVerified}>
-                    Cancel Relay
+                    Cancel
                   </Button>
                 </div>
               </form>
@@ -205,9 +205,9 @@ export default function IMFVerificationPage() {
           <div className="absolute top-0 left-0 w-full h-px bg-white/5"></div>
           <div className="flex items-center justify-between px-2">
             {[
-              { label: "Injection", percent: "✓", active: false, done: true },
-              { label: "Relay", percent: "75%", active: true, done: false },
-              { label: "Settlement", percent: "100%", active: false, done: false },
+              { label: "Initiate", percent: "✓", active: false, done: true },
+              { label: "Processing", percent: "75%", active: true, done: false },
+              { label: "Complete", percent: "100%", active: false, done: false },
             ].map((step, idx) => (
               <div key={idx} className="flex flex-col items-center gap-3 group">
                 <div className={cn(

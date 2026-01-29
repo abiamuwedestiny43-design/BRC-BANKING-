@@ -56,10 +56,10 @@ const Header = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group">
             <div className="relative h-12 w-12 rounded-xl overflow-hidden shadow-2xl group-hover:scale-110 transition-transform">
-              <Image src="/logo.png" alt="PrimeHarbor Bank" fill className="object-cover" />
+              <Image src="/logo.png" alt="HB Bank" fill className="object-cover" />
             </div>
             <span className={cn("text-xl font-black tracking-tighter transition-colors", isScrolled ? "text-emerald-400" : "text-white")}>
-              PRIME<span className="text-emerald-500 italic">HARBOR</span>
+              HB<span className="text-emerald-500 italic"> BANK</span>
             </span>
           </Link>
 

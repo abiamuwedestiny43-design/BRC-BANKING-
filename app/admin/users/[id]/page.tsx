@@ -39,6 +39,8 @@ async function getUserDetails(id: string) {
     balance: user.bankBalance.get(user.bankInfo.system.currency) || 0,
     verified: user.bankAccount.verified,
     canTransfer: user.bankAccount.canTransfer,
+    canLocalTransfer: user.bankAccount.canLocalTransfer,
+    canInternationalTransfer: user.bankAccount.canInternationalTransfer,
     profileImage: user.profileImage,
     roles: user.roles,
     registerTime: user.registerTime,
@@ -246,6 +248,18 @@ async function UserDetailsContent({ userId }: { userId: string }) {
                   <span className="text-xs font-black text-white uppercase tracking-widest">Transfer Access</span>
                   <Badge className={user.canTransfer ? "bg-blue-500 text-white font-black" : "bg-slate-700 text-slate-400 font-black"}>
                     {user.canTransfer ? "ENABLED" : "RESTRICTED"}
+                  </Badge>
+                </div>
+                <div className="flex items-center justify-between p-4 rounded-2xl bg-black/20 border border-white/5">
+                  <span className="text-xs font-black text-white uppercase tracking-widest">Local Transfer</span>
+                  <Badge className={user.canLocalTransfer ? "bg-emerald-500 text-black font-black" : "bg-slate-700 text-slate-400 font-black"}>
+                    {user.canLocalTransfer ? "ALLOWED" : "LOCKED"}
+                  </Badge>
+                </div>
+                <div className="flex items-center justify-between p-4 rounded-2xl bg-black/20 border border-white/5">
+                  <span className="text-xs font-black text-white uppercase tracking-widest">Intl Transfer</span>
+                  <Badge className={user.canInternationalTransfer ? "bg-emerald-500 text-black font-black" : "bg-slate-700 text-slate-400 font-black"}>
+                    {user.canInternationalTransfer ? "ALLOWED" : "LOCKED"}
                   </Badge>
                 </div>
               </div>

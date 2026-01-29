@@ -79,7 +79,7 @@ const MortgagePage: React.FC = () => {
               {
                 title: 'Global Elite (Jumbo)',
                 description: 'Unmatched leverage for high-value properties and luxury estates.',
-                features: ['Up to $5M+ liquidity', 'Bespoke underwriting', 'Portfolio lending options'],
+                features: ['Up to $5M+ funding', 'Bespoke underwriting', 'Portfolio lending options'],
                 icon: Award,
                 color: 'text-blue-400',
                 bg: 'bg-blue-500/10'
@@ -192,10 +192,10 @@ const MortgagePage: React.FC = () => {
           <h2 className="text-4xl font-black text-center text-white mb-20">The Acquisition Cycle</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             {[
-              { step: '01', title: 'Audit Pre-Approval', desc: 'Real-time financial vetting using our secure protocols.', icon: Calculator },
-              { step: '02', title: 'Asset Identification', desc: 'Secure the property within your established capital range.', icon: Home },
+              { step: '01', title: 'Audit Pre-Approval', desc: 'Real-time financial review using our secure systems.', icon: Calculator },
+              { step: '02', title: 'Asset Identification', desc: 'Secure the property within your established budget.', icon: Home },
               { step: '03', title: 'Smart Negotiation', desc: 'Leveraging our institutional power to finalize terms.', icon: DollarSign },
-              { step: '04', title: 'Quantum Closing', desc: 'Rapid digital signature and immediate key deployment.', icon: Star }
+              { step: '04', title: 'Rapid Closing', desc: 'Digital signature and immediate access.', icon: Star }
             ].map((item, index) => (
               <div key={index} className="relative p-10 rounded-[3rem] bg-white/[0.02] border border-white/5 group hover:bg-white/[0.04] transition-all">
                 <div className="text-6xl font-black text-emerald-500/5 mb-8 group-hover:text-emerald-500/10 transition-colors">{item.step}</div>

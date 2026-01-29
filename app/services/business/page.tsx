@@ -74,7 +74,7 @@ export default function BusinessBankingPage() {
             className="flex flex-wrap justify-center gap-4 pt-8"
           >
             <Button size="lg" className="bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black px-10 h-16 rounded-2xl shadow-xl shadow-emerald-500/20 text-lg uppercase tracking-tight" asChild>
-              <Link href="/register">Launch Business Node</Link>
+              <Link href="/register">Launch Business Account</Link>
             </Button>
             <Button size="lg" variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10 text-white font-black px-10 h-16 rounded-2xl backdrop-blur-md text-lg uppercase tracking-tight" asChild>
               <Link href="/about">Platform Overview</Link>
@@ -127,7 +127,7 @@ export default function BusinessBankingPage() {
                 <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1200&q=80" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Business Growth" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#001c10] to-transparent opacity-60" />
                 <div className="absolute bottom-10 left-10">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500 text-[#001c10] text-[9px] font-black uppercase tracking-widest">Verified Infrastructure</div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500 text-[#001c10] text-[9px] font-black uppercase tracking-widest">Secure Platform</div>
                 </div>
               </div>
             </motion.div>
@@ -210,10 +210,10 @@ export default function BusinessBankingPage() {
 
           <motion.div {...fadeInUp} transition={{ delay: 0.2 }} className="flex justify-center flex-wrap gap-6">
             <Button size="lg" className="bg-emerald-500 text-[#001c10] hover:bg-emerald-400 font-black px-12 h-16 rounded-2xl shadow-xl shadow-emerald-500/20 text-lg uppercase tracking-tight" asChild>
-              <Link href="/register">Start Initialization</Link>
+              <Link href="/register">Get Started</Link>
             </Button>
             <Button size="lg" variant="outline" className="text-white border-white/10 bg-white/5 hover:bg-white/10 font-black px-12 h-16 rounded-2xl text-lg uppercase tracking-tight" asChild>
-              <Link href="/contact">Schedule Protocol Demo</Link>
+              <Link href="/contact">Schedule Demo</Link>
             </Button>
           </motion.div>
         </div>

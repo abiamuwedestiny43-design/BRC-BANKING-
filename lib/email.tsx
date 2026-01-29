@@ -31,7 +31,8 @@ export async function sendEmail({ to, subject, html, from }: EmailOptions) {
     return { success: true, messageId: info.messageId }
   } catch (error) {
     console.error("Error sending email:", error)
-    return { success: false, error: error.message }
+    const errorMessage = error instanceof Error ? error.message : "Unknown error occurred"
+    return { success: false, error: errorMessage }
   }
 }
 
@@ -68,7 +69,7 @@ const brandStyles = `
 
 export const emailTemplates = {
   welcome: (name: string, accountNumber: string) => ({
-    subject: "Welcome to PrimeHarbor Bank - Identity Initialized",
+    subject: "Welcome to PrimeHarbor Bank - Account Initialized",
     html: `
       <!DOCTYPE html>
       <html>
@@ -83,9 +84,9 @@ export const emailTemplates = {
               <div class="logo">prime<span>harbor</span></div>
             </div>
             <div class="content">
-              <div class="badge badge-success">Protocol Initialized</div>
-              <h1>Welcome to the Ecosystem</h1>
-              <p>Hello ${name}, your global banking identity has been established. You now have access to our secure liquidity network.</p>
+              <div class="badge badge-success">Account Setup</div>
+              <h1>Welcome to the Family</h1>
+              <p>Hello ${name}, your global banking identity has been established. You now have access to our secure banking network.</p>
               
               <div class="info-box">
                 <div class="info-label">Account Identification</div>
@@ -98,20 +99,20 @@ export const emailTemplates = {
                   </div>
                   <div style="text-align: right;">
                     <div class="info-label">Network</div>
-                    <div class="info-value">Mainnet v4.0</div>
+                    <div class="info-value">Global Banking Network</div>
                   </div>
                 </div>
               </div>
               
-              <p>To finalize your node synchronization and enable global transfers, please complete your identity verification in the dashboard.</p>
+              <p>To finalize your profile update and enable global transfers, please complete your identity verification in the dashboard.</p>
               
               <div style="text-align: center; margin: 40px 0;">
-                <a href="${process.env.NEXT_PUBLIC_APP_URL}/dashboard" class="button">Access Terminal</a>
+                <a href="${process.env.NEXT_PUBLIC_APP_URL}/dashboard" class="button">Access Dashboard</a>
               </div>
             </div>
             <div class="footer">
-              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
-              <p>Secure Transmission Protocol ID: ${Math.random().toString(36).substring(7).toUpperCase()}</p>
+              <p>&copy; 2026 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
+              <p>Secure Transaction ID: ${Math.random().toString(36).substring(7).toUpperCase()}</p>
             </div>
           </div>
         </body>
@@ -136,8 +137,8 @@ export const emailTemplates = {
             </div>
             <div class="content">
               <div class="badge badge-danger">High Priority Authorization</div>
-              <h1>Authorize Transmission</h1>
-              <p>Verification protocol required for an outgoing liquidity transfer of ${amount.toLocaleString()} ${currency}.</p>
+              <h1>Authorize Transfer</h1>
+              <p>Verification process required for an outgoing funds transfer of ${amount.toLocaleString()} ${currency}.</p>
               
               <div class="otp-code">${otp}</div>
               
@@ -145,17 +146,17 @@ export const emailTemplates = {
                 <div class="info-label">Target Recipient</div>
                 <div class="info-value">${recipient}</div>
                 <div class="divider"></div>
-                <div class="info-label">Destination Node</div>
+                <div class="info-label">Destination Bank</div>
                 <div class="info-value">${bankName}</div>
                 <div class="divider"></div>
                 <div class="info-label">Timestamp</div>
                 <div class="info-value">${new Date().toLocaleString()}</div>
               </div>
               
-              <p style="font-size: 12px; color: #64748b;">Security Notice: If you did not initiate this transmission, immediately disable your node and contact core security.</p>
+              <p style="font-size: 12px; color: #64748b;">Security Notice: If you did not initiate this transfer, immediately disable your account and contact support.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2026 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -173,7 +174,7 @@ export const emailTemplates = {
     balance: number,
     txRef: string,
   ) => ({
-    subject: `Network Alert: ${type === "credit" ? "Ingress" : "Egress"} Observed`,
+    subject: `Bank Alert: ${type === "credit" ? "Credit" : "Debit"} Transaction`,
     html: `
       <!DOCTYPE html>
       <html>
@@ -189,10 +190,10 @@ export const emailTemplates = {
             </div>
             <div class="content">
               <div class="badge ${type === "credit" ? "badge-success" : "badge-danger"}">
-                ${type === "credit" ? "Node Ingress" : "Node Egress"} Verified
+                ${type === "credit" ? "Credit" : "Debit"} Verified
               </div>
               <h1>Transaction ${type === "credit" ? "Received" : "Sent"}</h1>
-              <p>A fiscal state change has been recorded on your primary account.</p>
+              <p>A balance update has been recorded on your primary account.</p>
               
               <div class="amount" style="color: ${type === "credit" ? "#10b981" : "#ffffff"}">
                 ${type === "credit" ? "+" : "-"}${amount.toLocaleString()} ${currency}
@@ -211,14 +212,14 @@ export const emailTemplates = {
                 </div>
                 <div class="divider"></div>
                 <div class="info-label">Description</div>
-                <div class="info-value">${description || "System initiated protocol"}</div>
+                <div class="info-value">${description || "System initiated transaction"}</div>
                 <div class="divider"></div>
-                <div class="info-label">New Account Flux</div>
+                <div class="info-label">New Account Balance</div>
                 <div class="info-value" style="color: #ffffff;">${balance.toLocaleString()} ${currency}</div>
               </div>
             </div>
             <div class="footer">
-              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2026 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -227,7 +228,7 @@ export const emailTemplates = {
   }),
 
   accountVerification: (name: string, accountNumber: string) => ({
-    subject: "Core Protocol: Identity Fully Verified",
+    subject: "Core System: Account Fully Verified",
     html: `
       <!DOCTYPE html>
       <html>
@@ -243,8 +244,8 @@ export const emailTemplates = {
             </div>
             <div class="content">
               <div class="badge badge-success">Verification Complete</div>
-              <h1>Clearance Granted</h1>
-              <p>Hello ${name}, your identity parameters have been verified. Full network permissions are now active.</p>
+              <h1>Access Granted</h1>
+              <p>Hello ${name}, your account details have been verified. Full banking permissions are now active.</p>
               
               <div class="info-box">
                 <div class="info-label">Permission Level</div>
@@ -255,11 +256,11 @@ export const emailTemplates = {
               </div>
               
               <div style="text-align: center; margin: 40px 0;">
-                <a href="${process.env.NEXT_PUBLIC_APP_URL}/dashboard" class="button">Access Mainnet</a>
+                <a href="${process.env.NEXT_PUBLIC_APP_URL}/dashboard" class="button">Access Dashboard</a>
               </div>
             </div>
             <div class="footer">
-              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2026 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -268,7 +269,7 @@ export const emailTemplates = {
   }),
 
   passwordReset: (name: string, resetUrl: string) => ({
-    subject: "Security: Recovery Protocol Initiated",
+    subject: "Security: Recovery Process Initiated",
     html: `
       <!DOCTYPE html>
       <html>
@@ -284,17 +285,17 @@ export const emailTemplates = {
             </div>
             <div class="content">
               <div class="badge badge-danger">Security Recovery</div>
-              <h1>Reset Credentials</h1>
-              <p>A credential reset protocol was requested for your identity node.</p>
+              <h1>Reset Password</h1>
+              <p>A password reset was requested for your account.</p>
               
               <div style="text-align: center; margin: 40px 0;">
-                <a href="${resetUrl}" class="button">Re-authenticate</a>
+                <a href="${resetUrl}" class="button">Reset Password</a>
               </div>
               
               <p style="font-size: 12px; color: #64748b;">This link will expire in 60 minutes. If you did not request this, please ignore this transmission.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2026 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -303,7 +304,7 @@ export const emailTemplates = {
   }),
 
   profileUpdated: (name: string) => ({
-    subject: "System Alert: Identity Node Updated",
+    subject: "System Alert: User Profile Updated",
     html: `
       <!DOCTYPE html>
       <html>
@@ -318,20 +319,20 @@ export const emailTemplates = {
               <div class="logo">prime<span>harbor</span></div>
             </div>
             <div class="content">
-              <div class="badge badge-success">Meta-data Update</div>
-              <h1>Node Synchronization</h1>
-              <p>Hello ${name}, your core identity parameters have been synchronized across all network clusters.</p>
+              <div class="badge badge-success">Profile Update</div>
+              <h1>Profile Synchronization</h1>
+              <p>Hello ${name}, your core account details have been synchronized across our systems.</p>
               
               <div class="info-box">
                 <div class="info-label">Last Activity</div>
-                <div class="info-value">Profile Metadata Updated</div>
+                <div class="info-value">Profile Info Updated</div>
                 <div class="divider"></div>
                 <div class="info-label">Status</div>
-                <div class="info-value">Fully Synchronized</div>
+                <div class="info-value">Fully Synced</div>
               </div>
             </div>
             <div class="footer">
-              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2026 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -340,7 +341,7 @@ export const emailTemplates = {
   }),
 
   passwordChanged: (name: string) => ({
-    subject: "Critical: Credential Change Confirmed",
+    subject: "Critical: Password Change Confirmed",
     html: `
       <!DOCTYPE html>
       <html>
@@ -356,8 +357,8 @@ export const emailTemplates = {
             </div>
             <div class="content">
               <div class="badge badge-danger">Security Synchronized</div>
-              <h1>Credentials Updated</h1>
-              <p>Your authentication key for PRIMEHARBOR BANK has been successfully changed.</p>
+              <h1>Password Updated</h1>
+              <p>Your password for PRIMEHARBOR BANK has been successfully changed.</p>
               
               <div class="info-box">
                 <div class="info-label">Change Status</div>
@@ -370,7 +371,7 @@ export const emailTemplates = {
               <p style="font-size: 12px; color: #64748b;">If you did not authorize this change, immediately terminate all active sessions and contact security.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2026 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -384,7 +385,7 @@ export const emailTemplates = {
     amount: number,
     currency: string
   ) => ({
-    subject: "Protocol Alert: Credit Application Received",
+    subject: "System Alert: Credit Application Received",
     html: `
       <!DOCTYPE html>
       <html>
@@ -400,24 +401,24 @@ export const emailTemplates = {
             </div>
             <div class="content">
               <div class="badge badge-success">Application Logged</div>
-              <h1>Liquidity Provisioning Request</h1>
-              <p>Hello ${name}, your application for a ${loanType} credit facility has been received and added to the processing queue.</p>
+              <h1>Loan Application Request</h1>
+              <p>Hello ${name}, your application for a ${loanType} loan has been received and added to the processing queue.</p>
               
               <div class="info-box">
-                <div class="info-label">Facility Type</div>
-                <div class="info-value">${loanType.toUpperCase()} RESOURCE</div>
+                <div class="info-label">Loan Type</div>
+                <div class="info-value">${loanType.toUpperCase()} LOAN</div>
                 <div class="divider"></div>
-                <div class="info-label">Requested Flux</div>
+                <div class="info-label">Requested Amount</div>
                 <div class="info-value">${amount.toLocaleString()} ${currency}</div>
                 <div class="divider"></div>
                 <div class="info-label">Status</div>
-                <div class="info-value">Under Vetting</div>
+                <div class="info-value">Under Review</div>
               </div>
               
-              <p>The evaluation protocol typically completes within 72-96 hours. You will receive a synchronization alert once the decision is finalized.</p>
+              <p>The review process typically completes within 72-96 hours. You will receive an alert once the decision is finalized.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2026 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -433,7 +434,7 @@ export const emailTemplates = {
     status: string,
     reason?: string
   ) => ({
-    subject: `Protocol Update: Credit Facility ${status.toUpperCase()}`,
+    subject: `System Update: Loan Application ${status.toUpperCase()}`,
     html: `
       <!DOCTYPE html>
       <html>
@@ -451,12 +452,12 @@ export const emailTemplates = {
               <div class="badge ${status === 'approved' ? 'badge-success' : 'badge-danger'}">
                 Decision Finalized: ${status.toUpperCase()}
               </div>
-              <h1>Facility Synchronization</h1>
-              <p>Hello ${name}, the vetting protocol for your ${loanType} credit request has concluded.</p>
+              <h1>Loan Update</h1>
+              <p>Hello ${name}, the review for your ${loanType} loan request has concluded.</p>
               
               <div class="info-box">
-                <div class="info-label">Resource ID</div>
-                <div class="info-value">${loanType.toUpperCase()} PROVISION</div>
+                <div class="info-label">Loan ID</div>
+                <div class="info-value">${loanType.toUpperCase()} LOAN</div>
                 <div class="divider"></div>
                 <div class="info-label">Amount</div>
                 <div class="info-value">${amount.toLocaleString()} ${currency}</div>
@@ -467,11 +468,11 @@ export const emailTemplates = {
               </div>
               
               ${status === 'approved'
-        ? `<p>The liquidity will be injected into your primary node shortly. You can track repayment protocols in your dashboard.</p>`
-        : `<p>If you require clarification on this protocol decision, contact core support.</p>`}
+        ? `<p>The funds will be deposited into your primary account shortly. You can track repayment plans in your dashboard.</p>`
+        : `<p>If you require clarification on this decision, contact support.</p>`}
             </div>
             <div class="footer">
-              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2026 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -480,7 +481,7 @@ export const emailTemplates = {
   }),
 
   cardApplication: (name: string, cardType: string, vendor: string) => ({
-    subject: "System Alert: Asset Retrieval Protocol Initiated",
+    subject: "System Alert: Card Application Process Initiated",
     html: `
       <!DOCTYPE html>
       <html>
@@ -495,25 +496,25 @@ export const emailTemplates = {
               <div class="logo">prime<span>harbor</span></div>
             </div>
             <div class="content">
-              <div class="badge badge-success">Asset Requested</div>
-              <h1>Hardware Interface Request</h1>
-              <p>Hello ${name}, your request for a ${vendor} ${cardType} physical interface has been logged.</p>
+              <div class="badge badge-success">Card Requested</div>
+              <h1>Card Application Request</h1>
+              <p>Hello ${name}, your request for a ${vendor} ${cardType} card has been logged.</p>
               
               <div class="info-box">
-                <div class="info-label">Asset Type</div>
-                <div class="info-value">${cardType.toUpperCase()} INTERFACE</div>
+                <div class="info-label">Card Type</div>
+                <div class="info-value">${cardType.toUpperCase()} CARD</div>
                 <div class="divider"></div>
-                <div class="info-label">Network Provider</div>
+                <div class="info-label">Provider</div>
                 <div class="info-value">${vendor.toUpperCase()}</div>
                 <div class="divider"></div>
                 <div class="info-label">Status</div>
-                <div class="info-value">Identity Vetting</div>
+                <div class="info-value">Processing</div>
               </div>
               
-              <p>Once approved, your physical asset will be dispatched via secure transport. Virtual credentials will be active immediately upon approval.</p>
+              <p>Once approved, your physical card will be dispatched via secure mail. Virtual credentials will be active immediately upon approval.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2026 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -528,7 +529,7 @@ export const emailTemplates = {
     status: string,
     cardNumber?: string
   ) => ({
-    subject: `System Alert: Asset Protocol ${status.toUpperCase()}`,
+    subject: `System Alert: Card Status ${status.toUpperCase()}`,
     html: `
       <!DOCTYPE html>
       <html>
@@ -544,13 +545,13 @@ export const emailTemplates = {
             </div>
             <div class="content">
               <div class="badge ${status === 'active' ? 'badge-success' : 'badge-danger'}">
-                Protocol State: ${status.toUpperCase()}
+                Card State: ${status.toUpperCase()}
               </div>
-              <h1>Asset Activation</h1>
-              <p>Hello ${name}, the status of your ${vendor} ${cardType} interface has been updated.</p>
+              <h1>Card Activation</h1>
+              <p>Hello ${name}, the status of your ${vendor} ${cardType} card has been updated.</p>
               
               <div class="info-box">
-                <div class="info-label">Asset Specification</div>
+                <div class="info-label">Card Specification</div>
                 <div class="info-value">${cardType.toUpperCase()} - ${vendor.toUpperCase()}</div>
                 <div class="divider"></div>
                 ${status === 'active' && cardNumber
@@ -558,22 +559,22 @@ export const emailTemplates = {
                     <div class="info-label">Virtual Credentials</div>
                     <div class="info-value" style="letter-spacing: 2px; font-family: monospace;">${cardNumber.replace(/(.{4})/g, '$1 ')}</div>
                     <div class="divider"></div>
-                    <div class="info-label">Physical Logistics</div>
-                    <div class="info-value">Dispatching via Secure Node</div>
+                    <div class="info-label">Logistics</div>
+                    <div class="info-value">Dispatching via Secure Mail</div>
                     `
         : `
                     <div class="info-label">Final Decision</div>
-                    <div class="info-value">Provisioning Terminated</div>
+                    <div class="info-value">Application Declined</div>
                     `
       }
               </div>
               
               ${status === 'active'
-        ? `<p>Virtual liquidity is now active for this asset. Secure transport for the physical interface will arrive within 7-10 cycles.</p>`
-        : `<p>Identity or credit vetting parameters were not met for this specific asset request.</p>`}
+        ? `<p>Virtual usage is now active for this card. Your physical card will arrive within 7-10 days.</p>`
+        : `<p>Identity or credit requirements were not met for this specific card request.</p>`}
             </div>
             <div class="footer">
-              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2026 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -598,23 +599,23 @@ export const emailTemplates = {
             </div>
             <div class="content">
               <div class="badge badge-success">Manual Clearance</div>
-              <h1>Identity Absolute</h1>
-              <p>Hello ${name}, your identity node has been manually verified by a senior administrator.</p>
+              <h1>Verification Complete</h1>
+              <p>Hello ${name}, your account has been manually verified by a senior administrator.</p>
               
               <div class="info-box">
                 <div class="info-label">Authorized By</div>
                 <div class="info-value">${adminEmail}</div>
                 ${notes ? `
                   <div class="divider"></div>
-                  <div class="info-label">Admin Annotations</div>
+                  <div class="info-label">Admin Notes</div>
                   <div class="info-value">${notes}</div>
                 ` : ''}
               </div>
               
-              <p>Total network access is now synchronized. All restrictions have been purged.</p>
+              <p>Total account access is now enabled. All restrictions have been removed.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2026 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>
@@ -639,7 +640,7 @@ export const emailTemplates = {
             </div>
             <div class="content">
               <div class="badge badge-success">Elevated Access</div>
-              <h1>System Permissions Updated</h1>
+              <h1>Permissions Updated</h1>
               <p>Hello ${name}, your request for elevated network privileges has been authorized.</p>
               
               <div class="info-box">
@@ -650,10 +651,10 @@ export const emailTemplates = {
                 <div class="info-value">${adminEmail}</div>
               </div>
               
-              <p>New terminal capabilities should be visible upon your next synchronization session.</p>
+              <p>New dashboard capabilities should be visible upon your next login session.</p>
             </div>
             <div class="footer">
-              <p>&copy; 2024 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
+              <p>&copy; 2026 PRIMEHARBOR BANKING SYSTEMS. All rights reserved.</p>
             </div>
           </div>
         </body>

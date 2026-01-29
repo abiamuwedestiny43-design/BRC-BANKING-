@@ -19,6 +19,12 @@ export default function BeneficiariesPage() {
   const { toast } = useToast()
   const { data, mutate, isLoading } = useSWR("/api/user/beneficiaries", fetcher)
   const beneficiaries = data?.beneficiaries || []
+  const { data: profileData } = useSWR("/api/user/profile", fetcher)
+  const userLocalEnabled = profileData?.user?.bankAccount?.canLocalTransfer ?? false
+  const userIntlEnabled = profileData?.user?.bankAccount?.canInternationalTransfer ?? false
+  const { data: localFlagData } = useSWR("/api/system/local-transfer-enabled", fetcher)
+  const systemLocalEnabled = localFlagData?.enabled ?? true
+  const localPermission = userLocalEnabled && systemLocalEnabled
 
   const [bankRegion, setBankRegion] = useState<"local" | "international">("local")
   const [bankName, setBankName] = useState("")
@@ -119,6 +125,8 @@ export default function BeneficiariesPage() {
                   </motion.div>
                 )}
 
+
+
                 <div className="grid grid-cols-1 gap-6">
                   <div className="space-y-2">
                     <Label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">Operational Region</Label>
@@ -127,8 +135,8 @@ export default function BeneficiariesPage() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent className="bg-[#001c10] border-white/10 text-white rounded-2xl">
-                        <SelectItem value="local" className="focus:bg-emerald-500 focus:text-[#001c10]">Local Network</SelectItem>
-                        <SelectItem value="international" className="focus:bg-emerald-500 focus:text-[#001c10]">Cross-Border Relay</SelectItem>
+                        <SelectItem value="local" className="focus:bg-emerald-500 focus:text-[#001c10] disabled:opacity-30">Local Network</SelectItem>
+                        <SelectItem value="international" className="focus:bg-emerald-500 focus:text-[#001c10] disabled:opacity-30">Cross-Border Relay</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -195,7 +203,7 @@ export default function BeneficiariesPage() {
                 <Button
                   onClick={addBeneficiary}
                   disabled={saving}
-                  className="w-full bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black h-16 rounded-2xl shadow-xl shadow-emerald-500/20 uppercase tracking-tighter text-lg transition-all hover:-translate-y-1 active:scale-95"
+                  className="w-full bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black h-16 rounded-2xl shadow-xl shadow-emerald-500/20 uppercase tracking-tighter text-lg transition-all hover:-translate-y-1 active:scale-95 disabled:opacity-50"
                 >
                   {saving ? "Saving..." : "Add Beneficiary"}
                 </Button>

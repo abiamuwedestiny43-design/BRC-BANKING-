@@ -76,8 +76,8 @@ export default function AdminEditUserPage() {
           otpEmail: !!u.bankOtp?.email,
           otpTransferCode: !!u.bankOtp?.transferCode,
           roles: Array.isArray(u.roles) ? u.roles : [],
-          canLocalTransfer: u.canLocalTransfer || false,
-          canInternationalTransfer: u.canInternationalTransfer || false,
+          canLocalTransfer: u.bankAccount?.canLocalTransfer || false,
+          canInternationalTransfer: u.bankAccount?.canInternationalTransfer || false,
           transferCodeRequired: u.transferCodeRequired !== false,
         })
         setRolesInput((Array.isArray(u.roles) ? u.roles : []).join(","))
@@ -376,9 +376,8 @@ export default function AdminEditUserPage() {
                     <Select
                       value={form.canLocalTransfer ? "true" : "false"}
                       onValueChange={(v) => onChange("canLocalTransfer", v === "true")}
-                      disabled={!Array.isArray(form.roles) || !form.roles.includes("super-admin")}
                     >
-                      <SelectTrigger className="bg-white/5 border-white/10 rounded-2xl h-12 text-white disabled:opacity-30">
+                      <SelectTrigger className="bg-white/5 border-white/10 rounded-2xl h-12 text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent className="bg-[#001c10] border-white/10 text-white">
@@ -392,9 +391,8 @@ export default function AdminEditUserPage() {
                     <Select
                       value={form.canInternationalTransfer ? "true" : "false"}
                       onValueChange={(v) => onChange("canInternationalTransfer", v === "true")}
-                      disabled={!Array.isArray(form.roles) || !form.roles.includes("super-admin")}
                     >
-                      <SelectTrigger className="bg-white/5 border-white/10 rounded-2xl h-12 text-white disabled:opacity-30">
+                      <SelectTrigger className="bg-white/5 border-white/10 rounded-2xl h-12 text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent className="bg-[#001c10] border-white/10 text-white">
@@ -404,7 +402,7 @@ export default function AdminEditUserPage() {
                     </Select>
                   </div>
                   <p className="text-[9px] font-black text-blue-500/50 uppercase tracking-widest pt-2 flex items-center gap-2 italic">
-                    <ShieldAlert className="w-3 h-3" /> Requires Super-Admin Clearance
+                    <ShieldCheck className="w-3 h-3" /> Managed by Administrator
                   </p>
                 </div>
               </div>

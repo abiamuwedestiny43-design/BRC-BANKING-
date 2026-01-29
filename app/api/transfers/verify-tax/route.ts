@@ -13,17 +13,17 @@ export async function POST(request: NextRequest) {
 
     const { txRef, taxCode } = await request.json()
     if (!txRef || !taxCode) {
-      return NextResponse.json({ message: "Transaction reference and TAX code are required" }, { status: 400 })
+      return NextResponse.json({ message: "Transfer reference and Tax Code are required" }, { status: 400 })
     }
 
     await dbConnect()
     const transfer = await Transfer.findOne({ txRef, userId: user._id.toString() })
     if (!transfer) return NextResponse.json({ message: "Transfer not found" }, { status: 404 })
     if (transfer.txRegion !== "international") {
-      return NextResponse.json({ message: "TAX code is only required for international transfers" }, { status: 400 })
+      return NextResponse.json({ message: "Tax Code is only required for international transfers" }, { status: 400 })
     }
     if (!transfer.verificationSteps?.dcoVerified) {
-      return NextResponse.json({ message: "DCO must be verified before TAX" }, { status: 400 })
+      return NextResponse.json({ message: "Previous verification step must be complete" }, { status: 400 })
     }
 
     const systemCodes = await SystemOption.findOne({ key: "bank:transfer.codes" })
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
     const validTaxCode = validCodes.tax || "4412"
 
     if (taxCode !== validTaxCode) {
-      return NextResponse.json({ message: "Invalid TAX code" }, { status: 400 })
+      return NextResponse.json({ message: "Invalid Tax Code" }, { status: 400 })
     }
 
     if (!transfer.verificationSteps) transfer.verificationSteps = {}
@@ -48,9 +48,9 @@ export async function POST(request: NextRequest) {
     transfer.markModified("verificationSteps")
     await transfer.save()
 
-    return NextResponse.json({ message: "TAX code verified successfully", nextStep: "tac", txRef: transfer.txRef })
+    return NextResponse.json({ message: "Tax Code verified", nextStep: "tac", txRef: transfer.txRef })
   } catch (error) {
-    console.error("TAX verification error:", error)
+    console.error("Verification error:", error)
     return NextResponse.json({ message: "Internal server error" }, { status: 500 })
   }
 }

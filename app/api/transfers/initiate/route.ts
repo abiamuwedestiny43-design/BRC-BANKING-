@@ -34,36 +34,36 @@ export async function POST(request: NextRequest) {
     if (!currentUser) return NextResponse.json({ message: "Unauthorized" }, { status: 401 })
     await dbConnect()
 
-    // Check global flag first
-    const globalOpt = await SystemOption.findOne({ key: "bank:transfer.global.enabled" }).lean()
-    const globalEnabled = typeof globalOpt?.value === "boolean" ? (globalOpt.value as boolean) : true
-    if (!globalEnabled) {
-      logAuditEvent({
-        userId: currentUser._id.toString(),
-        action: "transfer_attempt_blocked",
-        details: { reason: "global_transfers_disabled", ip },
-        ipAddress: ip,
-        userAgent: request.headers.get("user-agent") || "unknown",
-        success: false,
-      })
-      return NextResponse.json({ message: "Transfers are currently disabled by the administrator." }, { status: 403 })
-    }
+    // Check global flag first - Disabled by request to rely only on user permissions
+    // const globalOpt = await SystemOption.findOne({ key: "bank:transfer.global.enabled" }).lean()
+    // const globalEnabled = typeof globalOpt?.value === "boolean" ? (globalOpt.value as boolean) : true
+    // if (!globalEnabled) {
+    //   logAuditEvent({
+    //     userId: currentUser._id.toString(),
+    //     action: "transfer_attempt_blocked",
+    //     details: { reason: "global_transfers_disabled", ip },
+    //     ipAddress: ip,
+    //     userAgent: request.headers.get("user-agent") || "unknown",
+    //     success: false,
+    //   })
+    //   return NextResponse.json({ message: "Transfers are currently disabled by the administrator." }, { status: 403 })
+    // }
 
     // Fetch full Mongoose user document
     const user = await User.findById(currentUser._id)
     if (!user) return NextResponse.json({ message: "User not found" }, { status: 404 })
 
-    if (!canTransfer(user)) {
-      logAuditEvent({
-        userId: user._id.toString(),
-        action: "transfer_attempt_blocked",
-        details: { reason: "account_not_verified", ip },
-        ipAddress: ip,
-        userAgent: request.headers.get("user-agent") || "unknown",
-        success: false,
-      })
-      return NextResponse.json({ message: "Account not verified or transfers disabled" }, { status: 403 })
-    }
+    // if (!canTransfer(user)) {
+    //   logAuditEvent({
+    //     userId: user._id.toString(),
+    //     action: "transfer_attempt_blocked",
+    //     details: { reason: "account_not_verified", ip },
+    //     ipAddress: ip,
+    //     userAgent: request.headers.get("user-agent") || "unknown",
+    //     success: false,
+    //   })
+    //   return NextResponse.json({ message: "Account not verified or transfers disabled" }, { status: 403 })
+    // }
 
     const {
       transferType,
@@ -77,23 +77,50 @@ export async function POST(request: NextRequest) {
       routingCode,
     } = await request.json()
 
-    // Block local transfer initiation if admin has disabled it
+    // Transfer Type Permissions Check
     if (transferType === "local") {
-      const opt = await SystemOption.findOne({ key: "bank:transfer.local.enabled" }).lean()
-      const localEnabled = typeof opt?.value === "boolean" ? (opt.value as boolean) : true
-      if (!localEnabled) {
+      // Check user-specific local transfer permission
+      if (!user.bankAccount.canLocalTransfer) {
         logAuditEvent({
           userId: user._id.toString(),
           action: "transfer_attempt_blocked",
-          details: { reason: "local_transfers_disabled", ip },
+          details: { reason: "user_local_transfers_disabled", ip },
           ipAddress: ip,
           userAgent: request.headers.get("user-agent") || "unknown",
           success: false,
         })
-        return NextResponse.json(
-          { message: "Local transfers are currently disabled by the administrator." },
-          { status: 403 },
-        )
+        return NextResponse.json({ message: "Local transfers are not permitted for your account. Please contact support." }, { status: 403 })
+      }
+
+      // Check global system flag - Disabled by request
+      // const opt = await SystemOption.findOne({ key: "bank:transfer.local.enabled" }).lean()
+      // const localEnabled = typeof opt?.value === "boolean" ? (opt.value as boolean) : true
+      // if (!localEnabled) {
+      //   logAuditEvent({
+      //     userId: user._id.toString(),
+      //     action: "transfer_attempt_blocked",
+      //     details: { reason: "global_local_transfers_disabled", ip },
+      //     ipAddress: ip,
+      //     userAgent: request.headers.get("user-agent") || "unknown",
+      //     success: false,
+      //   })
+      //   return NextResponse.json(
+      //     { message: "Local transfers are currently disabled by the administrator." },
+      //     { status: 403 },
+      //   )
+      // }
+    } else if (transferType === "international") {
+      // Check user-specific international transfer permission
+      if (!user.bankAccount.canInternationalTransfer) {
+        logAuditEvent({
+          userId: user._id.toString(),
+          action: "transfer_attempt_blocked",
+          details: { reason: "user_intl_transfers_disabled", ip },
+          ipAddress: ip,
+          userAgent: request.headers.get("user-agent") || "unknown",
+          success: false,
+        })
+        return NextResponse.json({ message: "International transfers are not permitted for your account. Please contact support." }, { status: 403 })
       }
     }
 

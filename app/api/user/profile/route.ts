@@ -21,6 +21,7 @@ export async function GET(request: NextRequest) {
         id: user._id.toString(),
         email: user.email,
         bankInfo: user.bankInfo,
+        bankAccount: user.bankAccount,
         currency: user.bankInfo?.system?.currency || "USD",
       },
     })

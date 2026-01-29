@@ -67,7 +67,7 @@ export default function UserActions({ userId }: UserActionsProps) {
           type: txType,
           amount: Number(txAmount),
           currency: txCurrency,
-          description: txDesc || `System ${txType === 'credit' ? 'Injection' : 'Extraction'}`,
+          description: txDesc || `System ${txType === 'credit' ? 'Credit' : 'Debit'}`,
         }),
       })
       if (res.ok) {
@@ -82,7 +82,7 @@ export default function UserActions({ userId }: UserActionsProps) {
         alert(j?.message || "Protocol transmission failed.")
       }
     } catch (err) {
-      console.error("[PRIMEHARBOR] admin tx error:", err)
+      console.error("[HB BANK] admin tx error:", err)
       alert("System fault detected during migration.")
     } finally {
       setIsLoading(false)
@@ -187,7 +187,7 @@ export default function UserActions({ userId }: UserActionsProps) {
                 className="w-full flex items-center gap-3 rounded-xl px-4 py-3 text-white hover:bg-emerald-500/10 transition-colors group text-left"
               >
                 <ArrowUpRight className="h-4 w-4 text-emerald-400 group-hover:scale-110 transition-transform" />
-                <span className="text-[10px] font-black uppercase tracking-widest">Inject Liquidity</span>
+                <span className="text-[10px] font-black uppercase tracking-widest">Credit Assets</span>
               </button>
 
               <button
@@ -195,7 +195,7 @@ export default function UserActions({ userId }: UserActionsProps) {
                 className="w-full flex items-center gap-3 rounded-xl px-4 py-3 text-white hover:bg-blue-500/10 transition-colors group text-left"
               >
                 <ArrowDownLeft className="h-4 w-4 text-blue-400 group-hover:scale-110 transition-transform" />
-                <span className="text-[10px] font-black uppercase tracking-widest">Extract Assets</span>
+                <span className="text-[10px] font-black uppercase tracking-widest">Debit Assets</span>
               </button>
 
               <div className="h-px bg-white/5 mx-2 my-2" />
@@ -205,7 +205,7 @@ export default function UserActions({ userId }: UserActionsProps) {
                 className="w-full flex items-center gap-3 rounded-xl px-4 py-3 text-white hover:bg-white/5 transition-colors text-left"
               >
                 <CheckCircle className="h-4 w-4 text-emerald-500" />
-                <span className="text-[10px] font-black uppercase tracking-widest">Auth Verify</span>
+                <span className="text-[10px] font-black uppercase tracking-widest">Approve Account</span>
               </button>
 
               <button
@@ -213,7 +213,7 @@ export default function UserActions({ userId }: UserActionsProps) {
                 className="w-full flex items-center gap-3 rounded-xl px-4 py-3 text-red-500 hover:bg-red-500/10 transition-colors text-left"
               >
                 <Trash2 className="h-4 w-4" />
-                <span className="text-[10px] font-black uppercase tracking-widest">Purge Node</span>
+                <span className="text-[10px] font-black uppercase tracking-widest">Delete Account</span>
               </button>
             </div>
           </Portal.Root>
@@ -233,12 +233,12 @@ export default function UserActions({ userId }: UserActionsProps) {
                 {txType === "credit" ? (
                   <>
                     <ArrowUpRight className="w-8 h-8 text-emerald-500" />
-                    Liquidity <span className="text-emerald-500">Injection</span>
+                    Asset <span className="text-emerald-500">Credit</span>
                   </>
                 ) : (
                   <>
                     <ArrowDownLeft className="w-8 h-8 text-blue-400" />
-                    Asset <span className="text-blue-400">Extraction</span>
+                    Asset <span className="text-blue-400">Debit</span>
                   </>
                 )}
               </DialogTitle>
@@ -320,7 +320,7 @@ export default function UserActions({ userId }: UserActionsProps) {
                       : 'bg-blue-500 hover:bg-blue-400 text-white shadow-blue-500/20'
                       }`}
                   >
-                    {isLoading ? "Transmitting..." : `Execute ${txType === 'credit' ? 'Injection' : 'Extraction'}`}
+                    {isLoading ? "Transmitting..." : `Execute ${txType === 'credit' ? 'Credit' : 'Debit'}`}
                   </Button>
                 </div>
               </div>

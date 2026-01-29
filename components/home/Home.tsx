@@ -99,7 +99,7 @@ const HomePages: React.FC = () => {
           <div className="flex flex-wrap justify-center items-center gap-12 opacity-30 grayscale hover:grayscale-0 transition-all duration-500">
             {/* Logos could go here */}
             <div className="text-2xl font-black italic tracking-tighter">FINTECH</div>
-            <div className="text-2xl font-black italic tracking-tighter">PRIMEHARBOR BANK</div>
+            <div className="text-2xl font-black italic tracking-tighter">HB BANK</div>
             <div className="text-2xl font-black italic tracking-tighter">SECURE.IO</div>
             <div className="text-2xl font-black italic tracking-tighter">VENTURE CAP</div>
             <div className="text-2xl font-black italic tracking-tighter">CRYPTO TRUST</div>
@@ -158,7 +158,7 @@ const HomePages: React.FC = () => {
             <p className="text-xs font-black tracking-[0.5em] uppercase text-emerald-500">Uncompromising Protection</p>
             <h2 className="text-4xl md:text-6xl font-black tracking-tightest">Fortress-Grade Security</h2>
             <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">
-              Your assets are protected by the world's most advanced biometric and cryptographic protocols. We don't just secure your money; we protect your future.
+              Your assets are protected by the world's most advanced biometric and security measures. We don't just secure your money; we protect your future.
             </p>
           </div>
 
@@ -223,9 +223,9 @@ const HomePages: React.FC = () => {
                   <service.icon className={`w-8 h-8 ${service.color.replace('bg-', 'text-')}`} />
                 </div>
                 <h3 className="text-2xl font-black text-white mb-4 leading-tight">{service.title}</h3>
-                <p className="text-sm text-slate-500 mb-8 leading-relaxed">Tailored financial frameworks optimized for efficiency and growth in an ever-changing landscape.</p>
+                <p className="text-sm text-slate-500 mb-8 leading-relaxed">Tailored financial solutions optimized for efficiency and growth in an ever-changing landscape.</p>
                 <Link href={service.link} className="inline-flex items-center gap-2 text-emerald-400 font-black text-xs uppercase tracking-widest hover:text-emerald-300 transition-colors">
-                  View Framework <ArrowRight className="w-4 h-4" />
+                  View Service <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             ))}

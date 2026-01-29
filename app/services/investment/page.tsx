@@ -16,7 +16,7 @@ export default function InvestmentServicesPage() {
   const features = [
     {
       title: "Portfolio Management",
-      description: "Evidence-based allocation with periodic rebalancing and automated tax-aware placement protocols.",
+      description: "Evidence-based allocation with periodic rebalancing and automated tax-aware placement strategies.",
       icon: GanttChartSquare,
       image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80",
       color: "text-emerald-500",
@@ -34,7 +34,7 @@ export default function InvestmentServicesPage() {
 
   const metrics = [
     { title: "Global Spread", desc: "Diversification across 15+ geopolitical sectors and 40+ asset classes.", icon: Search },
-    { title: "Risk Mitigation", desc: "Proprietary volatility dampening and factor-based hedging protocols.", icon: ShieldCheck },
+    { title: "Risk Mitigation", desc: "Proprietary volatility dampening and factor-based hedging strategies.", icon: ShieldCheck },
     { title: "Performance Audio", desc: "Transparent, real-time reporting with high-fidelity data visualization.", icon: LineChart }
   ]
 
@@ -57,7 +57,7 @@ export default function InvestmentServicesPage() {
             className="space-y-4"
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 text-[10px] font-black uppercase tracking-[0.3em] mb-4">
-              <TrendingUp className="w-3 h-3" /> Capital Management Protocol
+              <TrendingUp className="w-3 h-3" /> Capital Management
             </div>
             <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter lowercase">
               investment <span className="text-emerald-500 italic">services</span>
@@ -74,10 +74,10 @@ export default function InvestmentServicesPage() {
             className="flex flex-wrap justify-center gap-4 pt-8"
           >
             <Button size="lg" className="bg-emerald-500 hover:bg-emerald-400 text-[#001c10] font-black px-10 h-16 rounded-2xl shadow-xl shadow-emerald-500/20 text-lg uppercase tracking-tight" asChild>
-              <Link href="/register">Initialize Portfolio</Link>
+              <Link href="/register">Start Investing</Link>
             </Button>
             <Button size="lg" variant="outline" className="border-white/10 bg-white/5 hover:bg-white/10 text-white font-black px-10 h-16 rounded-2xl backdrop-blur-md text-lg uppercase tracking-tight" asChild>
-              <Link href="/about">Strategy Details</Link>
+              <Link href="/about">Learn More</Link>
             </Button>
           </motion.div>
         </div>
@@ -187,7 +187,7 @@ export default function InvestmentServicesPage() {
                     <p className="text-slate-400 font-medium leading-relaxed max-w-sm">{feature.description}</p>
                   </div>
                   <Button variant="ghost" className="text-emerald-500 font-black p-0 h-auto hover:bg-transparent group-hover:translate-x-2 transition-transform">
-                    Authorize Strategy <ArrowRight className="ml-2 w-4 h-4" />
+                    Learn More <ArrowRight className="ml-2 w-4 h-4" />
                   </Button>
                 </div>
               </motion.div>
@@ -226,16 +226,16 @@ export default function InvestmentServicesPage() {
               Start Scaling your <span className="text-emerald-500 italic">Net Worth</span>
             </h2>
             <p className="text-xl text-slate-400 font-medium">
-              Join the upper echelon of investors who leverage the PrimeHarbor capital infrastructure.
+              Join the upper echelon of investors who leverage the PrimeHarbor investment platform.
             </p>
           </motion.div>
 
           <motion.div {...fadeInUp} transition={{ delay: 0.2 }} className="flex justify-center flex-wrap gap-6">
             <Button size="lg" className="bg-emerald-500 text-[#001c10] hover:bg-emerald-400 font-black px-12 h-16 rounded-2xl shadow-xl shadow-emerald-500/20 text-lg uppercase tracking-tight" asChild>
-              <Link href="/register">Initialize Account</Link>
+              <Link href="/register">Open Account</Link>
             </Button>
             <Button size="lg" variant="ghost" className="text-emerald-500 font-black px-12 h-16 rounded-2xl border border-emerald-500/20 hover:bg-emerald-500/10 text-lg uppercase tracking-tight" asChild>
-              <Link href="/contact">Financial Engineering</Link>
+              <Link href="/contact">Financial Planning</Link>
             </Button>
           </motion.div>
         </div>
