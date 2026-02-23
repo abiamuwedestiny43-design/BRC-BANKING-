@@ -11,10 +11,10 @@ export default function FinancialPlanningPage() {
           backgroundRepeat: "no-repeat"
         }}
       >
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-black/20" />
         <div className="relative z-10 px-6 animate-fade-in-up">
-          <h1 className="text-4xl md:text-6xl font-bold text-white text-balance">Financial Planning</h1>
-          <p className="text-xl md:text-2xl font-semibold mt-3 max-w-3xl mx-auto text-white/90 leading-relaxed animation-delay-200 animate-fade-in-up">
+          <h1 className="text-4xl md:text-6xl font-bold text-black text-balance">Financial Planning</h1>
+          <p className="text-xl md:text-2xl font-semibold mt-3 max-w-3xl mx-auto text-black/90 leading-relaxed animation-delay-200 animate-fade-in-up">
             Align money with milestones—practical plans, accountability, and clarity.
           </p>
         </div>

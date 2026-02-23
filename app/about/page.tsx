@@ -25,7 +25,7 @@ const AboutPage: React.FC = () => {
             </span>
           </h1>
           <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed mb-12 animate-slide-up">
-            For over five decades, PRIMEHARBOR BANK has been more than just a financial
+            For over five decades, BRC BANKING BANK has been more than just a financial
             institution — we have been a trusted partner in helping individuals,
             families, and businesses grow and secure their futures.
           </p>
@@ -72,7 +72,7 @@ const AboutPage: React.FC = () => {
               </h2>
               <div className="space-y-6 text-slate-400 leading-relaxed text-lg">
                 <p>
-                  At PRIMEHARBOR BANK, we believe that finance is not only about numbers — it’s
+                  At BRC BANKING BANK, we believe that finance is not only about numbers — it’s
                   about people. That’s why we focus on building genuine relationships
                   with our customers, offering personalized solutions designed to
                   meet their unique needs.
@@ -138,7 +138,7 @@ const AboutPage: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-20">
             <p className="text-xs font-black tracking-[0.5em] uppercase text-emerald-500 mb-4">Core Principles</p>
-            <h2 className="text-4xl md:text-6xl font-black tracking-tight">The PRIMEHARBOR Standard</h2>
+            <h2 className="text-4xl md:text-6xl font-black tracking-tight">The BRC BANKING Standard</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -193,7 +193,7 @@ const AboutPage: React.FC = () => {
       <section className="py-32">
         <div className="max-w-5xl mx-auto px-4">
           <div className="relative rounded-[3rem] bg-gradient-to-br from-[#003d24] to-[#001c10] p-12 md:p-20 text-center space-y-8 overflow-hidden border border-white/10 shadow-3xl">
-            <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight relative z-10">Start Your Legacy <br /> with PRIMEHARBOR BANK</h2>
+            <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight relative z-10">Start Your Legacy <br /> with BRC BANKING BANK</h2>
             <p className="text-slate-400 max-w-xl mx-auto relative z-10">
               Join thousands of clients who trust us with their financial future.
             </p>

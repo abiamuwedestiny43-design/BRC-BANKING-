@@ -163,7 +163,7 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
       doc.text("Sender & Bank Info", margin, y)
       y += 10
 
-      y = addRow("Bank Name", "PrimeHarbor Bank", y)
+      y = addRow("Bank Name", "BRC BANKING", y)
       y = addRow("Reference No", transfer.txRef, y)
       y = addRow("Transfer Type", transfer.txRegion || "International", y)
 
@@ -220,9 +220,9 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
       doc.setFontSize(8)
       doc.setTextColor(...colors.textLight)
       doc.setFont("helvetica", "normal")
-      doc.text("PrimeHarbor Banking System V2.4", pageWidth / 2, footerY + 8, { align: "center" })
-      doc.text("This document is an official record of a financial transfer. Issued by PrimeHarbor Bank.", pageWidth / 2, footerY + 12, { align: "center" })
-      doc.text("PrimeHarbor Bank © 2026 | Secure • Authorized • Verified", pageWidth / 2, footerY + 16, { align: "center" })
+      doc.text("BRC BANKINGing System V2.4", pageWidth / 2, footerY + 8, { align: "center" })
+      doc.text("This document is an official record of a financial transfer. Issued by BRC BANKING.", pageWidth / 2, footerY + 12, { align: "center" })
+      doc.text("BRC BANKING © 2026 | Secure • Authorized • Verified", pageWidth / 2, footerY + 16, { align: "center" })
 
       // Watermark
       doc.setTextColor(245, 245, 245)
@@ -231,7 +231,7 @@ export default function ReceiptPage({ transfer }: ReceiptPageProps) {
       doc.text("VERIFIED", pageWidth / 2, pageHeight / 2 + 20, { align: "center", angle: 45 })
 
       const timestamp = new Date().toISOString().slice(0, 10)
-      doc.save(`PrimeHarbor_Receipt_${transfer.txRef}_${timestamp}.pdf`)
+      doc.save(`BRC BANKING_Receipt_${transfer.txRef}_${timestamp}.pdf`)
     } catch (err) {
       console.error("Receipt generation failed:", err)
       alert("System failed to compile receipt protocol.")

@@ -4,7 +4,7 @@ import Link from "next/link"
 
 const ServicesPage: React.FC = () => {
   return (
-    <div className="bg-[#001c10] text-slate-100 min-h-screen overflow-hidden font-sans">
+    <div className="bg-slate-50 text-slate-100 min-h-screen overflow-hidden font-sans">
       {/* Background Elements */}
       <div className="fixed inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-emerald-900/40 rounded-full blur-[120px] animate-pulse"></div>
@@ -15,7 +15,7 @@ const ServicesPage: React.FC = () => {
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-900/50 border border-emerald-500/30 text-emerald-400 text-sm font-bold tracking-wider mb-8">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-900/50 border border-black/30 text-black text-sm font-bold tracking-wider mb-8">
             <Zap className="w-4 h-4" /> THE UNIFIED FINANCIAL ECOSYSTEM
           </div>
           <h1 className="text-5xl md:text-7xl font-black leading-tight tracking-tighter mb-8">
@@ -24,8 +24,8 @@ const ServicesPage: React.FC = () => {
               Legacy Services.
             </span>
           </h1>
-          <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto leading-relaxed mb-12">
-            PRIMEHARBOR BANK provides an elite suite of financial frameworks designed to empower your journey.
+          <p className="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed mb-12">
+            BRC BANKING BANK provides an elite suite of financial frameworks designed to empower your journey.
             From personal wealth to institutional leverage, we orchestrate success at every scale.
           </p>
         </div>
@@ -42,8 +42,8 @@ const ServicesPage: React.FC = () => {
                 description: "Elite liquidity management and high-yield instruments for your lifestyle.",
                 features: ["Zero-Fee Checking", "Smart Savings Units", "Instant Credit Lines", "Metal Debit Cards"],
                 href: "/services/personal",
-                color: "text-emerald-400",
-                bg: "bg-emerald-500/10"
+                color: "text-black",
+                bg: "bg-black/10"
               },
               {
                 icon: Building,
@@ -93,23 +93,23 @@ const ServicesPage: React.FC = () => {
             ].map((service, index) => (
               <div
                 key={index}
-                className="group p-10 rounded-[3rem] bg-white/[0.03] border border-white/5 hover:bg-white/[0.05] transition-all duration-500 hover:-translate-y-2 flex flex-col"
+                className="group p-10 rounded-[3rem] bg-white/60 border border-black/10 bg-white/80 transition-all duration-500 hover:-translate-y-2 flex flex-col"
               >
                 <div className={`h-20 w-20 rounded-3xl ${service.bg} flex items-center justify-center mb-10 group-hover:scale-110 transition-transform`}>
                   <service.icon className={`w-10 h-10 ${service.color}`} />
                 </div>
-                <h3 className="text-2xl font-black text-white mb-4 italic tracking-tight">{service.title}</h3>
+                <h3 className="text-2xl font-black text-black mb-4 italic tracking-tight">{service.title}</h3>
                 <p className="text-slate-500 mb-10 flex-grow leading-relaxed">{service.description}</p>
                 <ul className="space-y-4 mb-10">
                   {service.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-center gap-3 text-sm text-slate-300">
+                    <li key={idx} className="flex items-center gap-3 text-sm text-slate-800">
                       <CheckCircle className={`w-4 h-4 ${service.color}`} />
                       {feature}
                     </li>
                   ))}
                 </ul>
                 <Link href={service.href} className="block w-full">
-                  <button className="w-full py-5 rounded-2xl bg-white/5 border border-white/10 text-white font-black hover:bg-emerald-500 hover:text-[#001c10] hover:border-emerald-500 transition-all text-xs uppercase tracking-widest">
+                  <button className="w-full py-5 rounded-2xl bg-black/5 border border-black/10 text-black font-black hover:bg-black hover:text-white hover:border-black transition-all text-xs uppercase tracking-widest">
                     Get Started
                   </button>
                 </Link>
@@ -120,26 +120,26 @@ const ServicesPage: React.FC = () => {
       </section>
 
       {/* Technical Infrastructure */}
-      <section className="py-24 bg-[#00130b] relative border-y border-white/5">
+      <section className="py-24 bg-[#00130b] relative border-y border-black/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
             <div>
-              <p className="text-xs font-black tracking-[0.5em] uppercase text-emerald-500 mb-6">The PRIMEHARBOR Platform</p>
-              <h2 className="text-4xl md:text-6xl font-black text-white mb-8 tracking-tighter leading-tight">Fortified <span className="text-emerald-400">Digital Architecture</span></h2>
-              <p className="text-slate-400 text-lg leading-relaxed mb-10">
+              <p className="text-xs font-black tracking-[0.5em] uppercase text-black mb-6">The BRC BANKING Platform</p>
+              <h2 className="text-4xl md:text-6xl font-black text-black mb-8 tracking-tighter leading-tight">Fortified <span className="text-black">Digital Architecture</span></h2>
+              <p className="text-slate-600 text-lg leading-relaxed mb-10">
                 Behind every service is a military-grade infrastructure designed to protect your assets
                 while providing instantaneous global access.
               </p>
               <div className="grid grid-cols-2 gap-8">
                 <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-white font-black">
-                    <Lock className="w-5 h-5 text-emerald-500" /> AES-256
+                  <div className="flex items-center gap-2 text-black font-black">
+                    <Lock className="w-5 h-5 text-black" /> AES-256
                   </div>
                   <p className="text-xs text-slate-500">Elite encryption standards</p>
                 </div>
                 <div className="space-y-2">
-                  <div className="flex items-center gap-2 text-white font-black">
-                    <BarChart3 className="w-5 h-5 text-emerald-500" /> REAL-TIME
+                  <div className="flex items-center gap-2 text-black font-black">
+                    <BarChart3 className="w-5 h-5 text-black" /> REAL-TIME
                   </div>
                   <p className="text-xs text-slate-500">Instantaneous auditing</p>
                 </div>
@@ -147,8 +147,8 @@ const ServicesPage: React.FC = () => {
             </div>
 
             <div className="relative group">
-              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-green-600 rounded-[3rem] blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
-              <div className="relative rounded-[3rem] overflow-hidden border border-white/10">
+              <div className="absolute -inset-1 bg-gradient-to-r from-black to-green-600 rounded-[3rem] blur opacity-20 group-hover:opacity-40 transition duration-1000"></div>
+              <div className="relative rounded-[3rem] overflow-hidden border border-black/10">
                 <img
                   src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&auto=format&fit=crop&q=80"
                   alt="Data Visualization"
@@ -164,19 +164,19 @@ const ServicesPage: React.FC = () => {
       {/* Final CTA */}
       <section className="py-32 relative">
         <div className="max-w-5xl mx-auto px-4">
-          <div className="relative rounded-[4rem] bg-gradient-to-br from-[#003d24] to-[#001c10] p-12 md:p-24 text-center space-y-10 overflow-hidden border border-white/10 shadow-3xl">
+          <div className="relative rounded-[4rem] bg-gradient-to-br from-[#003d24] to-slate-50 p-12 md:p-24 text-center space-y-10 overflow-hidden border border-black/10 shadow-3xl">
             <h2 className="text-4xl md:text-6xl font-black tracking-tighter leading-tight relative z-10">Scale Your <br /> Potential Today.</h2>
             <p className="text-xl text-emerald-100/60 max-w-2xl mx-auto relative z-10 font-medium">
               Join the institutional-grade banking revolution. It takes less than 3 minutes to start your legacy.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-6 relative z-10">
               <Link href="/register">
-                <button className="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-400 text-[#001c10] px-12 py-6 rounded-2xl text-xl font-black transition-all hover:scale-105 shadow-2xl">
+                <button className="w-full sm:w-auto bg-black hover:bg-black text-white px-12 py-6 rounded-2xl text-xl font-black transition-all hover:scale-105 shadow-2xl">
                   Open Account
                 </button>
               </Link>
               <Link href="/contact">
-                <button className="w-full sm:w-auto bg-white/5 hover:bg-white/10 text-white px-12 py-6 rounded-2xl text-xl font-bold border border-white/20 transition-all backdrop-blur-md">
+                <button className="w-full sm:w-auto bg-black/5 hover:bg-black/10 text-black px-12 py-6 rounded-2xl text-xl font-bold border border-black/10 transition-all backdrop-blur-md">
                   Contact Support
                 </button>
               </Link>

@@ -148,7 +148,7 @@ export default async function AdminTransactionsPage({
               Global <span className="text-slate-500 italic font-medium">Transfers</span>
             </h1>
             <p className="text-slate-400 font-medium max-w-xl text-lg leading-relaxed">
-              Monitoring global movement of assets across the PRIMEHARBOR BANK ecosystem. Transaction status and records.
+              Monitoring global movement of assets across the BRC BANKING BANK ecosystem. Transaction status and records.
             </p>
           </div>
 

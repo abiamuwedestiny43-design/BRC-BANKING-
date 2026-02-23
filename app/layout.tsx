@@ -7,9 +7,9 @@ import Footer from "@/components/Footer"
 import ConditionalHeader from "@/components/conditional-header"
 
 export const metadata: Metadata = {
-  title: "PrimeHarbor Bank - Secure Banking Solutions",
+  title: "BRC BANKING - Secure Banking Solutions",
   description:
-    "PrimeHarbor Bank provides secure banking solutions with advanced features for personal and business banking.",
+    "BRC BANKING provides secure banking solutions with advanced features for personal and business banking.",
   generator: 'v0.app'
 }
 

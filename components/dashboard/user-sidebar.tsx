@@ -57,7 +57,7 @@ export default function UserSidebar({ user }: UserSidebarProps) {
                 <ShieldCheck className="w-6 h-6 text-emerald-500" />
               </div>
               <span className="text-xl font-black tracking-tighter text-white">
-                PRIME<span className="text-emerald-500 italic">HARBOR</span>
+                BRC<span className="text-slate-800 font-medium"> BANKING</span>
               </span>
             </Link>
           </div>

@@ -11,10 +11,10 @@ export default function InsurancePage() {
           backgroundRepeat: "no-repeat"
         }}
       >
-        <div className="absolute inset-0 bg-black/40" />
+        <div className="absolute inset-0 bg-black/20" />
         <div className="relative z-10 px-6 animate-fade-in-up">
-          <h1 className="text-4xl md:text-6xl font-bold text-white text-balance">Insurance</h1>
-          <p className="text-xl md:text-2xl font-semibold mt-3 max-w-3xl mx-auto text-white/90 leading-relaxed animation-delay-200 animate-fade-in-up">
+          <h1 className="text-4xl md:text-6xl font-bold text-black text-balance">Insurance</h1>
+          <p className="text-xl md:text-2xl font-semibold mt-3 max-w-3xl mx-auto text-black/90 leading-relaxed animation-delay-200 animate-fade-in-up">
             Coverage that fits your life—clear terms, better value, and integrated billing.
           </p>
         </div>

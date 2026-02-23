@@ -82,7 +82,7 @@ export default function UserActions({ userId }: UserActionsProps) {
         alert(j?.message || "Protocol transmission failed.")
       }
     } catch (err) {
-      console.error("[HB BANK] admin tx error:", err)
+      console.error("[BRC BANKING] admin tx error:", err)
       alert("System fault detected during migration.")
     } finally {
       setIsLoading(false)

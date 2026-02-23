@@ -17,9 +17,9 @@ const LoansPage: React.FC = () => {
             Personal Loans
           </h1>
           <p className="text-lg md:text-xl leading-relaxed animate-slide-up delay-200">
-            At HB Bank, we provide flexible personal loan solutions designed to help you achieve your goals efficiently and securely. Whether you're planning to purchase a new car, renovate your home, or invest in your education, our loans are tailored to meet your unique needs.
+            At BRC BANKING, we provide flexible personal loan solutions designed to help you achieve your goals efficiently and securely. Whether you're planning to purchase a new car, renovate your home, or invest in your education, our loans are tailored to meet your unique needs.
             <br /><br />
-            Our expert team ensures that every loan process is simple, transparent, and fast. With competitive interest rates, flexible repayment options, and minimal paperwork, you can focus on what truly matters—turning your dreams into reality. We also offer guidance and support at every step, from application to funding, so you feel confident and informed throughout the process. Choose HB Bank for personal loans that empower you to reach your financial goals while maintaining peace of mind.
+            Our expert team ensures that every loan process is simple, transparent, and fast. With competitive interest rates, flexible repayment options, and minimal paperwork, you can focus on what truly matters—turning your dreams into reality. We also offer guidance and support at every step, from application to funding, so you feel confident and informed throughout the process. Choose BRC BANKING for personal loans that empower you to reach your financial goals while maintaining peace of mind.
           </p>
         </div>
       </section>
